@@ -20,3 +20,7 @@ Este é o núcleo do projeto. O Peixe Babel mantém um banco de dados com todas 
 ## Objetivo do TCC
 
 Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema que não apenas auxilia no aprendizado de idiomas, mas também utiliza a inteligência artificial de forma direcionada para criar uma experiência de conversação verdadeiramente personalizada e eficaz para o estudante.
+
+## Tecnologias
+- Back-end: Django
+- Front-end: Flutter
