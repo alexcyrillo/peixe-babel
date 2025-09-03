@@ -1,4 +1,4 @@
-# Diagrama de Contexto – Sistema Peixe Babel
+# Diagrama de Contexto
 
 ## Visão Geral
 Este documento apresenta o Diagrama de Contexto para o sistema Peixe Babel. O diagrama ilustra os limites do sistema, suas principais interações com entidades externas e o fluxo de informações entre eles. Ele oferece uma visão de "caixa preta", focando no "o quê" e não no "como", sendo ideal para alinhar a visão do projeto com todos os stakeholders.
