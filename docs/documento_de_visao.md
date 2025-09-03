@@ -2,7 +2,15 @@
 
 ## Introdução
 
-Como um estudante de idiomas, que considera esta atividade quase um hobby, reconheço a dificuldade de aprender de verdade um novo idioma. Não apenas lembrar de palavras e estruturas, estudo de idioma é uma tarefa árdua que requer esforço e dedicação por anos. Uma forma que, pessoalmente, uso para o estudo são flashcard, que me auxiliam a recordar periodicamente palavras e estruturas do idioma que estou aprendendo, mas manter todos os fatores pra isso é um processo demorado, pois saõ diversos campos que considero importante e não apenas a tradução para o meu idioma. Além, possuo a dificuldade de treinar o diálogo, pois ao tentar conversar com alguém, possuo pouco vocabulario e desenvoltura no idioma, o que torna o processo um pouco desanimador pra mim e chato pra quem se encontra no lado do ouvinte. O Peixe Babel é uma espécie fictícia que, criada pelo autor Douglas Adams no sua série de livros O Guia do Mochileiro das Galáxias, ao ser implantado no ouvido do usuário recebe as ondas cerebrais do falando e converte para a modulação do usuário, ou seja, traduz. Essa é mais uma das ideias loucas e impossíveis do autor. O Sistema Peixe Babel se propõe a ser um aplicativo que junta a criação automatizada de flashcards, para utilização de um sistema de repetição espaçada de forma rápida e simplificada, somado com a prática de diálogos utilizando agentes de Inteligência Artificial, que utilizará o banco de dados criado com os flashcards para manter o diálogo o mais próximo do conhecimento do usuário possível, fazendo com que esse processo seja mais motivador.
+Como um estudante de idiomas que encara a atividade como um hobby, reconheço a profundidade do desafio que é aprender uma nova língua. Não se trata apenas de memorizar palavras; é uma jornada árdua que exige dedicação por anos. Pessoalmente, utilizo flashcards como uma ferramenta poderosa para memorização, mas criar e gerenciar cartões detalhados — que vão além da simples tradução — é um processo manual e demorado.
+
+Outra grande dificuldade é a prática do diálogo. A falta de vocabulário e desenvoltura pode ser desanimadora para o aprendiz e, por vezes, tediosa para o interlocutor. 
+
+Em "O Guia do Mochileiro das Galáxias", Douglas Adams apresenta uma de suas ideias mais geniais: o Peixe Babel. Esta pequena criatura fictícia, quando inserida no ouvido, realiza uma tradução universal e instantânea, quebrando todas as barreiras linguísticas. Enquanto essa mágica pertence à ficção, a tecnologia de hoje nos permite construir ferramentas que nos aproximam desse ideal de comunicação.
+
+Inspirado pela ideia de facilitar essa jornada, o Sistema Peixe Babel surge como uma solução. Ele se propõe a ser um aplicativo que ataca essas duas frentes: por um lado, automatiza a criação de flashcards ricos em detalhes para um sistema de repetição espaçada rápido e simplificado; por outro, oferece prática de diálogo com agentes de Inteligência Artificial.
+
+O grande diferencial é que a IA utilizará o banco de dados dos flashcards do próprio usuário, mantendo a conversa o mais próximo possível do seu conhecimento atual. Ao adaptar o diálogo ao vocabulário que o estudante já está praticando, o processo se torna mais relevante e motivador.
 
 ## Descrição dos Usuários
 
