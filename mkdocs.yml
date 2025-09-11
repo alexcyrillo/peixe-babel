@@ -1,0 +1,20 @@
+site_name: My Docs
+theme: readthedocs
+
+nav:
+  - Início: index.md
+  - Introdução: introducao.md
+  - Documento de Visão: documento_de_visao.md
+  - Diagrama de Contexto: diagrama_de_contexto.md
+  - Requisitos:
+      - Funcionais: requisitos/requisitos_funcionais.md
+      - Não Funcionais: requisitos/requisitos_nao_funcionais.md
+      - Casos de Uso: requisitos/casos_de_uso.md
+  - Arquitetura:
+      - Visão Geral: arquitetura/arquitetura.md
+      - Componentes: arquitetura/componentes.md
+  - Desenvolvimento:
+      - Configuração do Ambiente: desenvolvimento/configuracao_ambiente.md
+      - Guia de Estilo: desenvolvimento/guia_de_estilo.md
+      - Testes: desenvolvimento/testes.md
+  - Referências: referencias.md
