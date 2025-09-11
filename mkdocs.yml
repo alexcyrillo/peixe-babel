@@ -1,6 +1,10 @@
 site_name: My Docs
 theme: readthedocs
 
+plugins:
+    - search
+    - pandoc
+
 nav:
   - Início: index.md
   - Introdução: introducao.md
