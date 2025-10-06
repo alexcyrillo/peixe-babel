@@ -24,3 +24,4 @@ Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema 
 ## Tecnologias
 - Back-end: Django
 - Front-end: Flutter
+- Banco de Dados: Postgresql
