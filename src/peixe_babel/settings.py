@@ -38,9 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Terceiros
     'rest_framework',
     'corsheaders',
-    'peixe_babel',
+
+    # Apps
+    'flashcard.apps.FlashcardConfig',
 ]
 
 MIDDLEWARE = [
