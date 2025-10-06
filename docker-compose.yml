@@ -1,0 +1,45 @@
+# A linha 'version' pode ser removida
+services:
+  # Nosso serviço de banco de dados
+  db:
+    image: postgres:15
+    container_name: peixe-babel-db
+    environment:
+      POSTGRES_DB: peixe_babel_db
+      POSTGRES_USER: peixe_babel_user
+      POSTGRES_PASSWORD: peixe-babel
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./db_init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    # A porta do DB não precisa mais ser exposta para o seu computador!
+    # A comunicação será feita pela rede interna do Docker.
+
+  # === NOSSO NOVO SERVIÇO DE BACKEND ===
+  backend:
+    # 'build: .' diz para o Docker Compose construir a imagem a partir
+    # do Dockerfile que está no diretório atual ('.')
+    build: .
+    container_name: peixe-babel-backend
+    
+    # Comando para iniciar o servidor Django.
+    # O '0.0.0.0' é essencial para que o servidor seja acessível de fora do container.
+    command: python manage.py runserver 0.0.0.0:8000
+    
+    # 'volumes: [.:/app]' é o segredo para o desenvolvimento!
+    # Ele sincroniza a sua pasta local ('.') com a pasta /app dentro do container.
+    # Qualquer alteração que você fizer no código será refletida instantaneamente!
+    volumes:
+      - .:/app
+      
+    # Mapeia a porta 8000 do container para a porta 8000 do seu computador,
+    # para que você possa acessar a API em http://localhost:8000
+    ports:
+      - "8000:8000"
+      
+    # 'depends_on' garante que o container do banco de dados (db)
+    # seja iniciado ANTES do container do backend. Essencial!
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
