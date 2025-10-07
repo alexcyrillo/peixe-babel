@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import EnglishCard
 
-# Register your models here.
+@admin.register(EnglishCard)
+class EnglishCardAdmin(admin.ModelAdmin):
+    list_display = ('word', 'translation', 'meaning', 'examples')
+    search_fields = ('word', 'translation')
+    ordering = ('word', 'translation')
