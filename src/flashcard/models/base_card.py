@@ -1,10 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-
-import uuid
-
-
 class BaseCard(models.Model):
     """
     O modelo base para todos os tipos de cards.

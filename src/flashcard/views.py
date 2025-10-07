@@ -7,11 +7,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 
-class FlashcardAPIView(generics.RetrieveUpdateDestroyAPIView):
+class EnglishCardViewSet(viewsets.ModelViewSet):
     queryset = EnglishCard.objects.all()
     serializer_class = EnglishCardSerializer
 
-    
-class FlashcardsAPIView(generics.ListCreateAPIView):
-    queryset = EnglishCard.objects.all()
-    serializer_class = EnglishCardSerializer
+    @action(detail=True, methods=('post'))
+    def flashcards(self, request, pk=None):
+        queryset = EnglishCard.objects.all()
+        serializer_class = EnglishCardSerializer
