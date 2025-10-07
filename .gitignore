@@ -2,3 +2,4 @@ docs/img/mermaid-code.txt
 .env
 .vscode/settings.json
 venv/
+src/flashcard/migrations/*.py
