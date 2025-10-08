@@ -30,5 +30,5 @@ Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema 
 - sistema de repetição espaçada: supermemo2
 
 #### Inglês 
-- Definições: PyDictionary.
+- Definições: PyDictionary
 - Traduções: deep-translator

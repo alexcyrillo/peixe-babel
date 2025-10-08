@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from flashcard.models import EnglishCard
+from flashcard.services.english_field_generator import english_fields_generator
 
 class EnglishCardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,3 +33,12 @@ class EnglishCardSerializer(serializers.ModelSerializer):
             'word': {'required': True},
             'translation': {'required': False},
         }
+
+    def create(self, validated_data):
+        word = validated_data.get('word')
+        generated = english_fields_generator(word)
+        validated_data['translation'] = generated["translation"]
+        validated_data['meaning'] = generated["meaning"]
+
+
+        return super().create(validated_data)
