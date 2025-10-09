@@ -1,5 +1,7 @@
-from .views import EnglishCardReviewViewSet, EnglishCardViewSet
+
 from rest_framework.routers import SimpleRouter
+
+from flashcard.views import EnglishCardReviewViewSet, EnglishCardViewSet
 
 router = SimpleRouter()
 router.register(r'flashcards', EnglishCardViewSet, basename='englishcard')
