@@ -22,13 +22,22 @@ Este é o núcleo do projeto. O Peixe Babel mantém um banco de dados com todas 
 Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema que não apenas auxilia no aprendizado de idiomas, mas também utiliza a inteligência artificial de forma direcionada para criar uma experiência de conversação verdadeiramente personalizada e eficaz para o estudante.
 
 ## Tecnologias
+
 - Back-end: Django
 - Front-end: Flutter
 - Banco de Dados: Postgresql
+  
+- Traduções: Libre Translator
 
 ### Bibliotecas
-- sistema de repetição espaçada: supermemo2
 
-#### Inglês 
+- Sistema de repetição espaçada: supermemo2
 - Definições: PyDictionary
-- Traduções: deep-translator
+
+###
+
+- Execute o seguinte comando no terminal aberto na pasta do projeto
+
+```
+  docker compose up -d
+```
