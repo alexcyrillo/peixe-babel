@@ -25,3 +25,14 @@ Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema 
 - Back-end: Django
 - Front-end: Flutter
 - Banco de Dados: Postgresql
+
+## Instalação
+### Dependências
+- Docker
+
+###
+- Execute o seguinte comando no terminal aberto na pasta do projeto
+
+```
+  docker compose up -d
+```
