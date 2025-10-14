@@ -36,12 +36,12 @@ Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema 
 
 ## Instalação
 
-### Dependências
+**Dependências**
 - docker
 - docker-compose
 
-- Execute o seguinte comando no terminal aberto na pasta do projeto
-
+1. Instale as dependências
+2. Execute o seguinte comando no terminal aberto na pasta do projeto:
 ```
   docker compose up -d
 ```
