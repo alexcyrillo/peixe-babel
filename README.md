@@ -34,7 +34,11 @@ Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema 
 - Sistema de repetição espaçada: supermemo2
 - Definições: PyDictionary
 
-###
+### Instalação
+
+## Dependências
+- docker
+- docker-compose
 
 - Execute o seguinte comando no terminal aberto na pasta do projeto
 
