@@ -1,24 +1,63 @@
-site_name: My Docs
-theme: readthedocs
+site_name: Sistema de Automação Residencial com IoT
+site_author: Alex Cyrillo
+site_description: TCC em Engenharia de Computação
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
 
 plugins:
-    - search
-    - pandoc
+  - with-pdf:
+      cover: true
+      cover_title: "Sistema de Automação Residencial com IoT" 
+      cover_subtitle: "Trabalho de Conclusão de Curso"
+      cover_author: "Alex Cyrillo"
+      cover_logo: "img/logo_universidade.png"
+      output_path: pdf/tcc_joao_silva.pdf
+      author: "João Silva"
+      copyright: "© 2025 Alex Cyrillo. Todos os direitos reservados."
+      print_options:
+        header-template: |
+          <div style="font-size: 8pt; text-align: center;">
+            TCC - Automação Residencial com IoT
+          </div>
+        footer-template: |
+          <div style="font-size: 8pt; text-align: center; width: 100%;">
+            Página <span class="pageNumber"></span> de <span class="totalPages"></span>
+          </div>
+
+extra_css:
+  - css/print.css
 
 nav:
   - Início: index.md
-  - Introdução: introducao.md
-  - Documento de Visão: documento_de_visao.md
-  - Diagrama de Contexto: diagrama_de_contexto.md
-  - Requisitos:
-      - Funcionais: requisitos/requisitos_funcionais.md
-      - Não Funcionais: requisitos/requisitos_nao_funcionais.md
-      - Casos de Uso: requisitos/casos_de_uso.md
-  - Arquitetura:
-      - Visão Geral: arquitetura/arquitetura.md
-      - Componentes: arquitetura/componentes.md
+  - Resumo: abstract.md
+  - Introdução: introduction.md
   - Desenvolvimento:
-      - Configuração do Ambiente: desenvolvimento/configuracao_ambiente.md
-      - Guia de Estilo: desenvolvimento/guia_de_estilo.md
-      - Testes: desenvolvimento/testes.md
-  - Referências: referencias.md
+    - Capítulo 1: chapters/chapter1.md
+    - Capítulo 2: chapters/chapter2.md
+    - Capítulo 3: chapters/chapter3.md
+  - Conclusão: conclusion.md
+  - Referências: references.md
+  - Apêndices: appendix.md
+
+# nav:
+#   - Início: index.md
+#   - Introdução: introducao.md
+#   - Documento de Visão: documento_de_visao.md
+#   - Diagrama de Contexto: diagrama_de_contexto.md
+#   - Requisitos:
+#       - Funcionais: requisitos/requisitos_funcionais.md
+#       - Não Funcionais: requisitos/requisitos_nao_funcionais.md
+#       - Casos de Uso: requisitos/casos_de_uso.md
+#   - Arquitetura:
+#       - Visão Geral: arquitetura/arquitetura.md
+#       - Componentes: arquitetura/componentes.md
+#   - Desenvolvimento:
+#       - Configuração do Ambiente: desenvolvimento/configuracao_ambiente.md
+#       - Guia de Estilo: desenvolvimento/guia_de_estilo.md
+#       - Testes: desenvolvimento/testes.md
+#   - Referências: referencias.md

@@ -1,0 +1,294 @@
+/* Estilos para impressão/PDF - Normas ABNT */
+@page {
+    size: A4;
+    margin: 20mm 20mm 20mm 30mm;
+    
+    @top-left {
+        content: element(heading);
+    }
+    
+    @bottom-center {
+        content: counter(page);
+        font-size: 10pt;
+    }
+}
+
+/* Elementos gerais */
+html {
+    /* Base para rem e para o renderizador de PDF */
+    font-size: 12pt !important;
+}
+body {
+    font-family: "Arial", "Liberation Sans", "DejaVu Sans", sans-serif !important;
+    font-size: 12pt !important;
+    line-height: 1.5 !important;
+    text-align: justify;
+    color: #000000;
+}
+.md-typeset {
+    /* Material encapsula conteúdo em .md-typeset */
+    font-family: "Arial", "Liberation Sans", "DejaVu Sans", sans-serif !important;
+    font-size: 1rem !important; /* 1rem = 12pt via html */
+    line-height: 1.5 !important;
+}
+
+/* Títulos */
+h1 {
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 15pt;
+    margin-bottom: 6pt;
+    page-break-before: auto;
+    /* Remover qualquer linha/decoração aplicada por temas */
+    border: 0 !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+
+/* Manter o título da capa centralizado, sem afetar demais H1 */
+.cover-page h1,
+.cover-title,
+#cover h1,
+#cover .title,
+.pdf-cover h1,
+.pdf-cover .title,
+#pdf-cover h1,
+#pdf-cover .title {
+    text-align: center !important;
+}
+
+h2 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-top: 15pt;
+    border: 0 !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+
+h3 {
+    font-size: 12pt;
+    font-weight: normal;
+    font-style: italic;
+    border: 0 !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+
+/* Anular pseudo-elementos que criam barras sob títulos (temas Material) */
+h1::before, h1::after,
+h2::before, h2::after,
+h3::before, h3::after,
+h4::before, h4::after,
+h5::before, h5::after,
+h6::before, h6::after {
+    content: none !important;
+    border: 0 !important;
+    background: none !important;
+}
+
+/* Elementos específicos para TCC */
+.abstract {
+    text-align: justify;
+    margin: 20mm 0;
+    font-style: italic;
+}
+
+.keywords {
+    margin: 10mm 0;
+}
+
+.keywords strong {
+    font-weight: bold;
+}
+
+/* Lista de figuras e tabelas */
+.figure {
+    text-align: center;
+    margin: 10pt 0;
+}
+
+.figure-caption {
+    font-size: 10pt;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Referências bibliográficas */
+.references {
+    font-size: 10pt;
+    line-height: 1.2;
+}
+
+.reference-item {
+    text-indent: -1cm;
+    margin-left: 1cm;
+    margin-bottom: 5pt;
+}
+
+/* Capa personalizada */
+.cover-page {
+    text-align: center;
+    margin-top: 50mm;
+}
+
+.cover-title {
+    font-size: 16pt;
+    font-weight: bold;
+    margin-bottom: 20mm;
+}
+
+.cover-author {
+    font-size: 12pt;
+    margin-bottom: 30mm;
+}
+
+.cover-institution {
+    font-size: 12pt;
+    margin-top: 40mm;
+}
+
+/* Quebras de página */
+.page-break {
+    page-break-before: always;
+}
+
+.no-break {
+    page-break-inside: avoid;
+}
+
+/* Folha de rosto */
+.title-page {
+    text-align: center;
+    margin-top: 60mm;
+}
+
+/* Espaçamento entre parágrafos */
+p {
+    text-indent: 1.25cm;
+    margin-bottom: 6pt;
+}
+
+/* Citações longas */
+blockquote {
+    margin: 10mm 40mm 10mm 40mm;
+    font-size: 10pt;
+    text-align: justify;
+    border-left: 0 !important;
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+    margin: 10pt 0;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 4pt;
+}
+
+/* --- Overrides para remover linhas/acentos coloridos no PDF --- */
+/* Força as cores de tema/acento para preto no rendering do PDF */
+:root {
+    /* Material for MkDocs */
+    --md-primary-fg-color: #000 !important;
+    --md-accent-fg-color: #000 !important;
+    /* Forçar família de texto do Material (v9+) */
+    --md-text-font: "Arial" !important;
+}
+
+/* Remover linhas vermelhas/acentos em headings e divisores */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.md-typeset h1::after,
+.md-typeset h2::after,
+.md-typeset h3::after {
+    content: none !important;
+}
+
+/* Remover bordas/linhas laterais de citações e admonitions */
+blockquote {
+    border: 0 !important;
+}
+.md-typeset .admonition,
+.md-typeset details {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.md-typeset .admonition::before {
+    display: none !important;
+}
+
+/* Títulos e bloco do sumário/TOC sem linhas */
+.toc, nav.toc,
+.md-typeset__table-of-contents,
+.md-content__toc,
+.md-nav--secondary,
+.toc-title, .toc .toc-title,
+.md-typeset details.toc {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.toc::before, .toc::after,
+.md-typeset__table-of-contents::before,
+.md-typeset__table-of-contents::after,
+.md-content__toc::before,
+.md-content__toc::after {
+    content: none !important;
+    border: 0 !important;
+    background: none !important;
+}
+.toc h1, .toc h2, .toc h3,
+.md-typeset__table-of-contents h1,
+.md-typeset__table-of-contents h2,
+.md-typeset__table-of-contents h3 {
+    border: 0 !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+
+/* Remover linhas logo abaixo de headings (caso sejam <hr> inseridos) */
+h1 + hr, h2 + hr, h3 + hr, h4 + hr, h5 + hr, h6 + hr {
+    display: none !important;
+}
+
+/* Remover linhas de <hr> */
+.md-typeset hr,
+hr {
+    border: 0 !important;
+    height: 0 !important;
+}
+
+/* Garantir que as regras acima valem no contexto de impressão/PDF */
+@media print {
+    html { font-size: 12pt !important; }
+    body,
+    .md-typeset {
+        font-family: "Arial", "Liberation Sans", "DejaVu Sans", sans-serif !important;
+        font-size: 12pt !important;
+        line-height: 1.5 !important;
+    }
+    p, li { font-size: 12pt !important; }
+}
+
+/* Se o pipeline usar Paged.js, elimina contornos de debug/página */
+.pagedjs_page,
+.pagedjs_sheet,
+.pagedjs_pages,
+.pagedjs_margin,
+.pagedjs_area {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
