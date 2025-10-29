@@ -14,20 +14,12 @@ plugins:
       cover: true
       cover_title: "Sistema de Automação Residencial com IoT" 
       cover_subtitle: "Trabalho de Conclusão de Curso"
-      cover_author: "Alex Cyrillo"
+      
       cover_logo: "img/logo_universidade.png"
       output_path: pdf/tcc_joao_silva.pdf
-      author: "João Silva"
+      author: "Alex Cyrillo"
       copyright: "© 2025 Alex Cyrillo. Todos os direitos reservados."
-      print_options:
-        header-template: |
-          <div style="font-size: 8pt; text-align: center;">
-            TCC - Automação Residencial com IoT
-          </div>
-        footer-template: |
-          <div style="font-size: 8pt; text-align: center; width: 100%;">
-            Página <span class="pageNumber"></span> de <span class="totalPages"></span>
-          </div>
+
 
 extra_css:
   - css/print.css
@@ -40,6 +32,10 @@ nav:
     - Capítulo 1: chapters/chapter1.md
     - Capítulo 2: chapters/chapter2.md
     - Capítulo 3: chapters/chapter3.md
+    - Capítulo 4: chapters/chapter4.md
+    - Capítulo 5: chapters/chapter5.md
+    - Capítulo 6: chapters/chapter6.md
+    - Capítulo 7: chapters/chapter7.md
   - Conclusão: conclusion.md
   - Referências: references.md
   - Apêndices: appendix.md

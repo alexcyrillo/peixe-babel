@@ -1,30 +1,35 @@
-# Documento de Requisitos
+# Capítulo 1 — Introdução
 
-## 1. Introdução
-Este documento descreve os requisitos básicos para o desenvolvimento do sistema. Seu objetivo é alinhar expectativas e servir como referência para as etapas de implementação.
+## 1. Contexto
+O presente Trabalho de Conclusão de Curso (TCC) descreve o desenvolvimento do aplicativo "Peixe Babel", uma ferramenta para apoio ao aprendizado de idiomas que integra criação automática de flashcards e prática de conversação com agentes de IA. O projeto foi concebido para estudantes e instituições de ensino que buscam uma solução prática para reforço de vocabulário e conversação.
 
-## 2. Objetivo do Sistema
-Descrever brevemente o propósito do sistema, principais funcionalidades e público-alvo.
+## 2. Problema
+Muitos estudantes acumulam vocabulário passivamente sem ter um fluxo prático e personalizado para usar essas palavras em conversação. Além disso, a criação manual de material de estudo é demorada e fragmentada.
 
-## 3. Requisitos Funcionais
-- RF01: O sistema deve permitir o cadastro de usuários.
-- RF02: O sistema deve autenticar usuários por login e senha.
-- RF03: O sistema deve permitir a criação, edição e exclusão de grupos.
-- RF04: O sistema deve registrar atividades realizadas pelos usuários.
+## 3. Objetivos
 
-## 4. Requisitos Não Funcionais
-- RNF01: O sistema deve ser acessível via web.
-- RNF02: O sistema deve garantir segurança dos dados dos usuários.
-- RNF03: O tempo de resposta para qualquer operação não deve exceder 2 segundos.
+### 3.1 Objetivo Geral
+Desenvolver um aplicativo móvel que automatize a criação de flashcards e ofereça sessões de conversação adaptadas ao vocabulário do usuário.
 
-## 5. Restrições
-- O sistema deve ser desenvolvido utilizando tecnologias open-source.
-- O sistema deve ser compatível com navegadores modernos.
+### 3.2 Objetivos Específicos
+- Implementar um motor de enriquecimento automático de flashcards (definições, exemplos, áudio).
+- Construir um SRS (Spaced Repetition System) para revisão eficiente.
+- Integrar um módulo de diálogo baseado em LLMs que utilize o banco de dados do usuário.
+- Validar a solução por meio de testes de usabilidade e avaliações comparativas.
 
-## 6. Critérios de Aceitação
-- Todos os requisitos funcionais e não funcionais devem ser atendidos.
-- O sistema deve ser testado e validado por usuários finais.
+## 4. Metodologia resumida
+O desenvolvimento segue práticas ágeis: definição de requisitos, arquitetura modular, iterações curtas com entregas incrementais e validação por testes automatizados e testes com usuários (usability tests).
+
+## 5. Estrutura do Trabalho
+O trabalho está organizado em capítulos:
+- Capítulo 1 — Introdução (este capítulo)
+- Capítulo 2 — Fundamentação Teórica
+- Capítulo 3 — Metodologia e Planejamento
+- Capítulo 4 — Arquitetura e Design do Sistema
+- Capítulo 5 — Implementação
+- Capítulo 6 — Avaliação e Testes
+- Capítulo 7 — Conclusão e Trabalhos Futuros
 
 ---
 
-*Este documento pode ser expandido conforme o projeto evolui.*
+*Observação:* partes do conteúdo técnico (requisitos detalhados, arquitetura e guia de desenvolvimento) estão nos capítulos seguintes e em documentos anexos para facilitar consultas técnicas durante a implementação.

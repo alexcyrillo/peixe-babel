@@ -1,87 +1,40 @@
-# Documento Básico de Desenvolvimento
+# Capítulo 3 — Metodologia e Planejamento
 
-## Objetivo
-- Descrever como desenvolver, testar e entregar o projeto.
-- Padronizar práticas para aumentar qualidade e previsibilidade.
+## 1. Abordagem de Desenvolvimento
+O projeto seguirá uma abordagem ágil com sprints curtos (2 semanas). Cada sprint terá objetivos claros, entregas mínimas e validação por testes automatizados e demonstração funcional para o orientador.
 
-## Escopo
-- Aplicação: <nome do projeto>
-- Domínio: <domínio/área>
-- Responsáveis: <times/pessoas>
+## 2. Plano de Trabalho (Cronograma)
+- Semana 1–4: Levantamento de requisitos detalhados e prototipagem (wireframes/UX).
+- Semana 5–8: Implementação do backend mínimo e persistência de flashcards.
+- Semana 9–12: Integração do motor de enriquecimento (APIs externas) e SRS.
+- Semana 13–16: Módulo de diálogo com LLM, testes de integração e usabilidade.
+- Semana 17–20: Polimento, testes com usuários, documentação e preparação da defesa.
 
-## Stack Técnica
-- Linguagem: <ex.: TypeScript/Java/C#>
-- Framework: <ex.: Node.js/.NET/Spring>
-- Banco de dados: <ex.: PostgreSQL>
-- Outras dependências: <ex.: Redis, Mensageria>
+## 3. Plano de Testes
+- Unitários: funções críticas (algoritmos SRS, parsing de conteúdo).
+- Integração: endpoints e integração com APIs externas (TTS, dicionários, LLM).
+- Usabilidade: sessões com 5–10 usuários para avaliar experiência.
+- Performance: medir latência das respostas do agente e tempo de enriquecimento de flashcards.
 
-## Pré-requisitos
-- Versões: <ex.: Node 20 / .NET 8 / Java 21>
-- Ferramentas: Git, <gerenciador de pacotes>, Docker (opcional)
+## 4. Critérios de Aceitação
+- Funcionalidade principal (criação automática de flashcards) funcionando com precisão aceitável.
+- Sessões de diálogo usam vocabulario do usuário e não introduzem palavras inadequadas.
+- Aplicativo roda no dispositivo alvo (Android) com performance aceitável.
 
-## Configuração do Ambiente
-- Clonar repositório: `git clone <url>`
-- Instalar dependências: `<comando>`
-- Variáveis de ambiente: copiar `.env.example` para `.env` e preencher chaves.
-- Executar local: `<comando>` (modo dev), `<comando>` (build)
+## 5. Ferramentas e Infraestrutura
+- Repositório: GitHub
+- CI: GitHub Actions
+- Linguagem mobile: Flutter (Dart)
+- Backend: Django + Django REST Framework (ou FastAPI)
+- Banco de dados: PostgreSQL
+- Serviços externos: APIs de dicionário, TTS e LLM (fornecedores a definir)
 
-## Estrutura do Projeto
-- src/ — código-fonte
-- tests/ — testes automatizados
-- docs/ — documentação
-- scripts/ — automações (lint, build, release)
-- .github/ — pipelines/PR templates (se aplicável)
+## 6. Riscos e Mitigações
+- Dependência de APIs externas: implementar fallback e cache.
+- Custos de uso de LLMs: otimizar prompts e limitar contexto; usar modelos menores quando possível.
+- Privacidade de dados: criptografar dados sensíveis e obedecer LGPD.
 
-## Convenções de Código
-- Estilo: <formatter> e <linter> obrigatórios.
-- Commits: Conventional Commits (ex.: feat:, fix:, chore:).
-- Branches: `feature/<id-issue>-<slug>`, `fix/<id-issue>-<slug>`.
-- PRs: pequenos, com descrição, checklist e link para issue.
-
-## Fluxo de Desenvolvimento
-- Abrir issue → criar branch → implementar → testes → PR → revisão → merge.
-- Exigir CI verde e 1+ aprovação antes do merge.
-- Feature flags para mudanças impactantes.
-
-## Testes e Qualidade
-- Tipos: unitários, integração, e2e (quando necessário).
-- Cobertura mínima: <ex.: 80%>.
-- Comandos: `test`, `test:watch`, `test:coverage`.
-- Análise estática e verificação de tipos no CI.
-
-## Build e Execução
-- Build: `<comando>`
-- Artefatos: <ex.: dist/, container>
-- Versão: automatizar via tag/release (semver).
-
-## Deploy
-- Ambientes: dev → staging → prod.
-- Estratégia: <ex.: blue/green, canário>.
-- Gatilho: merge na main + tag de release.
-- Rollback: documentado e testado.
-
-## Observabilidade
-- Logs estruturados (JSON).
-- Métricas: <ex.: Prometheus/OpenTelemetry>.
-- Tracing distribuído para chamadas entre serviços.
-- Dashboards e alertas definidos.
-
-## Segurança
-- Segredos via cofre (nunca em código).
-- SAST/DAST e dependabot/renovate.
-- Princípio do menor privilégio em acessos.
-
-## Versionamento e Compatibilidade
-- SemVer: MAJOR.MINOR.PATCH.
-- Notas de versão e mudanças quebráveis documentadas.
-
-## Tarefas Abertas
-- [ ] Preencher versões e comandos reais.
-- [ ] Definir thresholds de qualidade.
-- [ ] Configurar pipelines e políticas de PR.
-
-## Referências
-- Guia de contribuição: docs/contributing.md
-- Padrões de commit: https://www.conventionalcommits.org/
-- SemVer: https://semver.org/
-- <links internos úteis>
+## 7. Entregáveis
+- Protótipo funcional (APK) para teste.
+- Código-fonte com testes básicos e pipeline CI.
+- Relatório do TCC com capítulos do projeto e resultados dos testes.
