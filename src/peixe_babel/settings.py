@@ -38,9 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Terceiros
     'rest_framework',
     'corsheaders',
-    'peixe_babel',
+
+    # Apps
+    'flashcard.apps.FlashcardConfig',
 ]
 
 MIDDLEWARE = [
@@ -78,12 +82,11 @@ ASGI_APPLICATION = 'peixe_babel.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DDATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'peixe_babel_db',
-        'USER': 'peixe_babel_user',
-        # Lê a senha da variável de ambiente
+        'NAME': os.environ.get('POSTGRES_DB_NAME') ,
+        'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': 'db',
         'PORT': '5432',
