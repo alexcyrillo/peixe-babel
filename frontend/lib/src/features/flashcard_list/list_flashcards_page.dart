@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class FlashcardPage extends StatelessWidget {
-  const FlashcardPage({super.key});
+class ListFlashcardsPage extends StatelessWidget {
+  const ListFlashcardsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Flashcards')),
+      appBar: AppBar(title: const Text('Flashcards Criados')),
       body: const Center(
         child: Padding(
           padding: EdgeInsets.all(24),
           child: Text(
-            'Aqui você poderá visualizar e gerenciar os flashcards ligados à API.',
+            'Nesta tela você verá os flashcards existentes carregados da API.',
             textAlign: TextAlign.center,
           ),
         ),
