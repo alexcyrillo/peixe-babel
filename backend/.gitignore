@@ -1,0 +1,4 @@
+/venv/
+/src/flashcard/migrations/*.py
+/.env
+/.env.local
