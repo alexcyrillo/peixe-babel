@@ -1,2 +1,3 @@
 from .english_card_view_set import EnglishCardViewSet
 from .english_card_review_view_set import EnglishCardReviewViewSet
+from .english_ai_chat_view_set import EnglishAiChatViewSet

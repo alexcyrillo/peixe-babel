@@ -28,7 +28,7 @@ class EnglishCardReviewViewSet(viewsets.GenericViewSet):
         """
         Espera no body:
         {
-            "score": int,  # dificuldade do card
+            "score": int (dificuldade do card)
             "outro_campo": str
         }
         """
