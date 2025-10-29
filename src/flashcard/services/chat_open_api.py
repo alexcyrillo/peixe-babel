@@ -27,8 +27,7 @@ def get_chat_response(prompt: str | None = None):
     """
     if not API_KEY:
         raise RuntimeError("OPENAI_API_KEY não definida. Defina a variável de ambiente.")
-
-    # get student's vocabulary (list of words)
+ 
     words = get_vocabulary()
     if isinstance(words, (list, tuple)):
         word_list = ", ".join(words)

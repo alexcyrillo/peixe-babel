@@ -6,7 +6,6 @@ def get_vocabulary():
   vocabulary_list = []
 
   for word in card_list:
-    # get_word is a method on the model
     vocabulary_list.append(word.get_word())
 
   return vocabulary_list
