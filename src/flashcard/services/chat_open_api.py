@@ -39,6 +39,7 @@ def get_chat_response(prompt: str | None = None):
     instructions = (
         f"Você é um robô que conversa em Inglês, que se adapta ao vocabulário do estudante. "
         f"O vocabulário que o seu aluno sabe é: {word_list}"
+        f"Se não for possível responder apenas com o vocabulário do aluno, pode utilizar outras, porém disponibilize a tradução dessas novas palavras utilizadas"
     )
     user_input = prompt or "How do I check if a Python object is an instance of a class?"
 
@@ -48,29 +49,24 @@ def get_chat_response(prompt: str | None = None):
             instructions=instructions,
             input=user_input,
         )
-    except Exception as exc:  # keep broad for SDK errors
-        # bubble up with context
+    except Exception as exc:  
         raise RuntimeError(f"OpenAI request failed: {exc}") from exc
 
-    # Best-effort: extract plain text
     text = getattr(response, "output_text", None)
     if text:
         return text
 
-    # response.output may contain structured content depending on SDK version
     output = getattr(response, "output", None)
     if output:
         parts: list[str] = []
         try:
             for item in output:
-                # item may be dict-like
                 content = item.get("content") if isinstance(item, dict) else None
                 if not content and isinstance(item, list):
                     content = item
                 if content:
                     for block in content:
                         if isinstance(block, dict):
-                            # look for text fields
                             text_val = block.get("text") or block.get("content")
                             if isinstance(text_val, str):
                                 parts.append(text_val)
@@ -79,9 +75,7 @@ def get_chat_response(prompt: str | None = None):
                                     if isinstance(sub, dict) and "text" in sub:
                                         parts.append(sub.get("text"))
         except Exception:
-            # fallback to string representation
             return str(response)
         return "\n".join([p for p in parts if p]) or str(response)
 
-    # final fallback
     return str(response)
