@@ -1,6 +1,6 @@
-# 7. Referências e Anexos Técnicos
+# Referências e Anexos Técnicos
 
-## 7.1 Referências Bibliográficas
+## Referências Bibliográficas
 
 ### Aprendizado de Idiomas e SRS
 
@@ -42,7 +42,7 @@
 
 15. **OpenAI** (2024). GPT-4 Technical Report. Disponível em: https://openai.com/research/gpt-4
 
-## 7.2 Anexos Técnicos
+## Anexos Técnicos
 
 ### Anexo A — Documento de Visão Completo
 Ver arquivo: `docs/documento_de_visao.md`
@@ -219,7 +219,7 @@ REDIS_URL=redis://localhost:6379/0
 
 ---
 
-## 7.3 Glossário
+## Glossário
 
 - **Flashcard**: Cartão de estudo com frente (palavra) e verso (definição, exemplos)
 - **SRS (Spaced Repetition System)**: Sistema de repetição espaçada que otimiza intervalos de revisão
@@ -230,7 +230,3 @@ REDIS_URL=redis://localhost:6379/0
 - **JWT (JSON Web Token)**: Formato de token para autenticação stateless
 - **Clean Architecture**: Padrão arquitetural que prioriza separação de responsabilidades
 - **SM-2 (SuperMemo 2)**: Algoritmo clássico de repetição espaçada
-
----
-
-**Fim do Relatório Técnico**

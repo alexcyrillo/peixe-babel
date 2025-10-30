@@ -1,6 +1,6 @@
-# 6. Resultados e Considerações Finais
+# Resultados e Considerações Finais
 
-## 6.1 Resultados Alcançados
+## Resultados Alcançados
 
 O desenvolvimento do Sistema Peixe Babel atingiu os objetivos propostos, resultando em:
 
@@ -19,7 +19,7 @@ O desenvolvimento do Sistema Peixe Babel atingiu os objetivos propostos, resulta
    - Taxa de satisfação: 85% dos participantes recomendariam o app
    - Melhoria na retenção de vocabulário (experimento controlado): +32% em T+7 dias
 
-## 6.2 Contribuições do Trabalho
+## Contribuições do Trabalho
 
 ### Contribuições Técnicas
 - Arquitetura modular e escalável para aplicativos de aprendizado assistido por IA
@@ -30,14 +30,14 @@ O desenvolvimento do Sistema Peixe Babel atingiu os objetivos propostos, resulta
 - Evidências empíricas do benefício da conversação adaptativa no aprendizado de idiomas
 - Metodologia de avaliação para sistemas de aprendizado baseados em IA
 
-## 6.3 Limitações
+## Limitações
 
 1. **Escopo de idiomas**: Versão inicial suporta apenas Português→Japonês
 2. **Dependência de APIs externas**: Custos e latências variáveis
 3. **Funcionalidade offline limitada**: Apenas revisão de flashcards já sincronizados
 4. **Tamanho da amostra**: Testes de usabilidade com apenas 12 participantes
 
-## 6.4 Trabalhos Futuros
+## Trabalhos Futuros
 
 ### Curto Prazo (6 meses)
 - Suporte a inglês e espanhol
@@ -54,16 +54,13 @@ O desenvolvimento do Sistema Peixe Babel atingiu os objetivos propostos, resulta
 - Reconhecimento e avaliação de fala (speech-to-text + pronúncia)
 - Experimento longitudinal (6-12 meses) para medir impacto real no aprendizado
 
-## 6.5 Considerações sobre Impacto Social
+## Considerações sobre Impacto Social
 
 O Peixe Babel democratiza o acesso a ferramentas avançadas de aprendizado de idiomas, tradicionalmente restritas a cursos caros ou instituições. A automação reduz barreiras de entrada e permite prática ilimitada, potencialmente acelerando a aquisição de proficiência em populações com menos recursos.
 
-## 6.6 Conclusão
+## Conclusão
 
 O projeto demonstrou a viabilidade técnica e pedagógica de combinar SRS com conversação adaptativa baseada em LLM. Os resultados indicam que a abordagem proposta pode melhorar significativamente a retenção de vocabulário e a confiança dos estudantes para praticar conversação.
 
 O código-fonte, documentação completa e dados dos testes estão disponíveis no repositório público do projeto, permitindo replicação e extensão por outros pesquisadores e desenvolvedores.
 
----
-
-**Agradecimentos**: Agradeço ao orientador Prof. [Nome] pela orientação, aos participantes dos testes de usabilidade, e às comunidades open-source de Flutter, Django e NLP que tornaram este trabalho possível.

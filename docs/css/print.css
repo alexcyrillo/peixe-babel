@@ -54,8 +54,21 @@ h1 {
 .pdf-cover h1,
 .pdf-cover .title,
 #pdf-cover h1,
-#pdf-cover .title {
+#pdf-cover .title,
+/* Seletores adicionais para mkdocs-with-pdf */
+section.cover h1,
+section.cover h2,
+section.cover h3,
+section.cover .title,
+section.cover .subtitle,
+section.cover .author,
+div[data-pdf-bookmark="0"] h1,
+article:first-child h1:first-child,
+/* Primeira página do PDF */
+body > article:first-of-type h1,
+body > section:first-of-type h1 {
     text-align: center !important;
+    margin-top: 60mm !important;
 }
 
 h2 {
@@ -129,24 +142,37 @@ h6::before, h6::after {
 
 /* Capa personalizada */
 .cover-page {
-    text-align: center;
+    text-align: center !important;
     margin-top: 50mm;
+}
+
+.cover-page * {
+    text-align: center !important;
 }
 
 .cover-title {
     font-size: 16pt;
     font-weight: bold;
     margin-bottom: 20mm;
+    text-align: center !important;
 }
 
 .cover-author {
     font-size: 12pt;
     margin-bottom: 30mm;
+    text-align: center !important;
 }
 
 .cover-institution {
     font-size: 12pt;
     margin-top: 40mm;
+    text-align: center !important;
+}
+
+.cover-subtitle {
+    font-size: 12pt;
+    margin: 10mm 0;
+    text-align: center !important;
 }
 
 /* Quebras de página */
@@ -281,6 +307,7 @@ hr {
     }
     p, li { font-size: 12pt !important; }
 }
+
 
 /* Se o pipeline usar Paged.js, elimina contornos de debug/página */
 .pagedjs_page,

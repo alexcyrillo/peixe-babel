@@ -1,10 +1,10 @@
-# 3. Modelagens (Funcional, Estática e Dinâmica)
+# Modelagens (Funcional, Estática e Dinâmica)
 
 Este capítulo apresenta as modelagens do sistema através de diagramas e descrições que ilustram a estrutura, comportamento e interações dos componentes do Peixe Babel.
 
-## 3.1 Modelagem Funcional
+## Modelagem Funcional
 
-### 3.1.1 Diagrama de Contexto
+### Diagrama de Contexto
 
 O diagrama de contexto ilustra o sistema e suas interações com atores externos e sistemas adjacentes.
 
@@ -13,9 +13,9 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 │   Usuário   │
 │  (Estudante)│
 └──────┬──────┘
-       │
-       │ usa
-       ↓
+   │
+   │ usa
+   ↓
 ┌─────────────────────────────────────────────┐
 │                                             │
 │          Sistema Peixe Babel                │
@@ -26,31 +26,33 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 │  └─────────────┘      └──────┬──────┘     │
 │                              │             │
 └──────────────────────────────┼─────────────┘
-                               │
-                 ┌─────────────┴──────────────┐
-                 │                            │
-                 ↓                            ↓
-        ┌─────────────────┐        ┌──────────────────┐
-        │ APIs Externas   │        │  Base de Dados   │
-        │                 │        │   (PostgreSQL)   │
-        │ • Dicionário    │        └──────────────────┘
-        │ • TTS           │
-        │ • LLM (GPT-4)   │
-        └─────────────────┘
+               │
+         ┌─────────────┴──────────────┐
+         │                            │
+         ↓                            ↓
+    ┌─────────────────┐        ┌──────────────────┐
+    │ APIs Externas   │        │  Base de Dados   │
+    │                 │        │   (PostgreSQL)   │
+    │ • Dicionário    │        └──────────────────┘
+    │ • TTS           │
+    │ • LLM (GPT-4)   │
+    └─────────────────┘
 ```
 
 **Atores**:
+
 - **Usuário (Estudante)**: Interage com o aplicativo móvel para criar flashcards, revisar vocabulário e praticar conversação.
 
 **Sistemas Adjacentes**:
+
 - **APIs de Dicionário**: Fornecem definições e traduções.
 - **APIs de TTS**: Geram áudio de pronúncia.
 - **APIs de LLM**: Geram frases de exemplo e conduzem conversação adaptativa.
 
-### 3.1.2 Diagrama de Casos de Uso
+### Diagrama de Casos de Uso
 
 ```
-                  Peixe Babel System
+          Peixe Babel System
     ┌──────────────────────────────────────────┐
     │                                          │
     │  (Criar Flashcard)                       │
@@ -73,6 +75,7 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 ```
 
 **Casos de Uso Identificados**:
+
 - UC01: Criar Flashcard
 - UC02: Revisar Flashcards
 - UC03: Praticar Conversação
@@ -81,9 +84,9 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 
 (Detalhes de cada caso de uso encontram-se no Capítulo 2, seção 2.4)
 
-## 3.2 Modelagem Estática (Modelo de Dados)
+## Modelagem Estática (Modelo de Dados)
 
-### 3.2.1 Diagrama de Classes Conceitual
+### Diagrama de Classes Conceitual
 
 ```
 ┌──────────────────┐
@@ -96,10 +99,10 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 │ target_lang: Str │
 │ created_at: Date │
 └────────┬─────────┘
-         │
-         │ 1
-         │
-         │ *
+     │
+     │ 1
+     │
+     │ *
 ┌────────┴─────────┐
 │    Flashcard     │
 ├──────────────────┤
@@ -112,10 +115,10 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 │ audio_url: Str   │    │
 │ created_at: Date │    │
 └────────┬─────────┘    │
-         │              │
-         │ 1            │
-         │              │
-         │ *            │
+     │              │
+     │ 1            │
+     │              │
+     │ *            │
 ┌────────┴─────────┐    │
 │ ReviewSchedule   │    │
 ├──────────────────┤    │
@@ -136,9 +139,9 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 │ ended_at: Date   │   │
 │ messages: JSON   │   │
 └──────────────────┘   │
-                       │
-         ┌─────────────┘
-         │
+           │
+     ┌─────────────┘
+     │
 ┌────────┴─────────┐
 │      User        │
 │  (referência)    │
@@ -164,9 +167,9 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
    - Histórico de mensagens (JSON array)
    - Relacionamento N:1 com User
 
-## 3.3 Modelagem Dinâmica (Diagramas de Sequência)
+## Modelagem Dinâmica (Diagramas de Sequência)
 
-### 3.3.1 Sequência: Criação de Flashcard
+### Sequência: Criação de Flashcard
 
 ```
 Usuário    App Mobile    Backend API    EnrichmentService    APIs Externas
@@ -203,6 +206,7 @@ Usuário    App Mobile    Backend API    EnrichmentService    APIs Externas
 ```
 
 **Fluxo**:
+
 1. Usuário insere palavra no app
 2. App envia requisição POST ao backend
 3. Backend dispara enriquecimento assíncrono
@@ -210,7 +214,7 @@ Usuário    App Mobile    Backend API    EnrichmentService    APIs Externas
 5. Dados são consolidados e flashcard é salvo
 6. App recebe confirmação e atualiza UI
 
-### 3.3.2 Sequência: Revisão de Flashcard (SRS)
+### Sequência: Revisão de Flashcard (SRS)
 
 ```
 Usuário    App Mobile    Backend API    SRSService    Database
@@ -246,6 +250,7 @@ Usuário    App Mobile    Backend API    SRSService    Database
 ```
 
 **Fluxo**:
+
 1. App solicita flashcards devidos
 2. Backend/SRSService consulta banco (WHERE next_review <= TODAY)
 3. Cards são retornados e exibidos
@@ -253,7 +258,7 @@ Usuário    App Mobile    Backend API    SRSService    Database
 5. SRSService recalcula próximo intervalo (algoritmo SM-2)
 6. ReviewSchedule é atualizado no banco
 
-### 3.3.3 Sequência: Conversação com IA
+### Sequência: Conversação com IA
 
 ```
 Usuário    App Mobile    Backend API    DialogueService    LLM API
@@ -292,6 +297,7 @@ Usuário    App Mobile    Backend API    DialogueService    LLM API
 ```
 
 **Fluxo**:
+
 1. Usuário inicia sessão de conversação
 2. Backend cria sessão e recupera vocabulário ativo do usuário
 3. DialogueService monta prompt com instruções e lista de vocabulário
@@ -300,41 +306,42 @@ Usuário    App Mobile    Backend API    DialogueService    LLM API
 6. DialogueService encaminha ao LLM com contexto completo
 7. Resposta da IA é retornada e exibida
 
-## 3.4 Diagramas de Estado
+## Diagramas de Estado
 
-### 3.4.1 Estados de um Flashcard no SRS
+### Estados de um Flashcard no SRS
 
 ```
       [NOVO]
-         │
-         │ primeira revisão
-         ↓
+     │
+     │ primeira revisão
+     ↓
     [APRENDENDO]
-         │
-         ├──(fácil)──> interval aumenta
-         │
-         ├──(difícil)─> interval diminui
-         │
-         │ interval > 21 dias
-         ↓
+     │
+     ├──(fácil)──> interval aumenta
+     │
+     ├──(difícil)─> interval diminui
+     │
+     │ interval > 21 dias
+     ↓
     [CONSOLIDADO]
-         │
-         ├──(fácil)──> interval aumenta
-         │
-         ├──(difícil)─> volta para [APRENDENDO]
-         │
-         │ interval > 180 dias
-         ↓
+     │
+     ├──(fácil)──> interval aumenta
+     │
+     ├──(difícil)─> volta para [APRENDENDO]
+     │
+     │ interval > 180 dias
+     ↓
      [DOMINADO]
 ```
 
 **Estados**:
+
 - **NOVO**: Flashcard recém-criado, aguardando primeira revisão
 - **APRENDENDO**: Em processo de memorização (interval < 21 dias)
 - **CONSOLIDADO**: Memorizado, mas ainda em reforço (interval 21-180 dias)
 - **DOMINADO**: Profundamente consolidado (interval > 180 dias)
 
-## 3.5 Diagrama de Componentes
+## Diagrama de Componentes
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -347,8 +354,8 @@ Usuário    App Mobile    Backend API    DialogueService    LLM API
 │         │                  │                  │         │
 │         └──────────────────┴──────────────────┘         │
 └───────────────────────────┬─────────────────────────────┘
-                            │ HTTP/REST
-                            ↓
+            │ HTTP/REST
+            ↓
 ┌─────────────────────────────────────────────────────────┐
 │                      BACKEND API                        │
 │                                                         │

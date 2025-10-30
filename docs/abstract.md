@@ -1,20 +1,20 @@
+---
+title: false
+---
+<div align="center">
+    Resumo
+</div>
 
-# Resumo
+O Sistema Peixe Babel é um aplicativo móvel desenvolvido para auxiliar estudantes no aprendizado de idiomas, integrando criação automática de flashcards e prática de conversação com agentes de Inteligência Artificial. O projeto aborda o desafio da transição entre conhecimento passivo (reconhecimento de vocabulário) e habilidade ativa (uso espontâneo em conversação), oferecendo uma ferramenta que automatiza a criação de material de estudo e fornece um ambiente seguro para prática de diálogo, adaptado ao vocabulário individual do usuário.
 
-Este documento apresenta uma visão geral do projeto, incluindo seus objetivos principais, metodologia e resultados esperados.
+**Palavras-chave:** Aprendizado de Idiomas, Spaced Repetition System (SRS), Modelos de Linguagem (LLM), Aplicativo Móvel, Inteligência Artificial, Conversação Adaptativa.
 
-## Objetivo
 
-Descrever os principais propósitos e metas do projeto.
+<div align="center">
+    Abstract
+</div>
 
-## Metodologia
 
-Explicar a abordagem utilizada para alcançar os objetivos propostos.
+The Peixe Babel System is a mobile application developed to assist language learners by integrating automatic flashcard creation and conversational practice with AI agents. The project addresses the challenge of transitioning from passive knowledge (vocabulary recognition) to active skill (spontaneous use in conversation), offering a tool that automates study material creation and provides a safe environment for dialogue practice, adapted to the user's individual vocabulary.
 
-## Resultados Esperados
-
-Apresentar os resultados e contribuições esperadas do projeto.
-
-## Conclusão
-
-Resumir os pontos principais e próximos passos.
+**Keywords:** Language Learning, Spaced Repetition System (SRS), Language Models (LLM), Mobile Application, Artificial Intelligence, Adaptive Conversation.
