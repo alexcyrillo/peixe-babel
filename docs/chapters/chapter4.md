@@ -1,7 +1,12 @@
-# Capítulo 4 — Arquitetura e Design do Sistema
+# 4. Estratégias de Implementação
 
-## 1. Visão Geral da Arquitetura
-Descrição do estilo arquitetural adotado (modular, separação entre mobile e backend, serviços de integração), diagrama de alto nível e fronteiras do sistema.
+Este capítulo apresenta as decisões técnicas, arquitetura de software e estratégias adotadas para implementar o Sistema Peixe Babel.
+
+## 4.1 Visão Geral da Arquitetura
+
+O sistema segue uma **arquitetura cliente-servidor com camadas separadas** (layered architecture) combinada com princípios de **clean architecture** para garantir modularidade, testabilidade e manutenibilidade.
+
+**Estilo Arquitetural**: Aplicação móvel nativa comunicando-se com backend via REST API, com integração a serviços externos especializados.
 
 ## 2. Componentes Principais
 - Aplicativo Mobile (Flutter): UI, sincronização, reprodução de áudio.

@@ -1,6 +1,6 @@
-site_name: Sistema de Automação Residencial com IoT
+site_name: Sistema Peixe Babel - TCC Engenharia de Computação
 site_author: Alex Cyrillo
-site_description: TCC em Engenharia de Computação
+site_description: Aplicativo para Auxílio no Aprendizado de Idiomas com IA
 
 theme:
   name: material
@@ -12,11 +12,11 @@ theme:
 plugins:
   - with-pdf:
       cover: true
-      cover_title: "Sistema de Automação Residencial com IoT" 
-      cover_subtitle: "Trabalho de Conclusão de Curso"
+      cover_title: "SISTEMA PEIXE BABEL" 
+      cover_subtitle: "Aplicativo para Auxílio no Aprendizado de Idiomas com IA - Trabalho de Conclusão de Curso em Engenharia de Computação"
       
       cover_logo: "img/logo_universidade.png"
-      output_path: pdf/tcc_joao_silva.pdf
+      output_path: pdf/tcc-peixe-babel.pdf
       author: "Alex Cyrillo"
       copyright: "© 2025 Alex Cyrillo. Todos os direitos reservados."
 
@@ -25,20 +25,19 @@ extra_css:
   - css/print.css
 
 nav:
-  - Início: index.md
-  - Resumo: abstract.md
-  - Introdução: introduction.md
-  - Desenvolvimento:
-    - Capítulo 1: chapters/chapter1.md
-    - Capítulo 2: chapters/chapter2.md
-    - Capítulo 3: chapters/chapter3.md
-    - Capítulo 4: chapters/chapter4.md
-    - Capítulo 5: chapters/chapter5.md
-    - Capítulo 6: chapters/chapter6.md
-    - Capítulo 7: chapters/chapter7.md
-  - Conclusão: conclusion.md
-  - Referências: references.md
-  - Apêndices: appendix.md
+  - Capa e Resumo: index.md
+  - 1. Introdução e Objetivos: introduction.md
+  - 2. Requisitos Funcionais e Não Funcionais: requirements.md
+  - 3. Modelagens (Funcional, Estática, Dinâmica): modeling.md
+  - 4. Estratégias de Implementação:
+      - 4.1 Arquitetura e Design: chapters/chapter4.md
+      - 4.2 Implementação: chapters/chapter5.md
+  - 5. Procedimentos de Testes e Validação: chapters/chapter6.md
+  - 6. Resultados e Considerações Finais: conclusion.md
+  - 7. Referências e Anexos Técnicos: references.md
+  - Anexos:
+      - Documento de Visão: documento_de_visao.md
+      - Diagrama de Contexto: diagrama_de_contexto.md
 
 # nav:
 #   - Início: index.md

@@ -1,3 +1,31 @@
+# Pré Projeto de pesquisa ou Projeto básico
+
+Ambos contendo os seguintes elementos:
+
+- I – Introdução
+- II – Revisão teórica
+- III – Justificativa
+- IV – Hipóteses, se for o caso
+- V – Objetivo geral e objetivos específicos
+- VI – Metodologia
+- VII – Resultados esperados
+- VIII – Cronograma de trabalho
+
+## Art. 9º - O relatório técnico contendo a documentação completa do projeto, deve ser: 
+
+- Redigido com linguagem técnica e estruturado conforme padrões profissionais da Engenharia. 
+- (i) Introdução e objetivos do projeto;
+- (ii) Requisitos funcionais e não funcionais;
+- (iii) Modelagens (funcional, estática, dinâmica);
+- (iv) Estratégias de implementação;
+- (v) Procedimentos de testes e validação;
+- (vi) Resultados e considerações finais;
+- (vii) Referências e anexos técnicos (códigos, esquemas, diagramas, etc.). Os modelos utilizados serão definidos pelo orientador, considerando o objeto do projeto.
+- (v) Procedimentos de testes e validação;
+- (vi) Resultados e considerações finais;
+- (vii) Referências e anexos técnicos (códigos, esquemas, diagramas, etc.). 
+- Os modelos utilizados serão definidos pelo orientador, considerando o objeto do projeto.
+
 # Como gerar o site e o PDF (MkDocs + mkdocs-with-pdf)
 
 ## Pré-requisitos
