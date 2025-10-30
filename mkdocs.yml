@@ -10,11 +10,11 @@ theme:
     - toc.integrate
 
 plugins:
-  - with-pdf:
+  - to-pdf:
       cover: true
       cover_title: "SISTEMA PEIXE BABEL" 
       cover_subtitle: "Aplicativo para Auxílio no Aprendizado de Idiomas com IA - Trabalho de Conclusão de Curso em Engenharia de Computação"
-      
+      toc_title: "Sumário"
       cover_logo: "img/logo_universidade.png"
       output_path: pdf/tcc-peixe-babel.pdf
       author: "Alex Cyrillo"
