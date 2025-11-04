@@ -44,6 +44,117 @@ class FlashcardApi {
     }
   }
 
+  Future<List<Map<String, dynamic>>> getFlashcards() async {
+    try {
+      final response = await _dio.get('/flashcards/');
+
+      final data = response.data;
+      if (data is List) {
+        return data.whereType<Map<String, dynamic>>().toList();
+      }
+      if (data is Map<String, dynamic>) {
+        return [data];
+      }
+
+      return const [];
+    } on DioException catch (error) {
+      throw ApiException(
+        message: _extractErrorMessage(error),
+        statusCode: error.response?.statusCode,
+      );
+    }
+  }
+
+  Future<Map<String, dynamic>> getFlashcard(int id) async {
+    try {
+      final response = await _dio.get('/flashcards/$id/');
+      final data = response.data;
+
+      if (data is Map<String, dynamic>) {
+        return data;
+      }
+
+      throw const ApiException(
+        message: 'Resposta inesperada do servidor ao buscar o flashcard.',
+      );
+    } on DioException catch (error) {
+      throw ApiException(
+        message: _extractErrorMessage(error),
+        statusCode: error.response?.statusCode,
+      );
+    }
+  }
+
+  Future<Map<String, dynamic>> updateFlashcard({
+    required int id,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      final response = await _dio.patch('/flashcards/$id/', data: data);
+      final responseData = response.data;
+
+      if (responseData is Map<String, dynamic>) {
+        return responseData;
+      }
+
+      throw const ApiException(
+        message: 'Resposta inesperada do servidor ao atualizar o flashcard.',
+      );
+    } on DioException catch (error) {
+      throw ApiException(
+        message: _extractErrorMessage(error),
+        statusCode: error.response?.statusCode,
+      );
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getReviewFlashcards() async {
+    try {
+      final response = await _dio.get('/review/');
+      final data = response.data;
+
+      if (data is List) {
+        return data.whereType<Map<String, dynamic>>().toList();
+      }
+      if (data is Map<String, dynamic>) {
+        return [data];
+      }
+
+      return const [];
+    } on DioException catch (error) {
+      throw ApiException(
+        message: _extractErrorMessage(error),
+        statusCode: error.response?.statusCode,
+      );
+    }
+  }
+
+  Future<Map<String, dynamic>> reviewFlashcard({
+    required int id,
+    required num easinessFactor,
+  }) async {
+    try {
+      final response = await _dio.patch(
+        '/review/$id/',
+        data: {'easiness_factor': easinessFactor},
+      );
+
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        return data;
+      }
+
+      throw const ApiException(
+        message: 'Resposta inesperada do servidor ao revisar o flashcard.',
+      );
+    } on DioException catch (error) {
+      throw ApiException(
+        message: _extractErrorMessage(error),
+        statusCode: error.response?.statusCode,
+      );
+    }
+  }
+
   String _extractErrorMessage(DioException error) {
     final response = error.response;
     final data = response?.data;
