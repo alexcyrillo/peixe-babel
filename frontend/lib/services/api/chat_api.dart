@@ -32,6 +32,27 @@ class ChatApi {
     }
   }
 
+  Future<List<Map<String, dynamic>>> fetchMessages() async {
+    try {
+      final response = await _dio.get('/chat/');
+      final data = response.data;
+
+      if (data is List) {
+        return data.whereType<Map<String, dynamic>>().toList();
+      }
+      if (data is Map<String, dynamic>) {
+        return [data];
+      }
+
+      return const [];
+    } on DioException catch (error) {
+      throw ApiException(
+        message: _extractErrorMessage(error),
+        statusCode: error.response?.statusCode,
+      );
+    }
+  }
+
   String _extractErrorMessage(DioException error) {
     final response = error.response;
     final data = response?.data;

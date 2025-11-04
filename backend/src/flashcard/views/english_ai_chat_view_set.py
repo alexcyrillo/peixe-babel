@@ -1,5 +1,4 @@
 from rest_framework import mixins, viewsets, status
-from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from flashcard.models.chat_message import EnglishChatMessage
@@ -7,9 +6,12 @@ from flashcard.serializers.english_chat_serializer import EnglishChatSerializer
 from flashcard.services.chat_open_api import get_chat_response
 
 
-class EnglishAiChatViewSet(mixins.CreateModelMixin,
-                                     viewsets.GenericViewSet):
-      queryset = EnglishChatMessage.objects.all()
+class EnglishAiChatViewSet(
+      mixins.CreateModelMixin,
+      mixins.ListModelMixin,
+      viewsets.GenericViewSet,
+):
+      queryset = EnglishChatMessage.objects.order_by('created_at')
       serializer_class = EnglishChatSerializer
 
       def create(self, request):
