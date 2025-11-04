@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peixe_babel/src/features/index_page.dart';
+import 'package:peixe_babel/pages/main_page.dart';
 
 Future<void> main() async {
   runApp(const AppWidget());

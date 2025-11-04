@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:peixe_babel/src/features/flashcard_create/create_flashcard_page.dart';
-import 'package:peixe_babel/src/features/flashcard_list/list_flashcards_page.dart';
-import 'package:peixe_babel/src/features/flashcard_review/review_page.dart';
+import 'package:peixe_babel/pages/flashcard/create_flashcard_page.dart';
+import 'package:peixe_babel/pages/flashcard/list_flashcard_page.dart';
+import 'package:peixe_babel/pages/flashcard/review_flashcard_page.dart';
+import 'package:peixe_babel/widgets/button_widget.dart';
 
-class FlashcardPage extends StatelessWidget {
-  const FlashcardPage({super.key});
+class MainFlashcardPage extends StatelessWidget {
+  const MainFlashcardPage({super.key});
 
   void _openPage(BuildContext context, Widget page) {
     Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
@@ -21,23 +22,24 @@ class FlashcardPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ElevatedButton.icon(
+              ButtonWidget(
                 onPressed: () =>
                     _openPage(context, const CreateFlashcardPage()),
-                icon: const Icon(Icons.add_circle_outline),
-                label: const Text('Criar novo flashcard'),
+                icon: Icons.add_circle_outline,
+                text: 'Criar novo flashcard',
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
+              ButtonWidget(
                 onPressed: () => _openPage(context, const ListFlashcardsPage()),
-                icon: const Icon(Icons.view_list),
-                label: const Text('Ver flashcards existentes'),
+                icon: Icons.view_list,
+                text: 'Ver flashcards existentes',
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
-                onPressed: () => _openPage(context, const ReviewPage()),
-                icon: const Icon(Icons.play_circle_outline),
-                label: const Text('Iniciar revisão'),
+              ButtonWidget(
+                onPressed: () =>
+                    _openPage(context, const ReviewFlashcardPage()),
+                icon: Icons.play_circle_outline,
+                text: 'Iniciar revisão',
               ),
             ],
           ),

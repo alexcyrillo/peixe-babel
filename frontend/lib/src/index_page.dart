@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peixe_babel/src/features/ai_chat/conversation_page.dart';
-import 'package:peixe_babel/src/features/flashcard_index_page.dart';
+import 'package:peixe_babel/pages/conversation_page.dart';
+import 'package:peixe_babel/pages/main_flashcard_page.dart';
 
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});
@@ -21,7 +21,7 @@ class IndexPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ElevatedButton.icon(
-                onPressed: () => _openPage(context, const FlashcardPage()),
+                onPressed: () => _openPage(context, const MainFlashcardPage()),
                 icon: const Icon(Icons.style),
                 label: const Text('Flashcards'),
               ),
