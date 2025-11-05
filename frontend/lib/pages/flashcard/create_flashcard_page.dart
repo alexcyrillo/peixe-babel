@@ -52,18 +52,13 @@ class _CreateFlashcardPageState extends State<CreateFlashcardPage> {
       final created = await flashcardApi.createFlashcards(words);
       if (!mounted) return;
 
-      for (final controller in _controllers) {
-        controller.clear();
-      }
-      if (_focusNodes.isNotEmpty) {
-        _focusNodes.first.requestFocus();
-      }
-
       messenger.showSnackBar(
         SnackBar(
           content: Text('${created.length} flashcards criados com sucesso.'),
         ),
       );
+
+      Navigator.of(context).pop(created.isNotEmpty);
     } on ApiException catch (e) {
       // erro da API
       messenger.showSnackBar(
