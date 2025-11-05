@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peixe_babel/services/api/flashcard_api.dart';
+import 'package:peixe_babel/theme/app_theme.dart';
 
 import 'flashcard_card_page.dart';
 
@@ -95,7 +96,6 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
     if (text.isEmpty) {
       return '';
     }
-
     return _stripDiacritics(text);
   }
 
@@ -115,7 +115,6 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
                 },
                 icon: const Icon(Icons.clear),
               ),
-        border: const OutlineInputBorder(),
       ),
       onChanged: (value) => setState(() => _searchTerm = value),
     );
@@ -125,119 +124,155 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Flashcards Criados')),
-      body: RefreshIndicator(
-        onRefresh: _refresh,
-        child: FutureBuilder<List<Map<String, dynamic>>>(
-          future: _flashcardsFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+      body: Container(
+        decoration: const BoxDecoration(gradient: AppGradients.primary),
+        child: RefreshIndicator(
+          onRefresh: _refresh,
+          child: FutureBuilder<List<Map<String, dynamic>>>(
+            future: _flashcardsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            if (snapshot.hasError) {
-              final message = snapshot.error is ApiException
-                  ? (snapshot.error as ApiException).message
-                  : 'Erro ao carregar os flashcards.';
-              return ListView(
-                padding: const EdgeInsets.all(24),
-                children: [
-                  Center(child: Text(message, textAlign: TextAlign.center)),
-                ],
-              );
-            }
-
-            final flashcards = snapshot.data ?? const [];
-            final filteredFlashcards = _filterFlashcards(flashcards);
-            final hasResults = filteredFlashcards.isNotEmpty;
-            final itemCount = (hasResults ? filteredFlashcards.length : 1) + 1;
-
-            return ListView.separated(
-              padding: const EdgeInsets.all(16),
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: itemCount,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return _buildSearchField();
-                }
-
-                if (!hasResults) {
-                  final message = _searchTerm.trim().isEmpty
-                      ? 'Nenhum flashcard encontrado. Puxe para atualizar.'
-                      : 'Nenhum flashcard encontrado para a pesquisa.';
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 32),
-                    child: Center(
-                      child: Text(message, textAlign: TextAlign.center),
+              if (snapshot.hasError) {
+                final message = snapshot.error is ApiException
+                    ? (snapshot.error as ApiException).message
+                    : 'Erro ao carregar os flashcards.';
+                return ListView(
+                  padding: const EdgeInsets.all(24),
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Center(
+                          child: Text(message, textAlign: TextAlign.center),
+                        ),
+                      ),
                     ),
-                  );
-                }
+                  ],
+                );
+              }
 
-                final card = filteredFlashcards[index - 1];
-                final word = (card['word'] ?? '') as String?;
-                final translation = (card['translation'] ?? '') as String?;
+              final flashcards = snapshot.data ?? const [];
+              final filteredFlashcards = _filterFlashcards(flashcards);
+              final hasResults = filteredFlashcards.isNotEmpty;
+              final itemCount =
+                  (hasResults ? filteredFlashcards.length : 1) + 1;
 
-                Future<void> handleTap() async {
-                  final rawId = card['id'];
-                  final id = rawId is int
-                      ? rawId
-                      : rawId is num
-                      ? rawId.toInt()
-                      : null;
+              return ListView.separated(
+                padding: const EdgeInsets.all(24),
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: itemCount,
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: _buildSearchField(),
+                      ),
+                    );
+                  }
 
-                  if (id == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Não foi possível identificar o flashcard selecionado.',
+                  if (!hasResults) {
+                    final message = _searchTerm.trim().isEmpty
+                        ? 'Nenhum flashcard encontrado. Puxe para atualizar.'
+                        : 'Nenhum flashcard encontrado para a pesquisa.';
+                    return Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Center(
+                          child: Text(
+                            message,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(color: AppColors.textSecondary),
+                          ),
                         ),
                       ),
                     );
-                    return;
                   }
 
-                  final updated = await Navigator.of(context).push<bool>(
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          FlashcardCardPage(flashcardId: id, initialCard: card),
-                    ),
-                  );
+                  final card = filteredFlashcards[index - 1];
+                  final word = (card['word'] ?? '') as String?;
+                  final translation = (card['translation'] ?? '') as String?;
 
-                  if (updated == true && mounted) {
-                    await _refresh();
+                  Future<void> handleTap() async {
+                    final rawId = card['id'];
+                    final id = rawId is int
+                        ? rawId
+                        : rawId is num
+                        ? rawId.toInt()
+                        : null;
+
+                    if (id == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Não foi possível identificar o flashcard selecionado.',
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+
+                    final updated = await Navigator.of(context).push<bool>(
+                      MaterialPageRoute(
+                        builder: (_) => FlashcardCardPage(
+                          flashcardId: id,
+                          initialCard: card,
+                        ),
+                      ),
+                    );
+
+                    if (updated == true && mounted) {
+                      await _refresh();
+                    }
                   }
-                }
 
-                return Card(
-                  child: InkWell(
-                    onTap: handleTap,
-                    borderRadius: BorderRadius.circular(4),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            word?.isNotEmpty == true
-                                ? word!
-                                : 'Palavra desconhecida',
-                            style: Theme.of(context).textTheme.titleMedium,
+                  return Card(
+                    shadowColor: AppColors.deepBlue.withOpacity(0.12),
+                    elevation: 6,
+                    child: InkWell(
+                      onTap: handleTap,
+                      borderRadius: BorderRadius.circular(20),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          gradient: AppGradients.card,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                word?.isNotEmpty == true
+                                    ? word!
+                                    : 'Palavra desconhecida',
+                                style: Theme.of(context).textTheme.titleMedium
+                                    ?.copyWith(fontWeight: FontWeight.w700),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                translation?.isNotEmpty == true
+                                    ? translation!
+                                    : 'Tradução indisponível',
+                                style: Theme.of(context).textTheme.bodyMedium
+                                    ?.copyWith(color: AppColors.textSecondary),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            translation?.isNotEmpty == true
-                                ? translation!
-                                : 'Tradução indisponível',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            );
-          },
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

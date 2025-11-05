@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peixe_babel/services/api/flashcard_api.dart';
+import 'package:peixe_babel/theme/app_theme.dart';
 
 class ReviewFlashcardPage extends StatefulWidget {
   const ReviewFlashcardPage({super.key});
@@ -208,41 +209,54 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
         ),
         const SizedBox(height: 12),
         Card(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (!_showAnswer) ...[
-                  Text(
-                    'Palavra',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    wordDisplay,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
+          elevation: 6,
+          shadowColor: AppColors.deepBlue.withOpacity(0.12),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              decoration: const BoxDecoration(gradient: AppGradients.card),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (!_showAnswer) ...[
+                    Text(
+                      'Palavra',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ] else ...[
-                  Text(
-                    word ?? 'Palavra',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    translation?.isNotEmpty == true
-                        ? 'Tradução: $translation'
-                        : 'Tradução não informada',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 12),
-                  if (meaning != null && meaning.isNotEmpty)
-                    Text(meaning, style: Theme.of(context).textTheme.bodyLarge),
-                  _buildExamples(examples),
+                    const SizedBox(height: 12),
+                    Text(
+                      wordDisplay,
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w800),
+                    ),
+                  ] else ...[
+                    Text(
+                      word ?? 'Palavra',
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      translation?.isNotEmpty == true
+                          ? 'Tradução: $translation'
+                          : 'Tradução não informada',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    if (meaning != null && meaning.isNotEmpty)
+                      Text(
+                        meaning,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    _buildExamples(examples),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ),
@@ -257,68 +271,83 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
       return const SizedBox.shrink();
     }
 
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-        child: !_showAnswer
-            ? ElevatedButton(
-                onPressed: _isLoading
-                    ? null
-                    : () {
-                        setState(() => _showAnswer = true);
-                      },
-                child: const Text('Responder'),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'Como foi a dificuldade?',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: _isSubmitting
-                              ? null
-                              : () => _submitReview(5),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.9),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.deepBlue.withOpacity(0.12),
+            blurRadius: 16,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+          child: !_showAnswer
+              ? ElevatedButton(
+                  onPressed: _isLoading
+                      ? null
+                      : () {
+                          setState(() => _showAnswer = true);
+                        },
+                  child: const Text('Responder'),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Como foi a dificuldade?',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: _isSubmitting
+                                ? null
+                                : () => _submitReview(5),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.emerald,
+                              foregroundColor: Colors.white,
+                            ),
+                            child: const Text('Fácil (5)'),
                           ),
-                          child: const Text('Fácil (5)'),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: _isSubmitting
-                              ? null
-                              : () => _submitReview(3),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orange,
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: _isSubmitting
+                                ? null
+                                : () => _submitReview(3),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryAccent,
+                              foregroundColor: AppColors.textPrimary,
+                            ),
+                            child: const Text('Médio (3)'),
                           ),
-                          child: const Text('Médio (3)'),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: _isSubmitting
-                              ? null
-                              : () => _submitReview(1),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: _isSubmitting
+                                ? null
+                                : () => _submitReview(1),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.error,
+                              foregroundColor: Colors.white,
+                            ),
+                            child: const Text('Difícil (1)'),
                           ),
-                          child: const Text('Difícil (1)'),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      ],
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }
@@ -336,16 +365,19 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: _loadFlashcards,
-              child: _buildScrollableContent(),
+      body: Container(
+        decoration: const BoxDecoration(gradient: AppGradients.primary),
+        child: Column(
+          children: [
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _loadFlashcards,
+                child: _buildScrollableContent(),
+              ),
             ),
-          ),
-          _buildBottomActions(),
-        ],
+            _buildBottomActions(),
+          ],
+        ),
       ),
     );
   }

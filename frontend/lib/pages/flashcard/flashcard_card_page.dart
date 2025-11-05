@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peixe_babel/services/api/flashcard_api.dart';
+import 'package:peixe_babel/theme/app_theme.dart';
 
 class FlashcardCardPage extends StatefulWidget {
   const FlashcardCardPage({
@@ -207,76 +208,95 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(_loadError!, textAlign: TextAlign.center),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _isFetching ? null : _fetchFlashcard,
-                child: const Text('Tentar novamente'),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(_loadError!, textAlign: TextAlign.center),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _isFetching ? null : _fetchFlashcard,
+                    child: const Text('Tentar novamente'),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       );
     }
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (_isFetching) const LinearProgressIndicator(),
-            if (_isFetching) const SizedBox(height: 16),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _wordController,
-              decoration: const InputDecoration(
-                labelText: 'Palavra',
-                border: OutlineInputBorder(),
+    return SafeArea(
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 700),
+            child: Card(
+              elevation: 6,
+              shadowColor: AppColors.deepBlue.withOpacity(0.12),
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (_isFetching) const LinearProgressIndicator(),
+                      if (_isFetching) const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _wordController,
+                        decoration: const InputDecoration(labelText: 'Palavra'),
+                        textInputAction: TextInputAction.next,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Informe a palavra.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _translationController,
+                        decoration: const InputDecoration(
+                          labelText: 'Tradução',
+                        ),
+                        textInputAction: TextInputAction.next,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _meaningController,
+                        decoration: const InputDecoration(
+                          labelText: 'Significado',
+                        ),
+                        maxLines: null,
+                        minLines: 3,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _examplesController,
+                        decoration: const InputDecoration(
+                          labelText: 'Exemplos',
+                        ),
+                        minLines: 3,
+                        maxLines: null,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'Dica: separe diferentes exemplos em linhas distintas.',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                    ],
+                  ),
+                ),
               ),
-              textInputAction: TextInputAction.next,
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Informe a palavra.';
-                }
-                return null;
-              },
             ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _translationController,
-              decoration: const InputDecoration(
-                labelText: 'Tradução',
-                border: OutlineInputBorder(),
-              ),
-              textInputAction: TextInputAction.next,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _meaningController,
-              decoration: const InputDecoration(
-                labelText: 'Significado',
-                border: OutlineInputBorder(),
-              ),
-              maxLines: null,
-              minLines: 3,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _examplesController,
-              decoration: const InputDecoration(
-                labelText: 'Exemplos',
-                border: OutlineInputBorder(),
-              ),
-              minLines: 3,
-              maxLines: null,
-            ),
-            const SizedBox(height: 80),
-          ],
+          ),
         ),
       ),
     );
@@ -305,40 +325,60 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
             ),
           ],
         ),
-        body: _buildBody(),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ElevatedButton(
-                onPressed: (_isSaving || _isDeleting) ? null : _save,
-                child: _isSaving
-                    ? const SizedBox(
-                        height: 18,
-                        width: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Text('Salvar alterações'),
-              ),
-              const SizedBox(height: 12),
-              OutlinedButton.icon(
-                onPressed: (_isSaving || _isDeleting) ? null : _delete,
-                icon: _isDeleting
-                    ? const SizedBox(
-                        height: 18,
-                        width: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Icon(Icons.delete_outline),
-                label: Text(_isDeleting ? 'Excluindo...' : 'Excluir flashcard'),
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: Theme.of(context).colorScheme.error),
-                  foregroundColor: Theme.of(context).colorScheme.error,
-                ),
+        body: Container(
+          decoration: const BoxDecoration(gradient: AppGradients.primary),
+          child: _buildBody(),
+        ),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.94),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.deepBlue.withOpacity(0.12),
+                blurRadius: 16,
+                offset: const Offset(0, -2),
               ),
             ],
+          ),
+          child: SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                    onPressed: (_isSaving || _isDeleting) ? null : _save,
+                    child: _isSaving
+                        ? const SizedBox(
+                            height: 18,
+                            width: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Text('Salvar alterações'),
+                  ),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    onPressed: (_isSaving || _isDeleting) ? null : _delete,
+                    icon: _isDeleting
+                        ? const SizedBox(
+                            height: 18,
+                            width: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.delete_outline),
+                    label: Text(
+                      _isDeleting ? 'Excluindo...' : 'Excluir flashcard',
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.error,
+                      side: const BorderSide(color: AppColors.error),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

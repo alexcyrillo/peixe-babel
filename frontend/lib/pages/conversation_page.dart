@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peixe_babel/services/api/chat_api.dart';
+import 'package:peixe_babel/theme/app_theme.dart';
 
 class ConversationPage extends StatefulWidget {
   const ConversationPage({super.key});
@@ -32,11 +33,18 @@ class _ConversationPageState extends State<ConversationPage> {
       return ListView(
         controller: _scrollController,
         padding: const EdgeInsets.all(32),
-        children: const [
-          Center(
-            child: Text(
-              'Comece a conversa enviando sua primeira mensagem.',
-              textAlign: TextAlign.center,
+        physics: const BouncingScrollPhysics(),
+        children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                'Comece a conversa enviando sua primeira mensagem.',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              ),
             ),
           ),
         ],
@@ -65,12 +73,10 @@ class _ConversationPageState extends State<ConversationPage> {
         final entry = _messages[index];
         final isUser = entry.role == ChatRole.user;
 
-        final bubbleColor = isUser
-            ? Theme.of(context).colorScheme.primary
-            : Theme.of(context).colorScheme.surfaceVariant;
-        final textColor = isUser
-            ? Theme.of(context).colorScheme.onPrimary
-            : Theme.of(context).colorScheme.onSurfaceVariant;
+        final Color bubbleColor = isUser
+            ? AppColors.primaryAccent
+            : AppColors.deepBlue.withOpacity(0.9);
+        final Color textColor = isUser ? AppColors.textPrimary : Colors.white;
 
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
@@ -79,7 +85,14 @@ class _ConversationPageState extends State<ConversationPage> {
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: bubbleColor,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.deepBlue.withOpacity(0.08),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -264,37 +277,52 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Conversa com IA')),
-      body: Column(
-        children: [
-          Expanded(child: _buildMessagesList()),
-          const Divider(height: 1),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    textInputAction: TextInputAction.send,
-                    onSubmitted: (_) => _sendMessage(),
-                    enabled: !_isSending,
-                    decoration: const InputDecoration(
-                      hintText: 'Envie uma mensagem em inglês...',
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                    ),
+      body: Container(
+        decoration: const BoxDecoration(gradient: AppGradients.primary),
+        child: Column(
+          children: [
+            Expanded(child: _buildMessagesList()),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.9),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.deepBlue.withOpacity(0.12),
+                    blurRadius: 16,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                top: false,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _messageController,
+                          textInputAction: TextInputAction.send,
+                          onSubmitted: (_) => _sendMessage(),
+                          enabled: !_isSending,
+                          decoration: const InputDecoration(
+                            hintText: 'Envie uma mensagem em inglês...',
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      ElevatedButton.icon(
+                        onPressed: _isSending ? null : _sendMessage,
+                        icon: const Icon(Icons.send),
+                        label: const Text('Enviar'),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 12),
-                ElevatedButton.icon(
-                  onPressed: _isSending ? null : _sendMessage,
-                  icon: const Icon(Icons.send),
-                  label: const Text('Enviar'),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
