@@ -40,8 +40,12 @@ class EnglishCardSerializer(serializers.ModelSerializer):
         today = timezone.now()
         word = validated_data.get('word')
         generated = english_fields_generator(word)
-        validated_data['translation'] = generated["translation"]
-        validated_data['meaning'] = generated["meaning"]
+        if generated:
+            validated_data['translation'] = generated.get("translation", "") or ""
+            validated_data['meaning'] = generated.get("meaning", "") or ""
+            examples = generated.get("examples")
+            if isinstance(examples, list):
+                validated_data['examples'] = [str(example).strip() for example in examples if str(example).strip()]
 
         srs = first_review(0)
         validated_data['easiness_factor'] = srs.get('easiness')
