@@ -32,27 +32,56 @@ def _extract_json_from_text(text: str) -> Dict[str, object] | None:
     return None
 
 
-def _ensure_text_list(value: object) -> List[str]:
+def _normalize_examples(value: object) -> List[Dict[str, str]]:
     if not value:
         return []
-    if isinstance(value, list):
-        clean: List[str] = []
-        for item in value:
-            if not item:
-                continue
-            if isinstance(item, str):
-                clean.append(item.strip())
-            else:
-                clean.append(str(item).strip())
-        return [c for c in clean if c]
-    return [str(value).strip()]
+
+    items = value if isinstance(value, list) else [value]
+    normalized: List[Dict[str, str]] = []
+
+    for item in items:
+        sentence = ""
+        translation = ""
+
+        if isinstance(item, dict):
+            sentence = str(
+                item.get("sentence")
+                or item.get("example")
+                or item.get("text")
+                or item.get("english")
+                or ""
+            ).strip()
+            translation = str(
+                item.get("translation")
+                or item.get("translation_pt")
+                or item.get("pt")
+                or item.get("portuguese")
+                or ""
+            ).strip()
+        elif isinstance(item, (list, tuple)) and item:
+            sentence = str(item[0]).strip()
+            if len(item) > 1:
+                translation = str(item[1]).strip()
+        else:
+            sentence = str(item).strip()
+
+        if not sentence:
+            continue
+
+        normalized.append({
+            "sentence": sentence,
+            "translation": translation,
+        })
+
+    return normalized
 
 
 def english_fields_generator(word: str) -> Dict[str, object]:
     """Generate flashcard fields using the configured OpenAI model.
 
     Returns a dictionary with the keys ``translation`` (pt-BR), ``meaning`` (pt-BR)
-    and ``examples`` (list[str]). Fallbacks ensure the serializer always receives a
+    and ``examples`` (list[dict]) where each dict contains ``sentence`` (en) and
+    ``translation`` (pt-BR). Fallbacks ensure the serializer always receives a
     consistent structure even if the AI request fails.
     """
 
@@ -74,7 +103,7 @@ def english_fields_generator(word: str) -> Dict[str, object]:
     system_instructions = (
         "Você ajuda estudantes brasileiros de inglês criando cartões de estudo. "
         "Entregue traduções e significados em português do Brasil. Quando gerar exemplos, "
-        "mantenha as frases em inglês e garanta que são curtas e naturais." 
+        "mantenha as frases em inglês, inclua a tradução em português e garanta que são curtas e naturais. "
         "Retorne apenas JSON válido que siga o formato solicitado."
     )
 
@@ -84,7 +113,9 @@ def english_fields_generator(word: str) -> Dict[str, object]:
         "Retorne um JSON com as chaves:\n"
         "- translation: tradução da palavra para português do Brasil (string).\n"
         "- meaning: explicação breve do significado em português do Brasil (string).\n"
-        "- examples: lista com 2 a 3 frases curtas em inglês usando a palavra (array de strings).\n"
+        "- examples: lista com 2 a 3 objetos contendo:\n"
+        "    - sentence: frase curta em inglês usando a palavra.\n"
+        "    - translation: tradução da frase para português do Brasil.\n"
         "Responda exclusivamente com o JSON solicitado, sem texto adicional."
     )
 
@@ -106,7 +137,7 @@ def english_fields_generator(word: str) -> Dict[str, object]:
 
     translation = str(data.get("translation", "")).strip()
     meaning = str(data.get("meaning", "")).strip()
-    examples = _ensure_text_list(data.get("examples"))
+    examples = _normalize_examples(data.get("examples"))
 
     return {
         "translation": translation,

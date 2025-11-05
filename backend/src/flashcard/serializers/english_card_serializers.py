@@ -1,8 +1,10 @@
 from django.utils import timezone
 from rest_framework import serializers
 from flashcard.models import EnglishCard
+from flashcard.serializers.utils import normalize_examples_payload
 from flashcard.services.english_field_generator import english_fields_generator
 from supermemo2 import first_review
+
 
 class EnglishCardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,6 +38,11 @@ class EnglishCardSerializer(serializers.ModelSerializer):
             'translation': {'required': False},
         }
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['examples'] = normalize_examples_payload(data.get('examples') or [])
+        return data
+
     def create(self, validated_data):
         today = timezone.now()
         word = validated_data.get('word')
@@ -45,7 +52,7 @@ class EnglishCardSerializer(serializers.ModelSerializer):
             validated_data['meaning'] = generated.get("meaning", "") or ""
             examples = generated.get("examples")
             if isinstance(examples, list):
-                validated_data['examples'] = [str(example).strip() for example in examples if str(example).strip()]
+                validated_data['examples'] = normalize_examples_payload(examples)
 
         srs = first_review(0)
         validated_data['easiness_factor'] = srs.get('easiness')
