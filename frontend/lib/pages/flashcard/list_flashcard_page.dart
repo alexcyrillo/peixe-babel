@@ -3,6 +3,45 @@ import 'package:peixe_babel/services/api/flashcard_api.dart';
 
 import 'flashcard_card_page.dart';
 
+const Map<String, String> _diacriticReplacements = {
+  'á': 'a',
+  'à': 'a',
+  'â': 'a',
+  'ã': 'a',
+  'ä': 'a',
+  'å': 'a',
+  'é': 'e',
+  'è': 'e',
+  'ê': 'e',
+  'ë': 'e',
+  'í': 'i',
+  'ì': 'i',
+  'î': 'i',
+  'ï': 'i',
+  'ó': 'o',
+  'ò': 'o',
+  'ô': 'o',
+  'õ': 'o',
+  'ö': 'o',
+  'ú': 'u',
+  'ù': 'u',
+  'û': 'u',
+  'ü': 'u',
+  'ç': 'c',
+  'ñ': 'n',
+  'ý': 'y',
+  'ÿ': 'y',
+};
+
+String _stripDiacritics(String input) {
+  final buffer = StringBuffer();
+  for (final rune in input.runes) {
+    final char = String.fromCharCode(rune);
+    buffer.write(_diacriticReplacements[char] ?? char);
+  }
+  return buffer.toString();
+}
+
 class ListFlashcardsPage extends StatefulWidget {
   const ListFlashcardsPage({super.key});
 
@@ -39,16 +78,25 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
   List<Map<String, dynamic>> _filterFlashcards(
     List<Map<String, dynamic>> cards,
   ) {
-    final query = _searchTerm.trim().toLowerCase();
+    final query = _normalizeSearchText(_searchTerm);
     if (query.isEmpty) {
       return cards;
     }
 
     return cards.where((card) {
-      final word = card['word']?.toString().toLowerCase() ?? '';
-      final translation = card['translation']?.toString().toLowerCase() ?? '';
+      final word = _normalizeSearchText(card['word']);
+      final translation = _normalizeSearchText(card['translation']);
       return word.contains(query) || translation.contains(query);
     }).toList();
+  }
+
+  String _normalizeSearchText(Object? value) {
+    final text = value?.toString().toLowerCase().trim() ?? '';
+    if (text.isEmpty) {
+      return '';
+    }
+
+    return _stripDiacritics(text);
   }
 
   Widget _buildSearchField() {
