@@ -4,6 +4,8 @@ import 'package:peixe_babel/theme/app_theme.dart';
 
 import 'flashcard_card_page.dart';
 
+enum _FlashcardSortOption { createdAtDesc, wordAsc, translationAsc }
+
 const Map<String, String> _diacriticReplacements = {
   'á': 'a',
   'à': 'a',
@@ -54,6 +56,7 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
   late Future<List<Map<String, dynamic>>> _flashcardsFuture;
   late final TextEditingController _searchController;
   String _searchTerm = '';
+  _FlashcardSortOption _sortOption = _FlashcardSortOption.createdAtDesc;
 
   @override
   void initState() {
@@ -91,6 +94,52 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
     }).toList();
   }
 
+  List<Map<String, dynamic>> _sortFlashcards(List<Map<String, dynamic>> cards) {
+    final sorted = List<Map<String, dynamic>>.from(cards);
+
+    int compareStrings(Object? a, Object? b) {
+      final textA = _normalizeSearchText(a);
+      final textB = _normalizeSearchText(b);
+      return textA.compareTo(textB);
+    }
+
+    DateTime _parseDate(Object? value) {
+      if (value is DateTime) {
+        return value;
+      }
+      if (value is String) {
+        final parsed = DateTime.tryParse(value);
+        if (parsed != null) {
+          return parsed;
+        }
+      }
+      if (value is int) {
+        return DateTime.fromMillisecondsSinceEpoch(value, isUtc: true);
+      }
+      return DateTime.fromMillisecondsSinceEpoch(0, isUtc: true);
+    }
+
+    switch (_sortOption) {
+      case _FlashcardSortOption.wordAsc:
+        sorted.sort((a, b) => compareStrings(a['word'], b['word']));
+        break;
+      case _FlashcardSortOption.translationAsc:
+        sorted.sort(
+          (a, b) => compareStrings(a['translation'], b['translation']),
+        );
+        break;
+      case _FlashcardSortOption.createdAtDesc:
+        sorted.sort((a, b) {
+          final dateA = _parseDate(a['created_at']);
+          final dateB = _parseDate(b['created_at']);
+          return dateB.compareTo(dateA);
+        });
+        break;
+    }
+
+    return sorted;
+  }
+
   String _normalizeSearchText(Object? value) {
     final text = value?.toString().toLowerCase().trim() ?? '';
     if (text.isEmpty) {
@@ -99,24 +148,62 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
     return _stripDiacritics(text);
   }
 
-  Widget _buildSearchField() {
-    return TextField(
-      controller: _searchController,
-      textInputAction: TextInputAction.search,
-      decoration: InputDecoration(
-        hintText: 'Pesquisar por palavra ou tradução',
-        prefixIcon: const Icon(Icons.search),
-        suffixIcon: _searchTerm.trim().isEmpty
-            ? null
-            : IconButton(
-                onPressed: () {
-                  _searchController.clear();
-                  setState(() => _searchTerm = '');
-                },
-                icon: const Icon(Icons.clear),
-              ),
-      ),
-      onChanged: (value) => setState(() => _searchTerm = value),
+  String _sortLabel(_FlashcardSortOption option) {
+    switch (option) {
+      case _FlashcardSortOption.wordAsc:
+        return 'Palavra (A-Z)';
+      case _FlashcardSortOption.translationAsc:
+        return 'Tradução (A-Z)';
+      case _FlashcardSortOption.createdAtDesc:
+        return 'Mais recentes';
+    }
+  }
+
+  Widget _buildControls() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextField(
+          controller: _searchController,
+          textInputAction: TextInputAction.search,
+          decoration: InputDecoration(
+            hintText: 'Pesquisar por palavra ou tradução',
+            prefixIcon: const Icon(Icons.search),
+            suffixIcon: _searchTerm.trim().isEmpty
+                ? null
+                : IconButton(
+                    onPressed: () {
+                      _searchController.clear();
+                      setState(() => _searchTerm = '');
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+          ),
+          onChanged: (value) => setState(() => _searchTerm = value),
+        ),
+        const SizedBox(height: 12),
+        DropdownButtonFormField<_FlashcardSortOption>(
+          value: _sortOption,
+          decoration: const InputDecoration(
+            labelText: 'Ordenar por',
+            prefixIcon: Icon(Icons.sort_by_alpha),
+          ),
+          items: _FlashcardSortOption.values
+              .map(
+                (option) => DropdownMenuItem(
+                  value: option,
+                  child: Text(_sortLabel(option)),
+                ),
+              )
+              .toList(),
+          onChanged: (option) {
+            if (option == null) {
+              return;
+            }
+            setState(() => _sortOption = option);
+          },
+        ),
+      ],
     );
   }
 
@@ -156,7 +243,9 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
               }
 
               final flashcards = snapshot.data ?? const [];
-              final filteredFlashcards = _filterFlashcards(flashcards);
+              final filteredFlashcards = _sortFlashcards(
+                _filterFlashcards(flashcards),
+              );
               final hasResults = filteredFlashcards.isNotEmpty;
               final itemCount =
                   (hasResults ? filteredFlashcards.length : 1) + 1;
@@ -171,7 +260,7 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
                     return Card(
                       child: Padding(
                         padding: const EdgeInsets.all(16),
-                        child: _buildSearchField(),
+                        child: _buildControls(),
                       ),
                     );
                   }
