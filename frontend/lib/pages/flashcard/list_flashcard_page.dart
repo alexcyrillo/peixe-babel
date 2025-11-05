@@ -12,11 +12,20 @@ class ListFlashcardsPage extends StatefulWidget {
 
 class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
   late Future<List<Map<String, dynamic>>> _flashcardsFuture;
+  late final TextEditingController _searchController;
+  String _searchTerm = '';
 
   @override
   void initState() {
     super.initState();
+    _searchController = TextEditingController();
     _flashcardsFuture = flashcardApi.getFlashcards();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   Future<void> _refresh() async {
@@ -25,6 +34,43 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
       _flashcardsFuture = future;
     });
     await future;
+  }
+
+  List<Map<String, dynamic>> _filterFlashcards(
+    List<Map<String, dynamic>> cards,
+  ) {
+    final query = _searchTerm.trim().toLowerCase();
+    if (query.isEmpty) {
+      return cards;
+    }
+
+    return cards.where((card) {
+      final word = card['word']?.toString().toLowerCase() ?? '';
+      final translation = card['translation']?.toString().toLowerCase() ?? '';
+      return word.contains(query) || translation.contains(query);
+    }).toList();
+  }
+
+  Widget _buildSearchField() {
+    return TextField(
+      controller: _searchController,
+      textInputAction: TextInputAction.search,
+      decoration: InputDecoration(
+        hintText: 'Pesquisar por palavra ou tradução',
+        prefixIcon: const Icon(Icons.search),
+        suffixIcon: _searchTerm.trim().isEmpty
+            ? null
+            : IconButton(
+                onPressed: () {
+                  _searchController.clear();
+                  setState(() => _searchTerm = '');
+                },
+                icon: const Icon(Icons.clear),
+              ),
+        border: const OutlineInputBorder(),
+      ),
+      onChanged: (value) => setState(() => _searchTerm = value),
+    );
   }
 
   @override
@@ -53,26 +99,33 @@ class _ListFlashcardsPageState extends State<ListFlashcardsPage> {
             }
 
             final flashcards = snapshot.data ?? const [];
-            if (flashcards.isEmpty) {
-              return ListView(
-                padding: const EdgeInsets.all(24),
-                children: const [
-                  Center(
-                    child: Text(
-                      'Nenhum flashcard encontrado. Puxe para atualizar.',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              );
-            }
+            final filteredFlashcards = _filterFlashcards(flashcards);
+            final hasResults = filteredFlashcards.isNotEmpty;
+            final itemCount = (hasResults ? filteredFlashcards.length : 1) + 1;
 
             return ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemCount: flashcards.length,
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: itemCount,
               separatorBuilder: (_, __) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
-                final card = flashcards[index];
+                if (index == 0) {
+                  return _buildSearchField();
+                }
+
+                if (!hasResults) {
+                  final message = _searchTerm.trim().isEmpty
+                      ? 'Nenhum flashcard encontrado. Puxe para atualizar.'
+                      : 'Nenhum flashcard encontrado para a pesquisa.';
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    child: Center(
+                      child: Text(message, textAlign: TextAlign.center),
+                    ),
+                  );
+                }
+
+                final card = filteredFlashcards[index - 1];
                 final word = (card['word'] ?? '') as String?;
                 final translation = (card['translation'] ?? '') as String?;
 
