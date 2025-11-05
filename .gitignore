@@ -1,7 +1,7 @@
 docs/img/mermaid-code.txt
+.vscode/settings.json
 backend/.env
 backend/.env.local
-.vscode/settings.json
 backend/venv/
 backend/src/flashcard/migrations/*.py
 site/

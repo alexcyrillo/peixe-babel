@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from flashcard.models.english_card import EnglishCard
+from flashcard.serializers.utils import normalize_examples_payload
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -33,3 +34,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'easiness_factor': {'required': True},
         }
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['examples'] = normalize_examples_payload(data.get('examples') or [])
+        return data
