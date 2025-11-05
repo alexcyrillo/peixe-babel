@@ -25,7 +25,6 @@ class EnglishCardSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'id',
             'meaning',
-            'examples',
             'easiness_factor',
             'interval',
             'repetitions',
@@ -61,3 +60,6 @@ class EnglishCardSerializer(serializers.ModelSerializer):
         validated_data['next_review'] = today
 
         return super().create(validated_data)
+
+    def validate_examples(self, value):
+        return normalize_examples_payload(value or [])

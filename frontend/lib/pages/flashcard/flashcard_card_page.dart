@@ -22,7 +22,8 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
   late final TextEditingController _wordController;
   late final TextEditingController _translationController;
   late final TextEditingController _meaningController;
-  late final TextEditingController _examplesController;
+  final List<TextEditingController> _exampleSentenceControllers = [];
+  final List<TextEditingController> _exampleTranslationControllers = [];
 
   bool _isFetching = false;
   bool _isSaving = false;
@@ -37,12 +38,13 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
     _wordController = TextEditingController();
     _translationController = TextEditingController();
     _meaningController = TextEditingController();
-    _examplesController = TextEditingController();
 
     final initial = widget.initialCard;
     if (initial != null) {
       _applyCardData(initial);
       _currentCard = initial;
+    } else {
+      _resetExampleControllers(const <Map<String, String>>[]);
     }
 
     _fetchFlashcard();
@@ -53,7 +55,12 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
     _wordController.dispose();
     _translationController.dispose();
     _meaningController.dispose();
-    _examplesController.dispose();
+    for (final controller in _exampleSentenceControllers) {
+      controller.dispose();
+    }
+    for (final controller in _exampleTranslationControllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -84,31 +91,188 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
     }
   }
 
-  void _applyCardData(Map<String, dynamic> card) {
-    _wordController.text = card['word']?.toString() ?? '';
-    _translationController.text = card['translation']?.toString() ?? '';
-    _meaningController.text = card['meaning']?.toString() ?? '';
+  Map<String, String>? _normalizeExample(Object? value) {
+    if (value == null) {
+      return null;
+    }
 
-    final examples = card['examples'];
-    if (examples is List) {
-      _examplesController.text = examples.map((e) => e.toString()).join('\n');
-    } else if (examples != null) {
-      _examplesController.text = examples.toString();
+    String sentence = '';
+    String translation = '';
+
+    if (value is Map) {
+      sentence = (value['sentence'] ?? value['example'] ?? value['text'] ?? '')
+          .toString()
+          .trim();
+      translation =
+          (value['translation'] ??
+                  value['translation_pt'] ??
+                  value['pt'] ??
+                  value['portuguese'] ??
+                  '')
+              .toString()
+              .trim();
+    } else if (value is List && value.isNotEmpty) {
+      sentence = value.first.toString().trim();
+      if (value.length > 1) {
+        translation = value[1].toString().trim();
+      }
     } else {
-      _examplesController.clear();
+      sentence = value.toString().trim();
+    }
+
+    if (sentence.isEmpty) {
+      return null;
+    }
+
+    return {'sentence': sentence, 'translation': translation};
+  }
+
+  void _resetExampleControllers(List<Map<String, String>> examples) {
+    for (final controller in _exampleSentenceControllers) {
+      controller.dispose();
+    }
+    for (final controller in _exampleTranslationControllers) {
+      controller.dispose();
+    }
+    _exampleSentenceControllers.clear();
+    _exampleTranslationControllers.clear();
+
+    if (examples.isEmpty) {
+      _exampleSentenceControllers.add(TextEditingController());
+      _exampleTranslationControllers.add(TextEditingController());
+      return;
+    }
+
+    for (final example in examples) {
+      _exampleSentenceControllers.add(
+        TextEditingController(text: example['sentence'] ?? ''),
+      );
+      _exampleTranslationControllers.add(
+        TextEditingController(text: example['translation'] ?? ''),
+      );
     }
   }
 
-  List<String> _parseExamples(String value) {
-    if (value.trim().isEmpty) {
-      return <String>[];
+  void _addExampleRow() {
+    setState(() {
+      _exampleSentenceControllers.add(TextEditingController());
+      _exampleTranslationControllers.add(TextEditingController());
+    });
+  }
+
+  void _removeExampleRow(int index) {
+    if (index < 0 || index >= _exampleSentenceControllers.length) {
+      return;
     }
 
-    return value
-        .split('\n')
-        .map((line) => line.trim())
-        .where((line) => line.isNotEmpty)
-        .toList(growable: false);
+    final sentenceController = _exampleSentenceControllers[index];
+    final translationController = _exampleTranslationControllers[index];
+
+    setState(() {
+      _exampleSentenceControllers.removeAt(index);
+      _exampleTranslationControllers.removeAt(index);
+
+      if (_exampleSentenceControllers.isEmpty) {
+        _exampleSentenceControllers.add(TextEditingController());
+        _exampleTranslationControllers.add(TextEditingController());
+      }
+    });
+
+    sentenceController.dispose();
+    translationController.dispose();
+  }
+
+  List<Map<String, String>> _collectExamples() {
+    final examples = <Map<String, String>>[];
+    final total = _exampleSentenceControllers.length;
+
+    for (var i = 0; i < total; i++) {
+      final sentence = _exampleSentenceControllers[i].text.trim();
+      final translation = _exampleTranslationControllers.length > i
+          ? _exampleTranslationControllers[i].text.trim()
+          : '';
+
+      if (sentence.isEmpty && translation.isEmpty) {
+        continue;
+      }
+      if (sentence.isEmpty) {
+        continue;
+      }
+
+      examples.add({'sentence': sentence, 'translation': translation});
+    }
+
+    return examples;
+  }
+
+  void _applyCardData(Map<String, dynamic> card) {
+    _wordController.text = (card['word'] ?? '').toString();
+    _translationController.text = (card['translation'] ?? '').toString();
+    _meaningController.text = (card['meaning'] ?? '').toString();
+
+    final rawExamples = card['examples'];
+    final examples = <Map<String, String>>[];
+
+    if (rawExamples is List) {
+      for (final example in rawExamples) {
+        final normalized = _normalizeExample(example);
+        if (normalized != null) {
+          examples.add(normalized);
+        }
+      }
+    } else {
+      final normalized = _normalizeExample(rawExamples);
+      if (normalized != null) {
+        examples.add(normalized);
+      }
+    }
+
+    _resetExampleControllers(examples);
+  }
+
+  Widget _buildExampleRow(int index) {
+    final sentenceController = _exampleSentenceControllers[index];
+    final translationController = _exampleTranslationControllers[index];
+    final isLast = index == _exampleSentenceControllers.length - 1;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: sentenceController,
+                  decoration: InputDecoration(
+                    labelText: 'Exemplo ${index + 1} (inglês)',
+                  ),
+                  textInputAction: TextInputAction.next,
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                onPressed: _exampleSentenceControllers.length > 1
+                    ? () => _removeExampleRow(index)
+                    : null,
+                icon: const Icon(Icons.delete_outline),
+                tooltip: 'Remover exemplo',
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          TextFormField(
+            controller: translationController,
+            decoration: const InputDecoration(labelText: 'Tradução'),
+            textInputAction: isLast
+                ? TextInputAction.done
+                : TextInputAction.next,
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _save() async {
@@ -125,7 +289,7 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
       'word': _wordController.text.trim(),
       'translation': _translationController.text.trim(),
       'meaning': _meaningController.text.trim(),
-      'examples': _parseExamples(_examplesController.text),
+      'examples': _collectExamples(),
     };
 
     try {
@@ -275,17 +439,26 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
                         minLines: 3,
                       ),
                       const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _examplesController,
-                        decoration: const InputDecoration(
-                          labelText: 'Exemplos',
+                      Text(
+                        'Exemplos',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 8),
+                      ...List.generate(
+                        _exampleSentenceControllers.length,
+                        (index) => _buildExampleRow(index),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: OutlinedButton.icon(
+                          onPressed: _addExampleRow,
+                          icon: const Icon(Icons.add),
+                          label: const Text('Adicionar exemplo'),
                         ),
-                        minLines: 3,
-                        maxLines: null,
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        'Dica: separe diferentes exemplos em linhas distintas.',
+                        'Dica: mantenha frases curtas em inglês e inclua a tradução correspondente para cada exemplo.',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: AppColors.textSecondary,
                         ),
