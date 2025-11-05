@@ -136,9 +136,13 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildScrollableContent() {
     if (_isLoading && _queue.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
+      return ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(24),
+        children: const [Center(child: CircularProgressIndicator())],
+      );
     }
 
     if (_errorMessage != null && _queue.isEmpty) {
@@ -242,53 +246,80 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
             ),
           ),
         ),
-        const SizedBox(height: 24),
-        if (!_showAnswer)
-          ElevatedButton(
-            onPressed: () {
-              setState(() => _showAnswer = true);
-            },
-            child: const Text('Responder'),
-          )
-        else ...[
-          Text(
-            'Como foi a dificuldade?',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: _isSubmitting ? null : () => _submitReview(5),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                  child: const Text('Fácil (5)'),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: _isSubmitting ? null : () => _submitReview(3),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
-                  ),
-                  child: const Text('Médio (3)'),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: _isSubmitting ? null : () => _submitReview(1),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  child: const Text('Difícil (1)'),
-                ),
-              ),
-            ],
-          ),
-        ],
+        const SizedBox(height: 48),
       ],
+    );
+  }
+
+  Widget _buildBottomActions() {
+    final card = _currentCard;
+    if (card == null || (_errorMessage != null && _queue.isEmpty)) {
+      return const SizedBox.shrink();
+    }
+
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+        child: !_showAnswer
+            ? ElevatedButton(
+                onPressed: _isLoading
+                    ? null
+                    : () {
+                        setState(() => _showAnswer = true);
+                      },
+                child: const Text('Responder'),
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Como foi a dificuldade?',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: _isSubmitting
+                              ? null
+                              : () => _submitReview(5),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          child: const Text('Fácil (5)'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: _isSubmitting
+                              ? null
+                              : () => _submitReview(3),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange,
+                          ),
+                          child: const Text('Médio (3)'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: _isSubmitting
+                              ? null
+                              : () => _submitReview(1),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          child: const Text('Difícil (1)'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+      ),
     );
   }
 
@@ -305,9 +336,16 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
           ),
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: _loadFlashcards,
-        child: _buildContent(),
+      body: Column(
+        children: [
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: _loadFlashcards,
+              child: _buildScrollableContent(),
+            ),
+          ),
+          _buildBottomActions(),
+        ],
       ),
     );
   }
