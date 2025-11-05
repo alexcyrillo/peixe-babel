@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:peixe_babel/services/api/flashcard_api.dart';
 import 'package:peixe_babel/theme/app_theme.dart';
 
+class _ExampleEntry {
+  const _ExampleEntry({required this.sentence, required this.translation});
+
+  final String sentence;
+  final String translation;
+
+  bool get hasTranslation => translation.isNotEmpty;
+}
+
 class ReviewFlashcardPage extends StatefulWidget {
   const ReviewFlashcardPage({super.key});
 
@@ -114,23 +123,85 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
     }
   }
 
-  Widget _buildExamples(List<String> examples) {
+  List<_ExampleEntry> _parseExampleEntries(Object? raw) {
+    if (raw is! List) {
+      return const <_ExampleEntry>[];
+    }
+
+    final entries = <_ExampleEntry>[];
+    for (final item in raw) {
+      String sentence = '';
+      String translation = '';
+
+      if (item is Map) {
+        sentence = (item['sentence'] ?? item['example'] ?? item['text'] ?? '')
+            .toString()
+            .trim();
+        translation =
+            (item['translation'] ??
+                    item['translation_pt'] ??
+                    item['pt'] ??
+                    item['portuguese'] ??
+                    '')
+                .toString()
+                .trim();
+      } else if (item is List && item.isNotEmpty) {
+        sentence = item.first.toString().trim();
+        if (item.length > 1) {
+          translation = item[1].toString().trim();
+        }
+      } else {
+        sentence = item.toString().trim();
+      }
+
+      if (sentence.isEmpty) {
+        continue;
+      }
+
+      entries.add(_ExampleEntry(sentence: sentence, translation: translation));
+    }
+
+    return entries;
+  }
+
+  Widget _buildExamplesSection(
+    List<_ExampleEntry> examples, {
+    required bool showTranslations,
+    bool showWhenEmpty = true,
+  }) {
+    if (examples.isEmpty && !showWhenEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final translationStyle = textTheme.bodyMedium?.copyWith(
+      color: AppColors.textSecondary,
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
-        Text('Exemplos', style: Theme.of(context).textTheme.titleMedium),
+        Text('Exemplos', style: textTheme.titleMedium),
         const SizedBox(height: 8),
         if (examples.isEmpty)
-          Text(
-            'Exemplo não informado',
-            style: Theme.of(context).textTheme.bodyMedium,
-          )
+          Text('Exemplo não informado', style: textTheme.bodyMedium)
         else
           ...examples.map(
             (example) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: Text('- $example'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('- ${example.sentence}'),
+                  if (showTranslations && example.hasTranslation)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16, top: 4),
+                      child: Text(example.translation, style: translationStyle),
+                    ),
+                ],
+              ),
             ),
           ),
       ],
@@ -187,10 +258,7 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
     final meaning = card['meaning']?.toString().trim();
     final translation = card['translation']?.toString().trim();
     final word = card['word']?.toString().trim();
-    final Object? rawExamples = card['examples'];
-    final examples = rawExamples is List
-        ? rawExamples.map((e) => e.toString()).toList()
-        : <String>[];
+    final examples = _parseExampleEntries(card['examples']);
     final wordDisplay = word?.isNotEmpty == true
         ? word!
         : 'Palavra não informada';
@@ -232,6 +300,12 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.w800),
                     ),
+                    if (examples.isNotEmpty)
+                      _buildExamplesSection(
+                        examples,
+                        showTranslations: false,
+                        showWhenEmpty: false,
+                      ),
                   ] else ...[
                     Text(
                       word ?? 'Palavra',
@@ -253,7 +327,7 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
                         meaning,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                    _buildExamples(examples),
+                    _buildExamplesSection(examples, showTranslations: true),
                   ],
                 ],
               ),
