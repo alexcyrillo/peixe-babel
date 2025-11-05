@@ -13,6 +13,7 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
   bool _isLoading = false;
   bool _isSubmitting = false;
   String? _errorMessage;
+  bool _showAnswer = false;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
           ..addAll(cards);
         _isLoading = false;
       });
+      _resetPrompt();
     } on ApiException catch (e) {
       if (!mounted) return;
       setState(() {
@@ -46,6 +48,17 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
 
   Map<String, dynamic>? get _currentCard =>
       _queue.isEmpty ? null : _queue.first;
+
+  void _resetPrompt() {
+    if (!mounted) return;
+    if (!_showAnswer) {
+      return;
+    }
+
+    setState(() {
+      _showAnswer = false;
+    });
+  }
 
   Future<void> _submitReview(num easiness) async {
     final card = _currentCard;
@@ -80,6 +93,7 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
         _queue.removeAt(0);
         _isSubmitting = false;
       });
+      _resetPrompt();
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -100,22 +114,24 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
   }
 
   Widget _buildExamples(List<String> examples) {
-    if (examples.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
         Text('Exemplos', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
-        ...examples.map(
-          (example) => Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Text('- $example'),
+        if (examples.isEmpty)
+          Text(
+            'Exemplo não informado',
+            style: Theme.of(context).textTheme.bodyMedium,
+          )
+        else
+          ...examples.map(
+            (example) => Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text('- $example'),
+            ),
           ),
-        ),
       ],
     );
   }
@@ -165,10 +181,14 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
     final card = _currentCard!;
     final meaning = card['meaning']?.toString().trim();
     final translation = card['translation']?.toString().trim();
+    final word = card['word']?.toString().trim();
     final Object? rawExamples = card['examples'];
     final examples = rawExamples is List
         ? rawExamples.map((e) => e.toString()).toList()
         : <String>[];
+    final wordDisplay = word?.isNotEmpty == true
+        ? word!
+        : 'Palavra não informada';
 
     return ListView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -189,58 +209,85 @@ class _ReviewFlashcardPageState extends State<ReviewFlashcardPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  card['word']?.toString() ?? 'Palavra',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  translation?.isNotEmpty == true
-                      ? 'Tradução: $translation'
-                      : 'Tradução não informada',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: 12),
-                if (meaning != null && meaning.isNotEmpty)
-                  Text(meaning, style: Theme.of(context).textTheme.bodyLarge),
-                _buildExamples(examples),
+                if (!_showAnswer) ...[
+                  Text(
+                    'Palavra',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    wordDisplay,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ] else ...[
+                  Text(
+                    word ?? 'Palavra',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    translation?.isNotEmpty == true
+                        ? 'Tradução: $translation'
+                        : 'Tradução não informada',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  if (meaning != null && meaning.isNotEmpty)
+                    Text(meaning, style: Theme.of(context).textTheme.bodyLarge),
+                  _buildExamples(examples),
+                ],
               ],
             ),
           ),
         ),
         const SizedBox(height: 24),
-        Text(
-          'Como foi a dificuldade?',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: _isSubmitting ? null : () => _submitReview(5),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                child: const Text('Fácil (5)'),
+        if (!_showAnswer)
+          ElevatedButton(
+            onPressed: () {
+              setState(() => _showAnswer = true);
+            },
+            child: const Text('Responder'),
+          )
+        else ...[
+          Text(
+            'Como foi a dificuldade?',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: _isSubmitting ? null : () => _submitReview(5),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  child: const Text('Fácil (5)'),
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: _isSubmitting ? null : () => _submitReview(3),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
-                child: const Text('Médio (3)'),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: _isSubmitting ? null : () => _submitReview(3),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                  ),
+                  child: const Text('Médio (3)'),
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: _isSubmitting ? null : () => _submitReview(1),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: const Text('Difícil (1)'),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: _isSubmitting ? null : () => _submitReview(1),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  child: const Text('Difícil (1)'),
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ],
     );
   }
