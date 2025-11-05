@@ -10,6 +10,7 @@ class CreateFlashcardPage extends StatefulWidget {
 
 class _CreateFlashcardPageState extends State<CreateFlashcardPage> {
   final List<TextEditingController> _controllers = [TextEditingController()];
+  final List<FocusNode> _focusNodes = [FocusNode()];
   bool _isLoading = false;
 
   @override
@@ -17,12 +18,16 @@ class _CreateFlashcardPageState extends State<CreateFlashcardPage> {
     for (final controller in _controllers) {
       controller.dispose();
     }
+    for (final node in _focusNodes) {
+      node.dispose();
+    }
     super.dispose();
   }
 
   void _addWordField() {
     setState(() {
       _controllers.add(TextEditingController());
+      _focusNodes.add(FocusNode());
     });
   }
 
@@ -49,6 +54,9 @@ class _CreateFlashcardPageState extends State<CreateFlashcardPage> {
 
       for (final controller in _controllers) {
         controller.clear();
+      }
+      if (_focusNodes.isNotEmpty) {
+        _focusNodes.first.requestFocus();
       }
 
       messenger.showSnackBar(
@@ -93,6 +101,18 @@ class _CreateFlashcardPageState extends State<CreateFlashcardPage> {
 
                   return TextField(
                     controller: _controllers[index],
+                    focusNode: _focusNodes[index],
+                    textInputAction: TextInputAction.next,
+                    onSubmitted: (_) {
+                      if (index == _controllers.length - 1) {
+                        _addWordField();
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          _focusNodes.last.requestFocus();
+                        });
+                      } else {
+                        _focusNodes[index + 1].requestFocus();
+                      }
+                    },
                     decoration: InputDecoration(
                       labelText: 'Palavra ${index + 1}',
                       border: const OutlineInputBorder(),
