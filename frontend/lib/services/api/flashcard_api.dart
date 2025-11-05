@@ -108,6 +108,17 @@ class FlashcardApi {
     }
   }
 
+  Future<void> deleteFlashcard({required int id}) async {
+    try {
+      await _dio.delete('/flashcards/$id/');
+    } on DioException catch (error) {
+      throw ApiException(
+        message: _extractErrorMessage(error),
+        statusCode: error.response?.statusCode,
+      );
+    }
+  }
+
   Future<List<Map<String, dynamic>>> getReviewFlashcards() async {
     try {
       final response = await _dio.get('/review/');

@@ -25,6 +25,7 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
 
   bool _isFetching = false;
   bool _isSaving = false;
+  bool _isDeleting = false;
   bool _hasChanges = false;
   String? _loadError;
   Map<String, dynamic>? _currentCard;
@@ -127,24 +128,15 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
     };
 
     try {
-      final updated = await flashcardApi.updateFlashcard(
-        id: widget.flashcardId,
-        data: payload,
-      );
+      await flashcardApi.updateFlashcard(id: widget.flashcardId, data: payload);
 
       if (!mounted) {
         return;
       }
 
-      setState(() {
-        _currentCard = updated;
-        _hasChanges = true;
-        _applyCardData(updated);
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Flashcard atualizado com sucesso.')),
-      );
+      _hasChanges = true;
+      Navigator.of(context).pop(true);
+      return;
     } on ApiException catch (e) {
       if (!mounted) {
         return;
@@ -156,6 +148,53 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
       if (mounted) {
         setState(() => _isSaving = false);
       }
+    }
+  }
+
+  Future<void> _delete() async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Excluir flashcard'),
+        content: const Text(
+          'Tem certeza de que deseja excluir este flashcard? Esta ação não pode ser desfeita.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Excluir'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm != true) {
+      return;
+    }
+
+    setState(() => _isDeleting = true);
+
+    try {
+      await flashcardApi.deleteFlashcard(id: widget.flashcardId);
+
+      if (!mounted) {
+        return;
+      }
+
+      _hasChanges = true;
+      Navigator.of(context).pop(true);
+    } on ApiException catch (e) {
+      if (!mounted) {
+        return;
+      }
+      setState(() => _isDeleting = false);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message)));
     }
   }
 
@@ -192,7 +231,6 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
           children: [
             if (_isFetching) const LinearProgressIndicator(),
             if (_isFetching) const SizedBox(height: 16),
-            Text('ID: ${widget.flashcardId}'),
             const SizedBox(height: 16),
             TextFormField(
               controller: _wordController,
@@ -231,7 +269,7 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
             TextFormField(
               controller: _examplesController,
               decoration: const InputDecoration(
-                labelText: 'Exemplos (um por linha)',
+                labelText: 'Exemplos',
                 border: OutlineInputBorder(),
               ),
               minLines: 3,
@@ -246,10 +284,11 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
         Navigator.of(context).pop(_hasChanges);
-        return false;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -269,15 +308,37 @@ class _FlashcardCardPageState extends State<FlashcardCardPage> {
         body: _buildBody(),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          child: ElevatedButton(
-            onPressed: _isSaving ? null : _save,
-            child: _isSaving
-                ? const SizedBox(
-                    height: 18,
-                    width: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Text('Salvar alterações'),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ElevatedButton(
+                onPressed: (_isSaving || _isDeleting) ? null : _save,
+                child: _isSaving
+                    ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('Salvar alterações'),
+              ),
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                onPressed: (_isSaving || _isDeleting) ? null : _delete,
+                icon: _isDeleting
+                    ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.delete_outline),
+                label: Text(_isDeleting ? 'Excluindo...' : 'Excluir flashcard'),
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: Theme.of(context).colorScheme.error),
+                  foregroundColor: Theme.of(context).colorScheme.error,
+                ),
+              ),
+            ],
           ),
         ),
       ),
