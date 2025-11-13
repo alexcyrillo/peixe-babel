@@ -2,29 +2,111 @@
 
 ## Visão Geral da Implementação
 
-Descrição das escolhas tecnológicas e como os componentes projetados no capítulo anterior foram materializados em código.
+Esta seção descreve como as escolhas tecnológicas foram materializadas. Diferenciamos o que já está **implementado** do que está **planejado** para evitar confusão no escopo atual do repositório.
 
 ## Backend
 
-- Estrutura do projeto (apps/endpoints principais).
-- Modelos principais: User, Flashcard, Deck, ReviewSchedule, SessionHistory.
-- Serviços: EnrichmentService, TTSService, LLMService.
+### Tecnologias
+
+- Django 5 / Django REST Framework (API REST)
+- PostgreSQL (persistência)
+- OpenAI (integração de enriquecimento e chat)
+
+### Estrutura (implementado)
+
+```
+backend/src/
+  flashcard/
+    models/ (BaseCard, EnglishCard, EnglishChatMessage)
+    serializers/ (EnglishCardSerializer, ReviewSerializer, EnglishChatSerializer)
+    services/ (english_field_generator.py, chat_open_api.py, vocabulary_getter.py)
+    views/ (english_card_view_set.py, english_card_review_view_set.py, english_ai_chat_view_set.py)
+  peixe_babel/ (settings, urls)
+```
+- Roteamento: `peixe_babel/urls.py` inclui `flashcard/urls.py` sob `/api/v1/`.
+
+### Modelos (implementado)
+
+- `EnglishCard`: campos da palavra e metadados SRS (easiness_factor, interval, repetitions, next_review). Constraint única `(word, translation)`.
+- `EnglishChatMessage`: histórico simples de conversas (user_message, agent_message).
+- `BaseCard`: classe abstrata com timestamps e campos SRS.
+
+### Modelos (planejado)
+
+- `User`: conta e preferências (idioma, nível, configurações de revisão).
+- `Deck`: agrupamento temático de cards.
+- `ReviewSchedule`: tabela dedicada para agendamentos avançados (caso se separe de cada card).
+
+### Serviços (implementado)
+
+- `english_field_generator`: usa LLM para preencher tradução, significado e exemplos; normalização robusta de payload.
+- `chat_open_api`: monta instruções adaptadas ao vocabulário ativo e consulta o modelo.
+
+### Serviços (planejado)
+
+- `EnrichmentService`: integração com dicionários externos (reduzir dependência de IA para casos simples).
+- `TTSService`: geração de áudio de pronúncia.
+- `LLMService`: abstração única de provedores (OpenAI / alternativos) com fallback.
+
 
 ## Mobile (Flutter)
 
-- Estrutura do aplicativo: páginas, estado (provider/bloc), sincronização offline/online.
-- UI/UX: guidelines, componentes reutilizáveis e acessibilidade.
+### Tecnologias
+
+- Flutter SDK 3.9.x
+- `dio` para HTTP, `http` simples em cenários pontuais
+- Material Design 3 (parcial) / `flutter_svg` / ícones customizados
+
+### Estrutura (implementado)
+
+```
+frontend/lib/
+  main.dart
+  pages/ (conversation_page.dart, main_flashcard_page.dart, main_page.dart)
+  widgets/ (button_widget.dart)
+  services/api/ (ApiProvider...
+  theme/ (app_theme.dart)
+```
+
+### UI/UX
+
+- Uso de `ColorScheme` (personalização básica).
+- Planejado: acessibilidade (larger fonts, contrast check), componentes reutilizáveis (listagem de cards, estado de carregamento) e testes de widget.
 
 ## Infraestrutura
 
-- Configuração de banco, migrations, configuração de variáveis (`.env.example`).
-- Pipelines de CI para build, testes e releases.
+### Banco e Migrations
 
-## Testes Automatizados
+- PostgreSQL inicializado via Docker (docker-compose). Script SQL em `db_init/init.sql`.
+- Migrations Django gerenciadas via `manage.py makemigrations/migrate`.
 
-- Exemplos de testes unitários e de integração, com snippets de código.
+### Variáveis de Ambiente
+
+- Backend utiliza `OPENAI_API_KEY`, `OPENAI_MODEL`.
 
 ## Observações de Implementação
 
-- Boas práticas adotadas, limites de versão, dependências críticas.
+### Boas Práticas Adotadas
 
+- Separação clara de camadas (models / serializers / services / views).
+- Uso de constraints de unicidade para garantir integridade de vocabulário.
+- Normalização cuidadosa de exemplos do LLM para formato consistente.
+
+### Limitações Atuais
+
+- Dependência direta de OpenAI sem fallback local.
+- Ausência de autenticação e multiusuário.
+- Sem mecanismo de cache/offline.
+
+### Riscos e Mitigações Planejadas
+
+- (Risco) Falha na API de IA → (Mitigação) Fallback de enriquecimento local.
+- (Risco) Crescimento de latência em revisão → (Mitigação) Indexação e queries limitadas.
+- (Risco) Escalabilidade no chat → (Mitigação) Paginação e truncamento de histórico.
+
+### Dependências Críticas
+
+- Django / DRF (core da API)
+- OpenAI SDK (enriquecimento/chat)
+- supermemo2 (lógica SRS)
+- dio / http (consumo de API no Flutter)

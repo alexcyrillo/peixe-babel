@@ -308,6 +308,29 @@ hr {
     p, li { font-size: 12pt !important; }
 }
 
+/* ====================
+   Objetivos específicos
+   ==================== */
+ol.objetivos-especificos {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    list-style-position: outside;
+}
+ol.objetivos-especificos > li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 4pt;
+    padding-left: 0.2em; /* pequeno recuo após número */
+    line-height: 1.35;
+}
+/* Remover indent de parágrafos dentro dos itens para evitar grande espaço após o número */
+ol.objetivos-especificos > li p {
+    text-indent: 0 !important;
+    margin: 0 !important;
+}
+/* Reduzir espaçamento antes/depois do bloco completo */
+ol.objetivos-especificos + h2, ol.objetivos-especificos + h3 { margin-top: 12pt !important; }
+
 
 /* Se o pipeline usar Paged.js, elimina contornos de debug/página */
 .pagedjs_page,

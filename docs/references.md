@@ -9,16 +9,22 @@
 2. **Wozniak, P. A., & Gorzelańczyk, E. J.** (1994). Optimization of repetition spacing in the practice of learning. *Acta Neurobiologiae Experimentalis*, 54, 59-62.
 
 3. **Karpicke, J. D., & Roediger, H. L.** (2008). The critical importance of retrieval for learning. *Science*, 319(5865), 966-968.
+4. **Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., & Rohrer, D.** (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. *Psychological Bulletin*, 132(3), 354–380.
+5. **Uchihara, T., Saito, K., & Keung, Y. C.** (2019). Roles of repetition in second language oral fluency development. *Language Learning*, 69(3), 652–688.
+6. **Pane, J. F., Steiner, E. D., Baird, M. D., & Hamilton, L. S.** (2015). Promoting Grit, Tenacity, and Perseverance. *RAND Corporation Report*.
+7. **OECD** (2021). *Digital Education Outlook 2021: Digital Transformation in Education*. OECD Publishing.
 
 4. **Nation, I. S. P.** (2001). *Learning Vocabulary in Another Language*. Cambridge University Press.
 
 ### Processamento de Linguagem Natural e LLMs
 
-5. **Vaswani, A., et al.** (2017). Attention is All You Need. *Advances in Neural Information Processing Systems*, 30.
+8. **Vaswani, A., et al.** (2017). Attention is All You Need. *Advances in Neural Information Processing Systems*, 30.
 
-6. **Brown, T. B., et al.** (2020). Language Models are Few-Shot Learners. *Advances in Neural Information Processing Systems*, 33.
+9. **Brown, T. B., et al.** (2020). Language Models are Few-Shot Learners. *Advances in Neural Information Processing Systems*, 33.
 
-7. **Wei, J., et al.** (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. *arXiv preprint arXiv:2201.11903*.
+10. **OpenAI** (2024). GPT-4 Technical Report. Disponível em: https://openai.com/research/gpt-4
+
+11. **Wei, J., et al.** (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. *arXiv preprint arXiv:2201.11903*.
 
 ### Engenharia de Software e Arquitetura
 
@@ -40,9 +46,11 @@
 
 14. **Flutter Documentation** (2024). Flutter - Build apps for any screen. Disponível em: https://flutter.dev/docs
 
-15. **OpenAI** (2024). GPT-4 Technical Report. Disponível em: https://openai.com/research/gpt-4
+10. **OpenAI** (2024). GPT-4 Technical Report. Disponível em: https://openai.com/research/gpt-4
 
-## Anexos Técnicos
+11. **Wei, J., et al.** (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. *arXiv preprint arXiv:2201.11903*.
+
+12. **alankan886**. SuperMemo2 (v3.0.1). GitHub repository. Disponível em: https://github.com/alankan886/SuperMemo2. Acesso em: 13 nov. 2025.
 
 ### Anexo A — Documento de Visão Completo
 Ver arquivo: `docs/documento_de_visao.md`

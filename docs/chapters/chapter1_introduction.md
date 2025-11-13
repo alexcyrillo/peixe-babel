@@ -10,61 +10,105 @@ Inspirado pelo conceito do "Peixe Babel" de Douglas Adams — um tradutor univer
 
 ## Problema
 
-Os estudantes de idiomas enfrentam diversos obstáculos:
+Os estudantes de idiomas enfrentam diversos obstáculos que, quando não endereçados de forma sistemática, reduzem a motivação e atrasam a consolidação do aprendizado. Esses desafios podem ser agrupados em quatro dimensões principais: (i) produção e curadoria de material (criação de flashcards ricos, organizados e atualizados), (ii) prática comunicativa segura e frequente (oportunidade de errar sem julgamento e receber feedback imediato), (iii) conversão de vocabulário passivo em uso ativo (transferência para contextos espontâneos), e (iv) gestão cognitiva do esforço (manter regularidade, evitar sobrecarga e distribuir revisões no tempo). As seções seguintes detalham cada uma dessas frentes e seu impacto direto na jornada do estudante.
 
-- **Criação manual de flashcards**: É um processo demorado que consome tempo valioso que poderia ser dedicado ao estudo propriamente dito. Além disso, flashcards simples (palavra → tradução) são limitados e não fornecem contexto suficiente.
+Além disso, há fatores como ansiedade linguística, dispersão de ferramentas (múltiplos aplicativos desconectados) e dificuldade em medir progresso real além de contagens de palavras. Tais barreiras explicam a alta taxa de abandono após os estágios iniciais de entusiasmo. Ao compreender com esses obstáculos, é possível uma proposta de solução integrada que automatize o trabalho manual, personalize a prática e metrifique a evolução de forma significativa.
 
-- **Falta de prática conversacional**: A prática de conversação é frequentemente limitada por:
+**Criação manual de flashcards**: É um processo demorado que consome tempo valioso que poderia ser dedicado ao estudo propriamente dito. Além disso, flashcards simples (palavra → tradução) são limitados e não fornecem contexto suficiente.
 
-    - Falta de parceiros disponíveis
-    - Medo de julgamento e vergonha de errar
-    - Dificuldade em encontrar interlocutores no nível adequado
-    - Custo elevado de aulas particulares
+**Falta de prática conversacional**: A prática de conversação é frequentemente limitada por:
 
-- **Desconexão entre memorização e uso**: Estudantes acumulam vocabulário passivo (palavras que reconhecem) mas têm dificuldade em ativá-lo durante conversação real, criando uma lacuna entre "saber" e "usar".
+  - Falta de parceiros disponíveis
+  - Medo de julgamento e vergonha de errar
+  - Dificuldade em encontrar interlocutores no nível adequado
+  - Custo elevado de aulas particulares
+
+**Desconexão entre memorização e uso**: Estudantes acumulam vocabulário passivo (palavras que reconhecem) mas têm dificuldade em ativá-lo durante conversação real, criando uma lacuna entre "saber" e "usar".
 
 ## Objetivo Geral
 
-Desenvolver um aplicativo móvel que automatize a criação de material de estudo (flashcards enriquecidos) e ofereça sessões de conversação com agentes de Inteligência Artificial adaptadas ao vocabulário individual do usuário, facilitando a transição de conhecimento passivo para habilidade ativa.
+Desenvolver um aplicativo móvel que automatize a criação de material de estudo (flashcards) e ofereça sessões de conversação com agentes de Inteligência Artificial adaptadas ao vocabulário individual do usuário, facilitando a transição de conhecimento passivo para habilidade ativa.
 
 ## Objetivos Específicos
 
-1. **Implementar um motor de enriquecimento automático de flashcards** que, a partir de uma palavra ou frase fornecida pelo usuário, gere automaticamente:
-      
-    - Definições precisas
-    - Frases de exemplo contextualizadas
-    - Tradução para o idioma nativo
-    - Áudio de pronúncia de alta qualidade
-
-2. **Desenvolver um sistema de repetição espaçada (SRS)** baseado em algoritmos consolidados (SM-2 ou variantes) para otimizar a retenção de vocabulário na memória de longo prazo.
-
-3. **Integrar um módulo de conversação com LLM** que:
-   
-    - Acesse o banco de dados de flashcards do usuário
-    - Construa diálogos utilizando preferencialmente o vocabulário que o usuário está estudando
-    - Forneça feedback contextual e incentive o uso ativo das palavras memorizadas
-
-4. **Validar a solução** através de:
-   
-    - Testes de usabilidade com usuários reais
-    - Métricas de performance (latência, taxa de sucesso de enriquecimento)
-    - Avaliação comparativa com métodos tradicionais de estudo
+<ol class="objetivos-especificos">
+<li><p><strong>Implementar um motor de enriquecimento automático de flashcards</strong> que gere: definições precisas, frases de exemplo contextualizadas, tradução para o idioma nativo e áudio de pronúncia de alta qualidade.</p></li>
+<li><p><strong>Desenvolver um sistema de repetição espaçada (SRS)</strong>, baseado em algoritmos consolidados (SM-2 ou variantes), para otimizar a retenção de vocabulário na memória de longo prazo.</p></li>
+<li><p><strong>Integrar um módulo de conversação com LLM</strong> que acesse o banco de dados de flashcards do usuário, construa diálogos utilizando preferencialmente o vocabulário estudado e forneça feedback contextual incentivando o uso ativo das palavras.</p></li>
+<li><p><strong>Validar a solução</strong> por meio de testes de usabilidade com usuários reais, métricas de performance (latência, taxa de sucesso de enriquecimento) e avaliação comparativa com métodos tradicionais de estudo.</p></li>
+</ol>
 
 ## Justificativa
 
-O projeto se justifica pela demanda crescente por ferramentas de aprendizado personalizadas e pela oportunidade de aplicar tecnologias emergentes (LLMs, APIs de NLP, TTS) para resolver problemas reais na educação. A combinação de SRS com conversação adaptativa representa uma abordagem inovadora que pode acelerar significativamente o processo de aquisição de proficiência em idiomas.
+O projeto se justifica por três razões centrais: (1) cresce a demanda por ferramentas de estudo personalizadas (OECD, 2021; Pane et al., 2015); (2) as tecnologias atuais de IA (LLMs), processamento de linguagem (NLP) e síntese de voz (TTS) já permitem gerar conteúdo contextual em tempo real (Brown et al., 2020; OpenAI, 2024); (3) há evidências de que a repetição espaçada combinada com prática e recuperação ativa melhora retenção e velocidade de acesso ao vocabulário (Cepeda et al., 2006; Karpicke & Roediger, 2008; Uchihara et al., 2019). A solução proposta enfrenta lacunas dos métodos tradicionais: criação manual lenta, separação entre revisão e uso em diálogo e feedback tardio ou genérico. Ela automatiza o enriquecimento dos materiais e ajusta cada sessão de conversa ao vocabulário que o usuário está consolidando. A união entre SRS e conversação adaptativa acelera a passagem de conhecimento passivo para ativo e tende a elevar indicadores como recall em T+1, T+7 e T+30 e tempo de resposta correto. Assim, a proposta mantém caráter acadêmico e possui aplicação prática imediata.
 
-## Escopo
+## Estado Atual e Escopo da Solução
 
-O projeto abrange:
+### Escopo
 
-    - Aplicativo móvel nativo para Android
-    - Backend REST API para orquestração de serviços
-    - Integração com APIs externas (dicionários, TTS, LLM)
-    - Suporte inicial para português (interface) e japonês (idioma-alvo)
+- Aplicativo Flutter (foco em Android; executável também em iOS/Web/Desktop sem otimização dedicada ainda).
+- Backend Django + PostgreSQL oferecendo endpoints REST para Flashcards, Revisão (SRS) e Chat (LLM).
+- Integração com OpenAI (modelos configuráveis via variável de ambiente `OPENAI_MODEL`).
+- Lógica de Spaced Repetition embutida no modelo concreto de card.
+- Agregação dinâmica de vocabulário (todas as palavras dos cards) para personalizar instruções ao LLM.
+- Infra básica de containerização (docker-compose para API + DB).
+- Interface inicial em Português (app) e conteúdo alvo em Inglês.
+- Estrutura para expansão de outros tipos de cards através de herança (`BaseCard`).
+- Parametrização por variáveis de ambiente (.env / sistema) para chaves e credenciais.
 
-**Limitações explícitas:**
+### Capacidades Atuais
 
-    - Não fornece currículo estruturado ou lições predefinidas
-    - Não inclui interação com tutores humanos
-    - Funcionalidade offline limitada (apenas revisão de flashcards já sincronizados)
+- **Chat adaptativo**: respostas em inglês ajustadas ao vocabulário conhecido do usuário.
+- **CRUD de Flashcards**: criação, listagem, atualização e exclusão com campos textuais e exemplos JSON.
+- **Revisão espaçada**: cálculo e armazenamento dos parâmetros básicos (intervalos, próxima revisão).
+- **Instruções dinâmicas ao LLM**: inclui vocabulário do aluno e requer tradução de termos novos.
+- **API REST simples**: roteamento DRF separado para flashcards, revisão e chat.
+- **Execução multi-plataforma (Flutter)**: um único código para diversas plataformas (não todas testadas).
+- **Autenticação base Django disponível**: para futura extensão de escopo multiusuário.
+
+### Limitações Explícitas
+
+- Sem currículo estruturado, trilha de lições ou níveis progressivos.
+- Sem tutores humanos / moderação pedagógica.
+- Impossibilidade de uso Offline.
+- Interface multilíngue restrita (PT-BR UI + EN conteúdo). Sem suporte amplo a outros idiomas.
+- Sem controle de quotas/custos de uso da API OpenAI.
+- Algoritmo SRS simplificado (sem ajustes finos por desempenho qualitativo do usuário).
+- Ausência de relatórios analíticos de progresso ou retenção.
+- Sem cache ou otimização de chamadas ao LLM.
+- Sem escalabilidade horizontal.
+
+### Limitações Implícitas / Riscos
+
+- Dependência de latência e disponibilidade da OpenAI (single provider).
+- Potencial custo crescente conforme volume de conversas (sem caching ou compressão).
+- Risco de prompt injection ou abuso (validação de entrada mínima).
+
+### Fora do Escopo
+
+- Gamificação (pontos, conquistas, rankings).
+- Suporte a múltiplos idiomas-alvo além de inglês (planejado, não implementado).
+- Editor multimídia avançado (áudio, imagem customizada aos cards).
+- Modo totalmente offline incluindo chat local ou LLM embarcado.
+- Análise de voz (speech-to-text, avaliação de pronúncia).
+- Exercícios gramaticais complexos, cloze, múltipla escolha ou produção guiada.
+- Analytics avançados (dashboards, relatórios exportáveis completos).
+
+### Oportunidades de Evolução
+
+| Área | Possível Evolução | Benefício |
+|------|-------------------|-----------|
+| Autenticação | Filtrar vocabulário por usuário, JWT/Token | Conteúdo personalizado real |
+| SRS | Tabela separada `ReviewSchedule`, múltiplos algoritmos | Experimentação adaptativa |
+| Caching | Cache de instruções e respostas comuns | Redução de custo & latência |
+| Observabilidade | Logging estruturado + métricas | Monitoramento confiável |
+| Segurança | Restrição de CORS, segredos fora do código, rate limiting | Produção segura |
+| Multi-idioma | Novos idiomas alvo (ES, FR) | Escala de público |
+| Testes | Cobertura para endpoints críticos | Confiabilidade de release |
+| Prompt Engine | Templates versionados, anti-injection | Qualidade e robustez no chat |
+| Analytics | Métricas de revisão, dificuldade, retenção | Feedback pedagógico |
+| UI/UX | Ajustes específicos para web/desktop | Adoção em múltiplos dispositivos |
+
+### Resumo
+
+O sistema entrega um núcleo funcional de aprendizado de vocabulário com chat adaptativo e revisão espaçada mínima, priorizando simplicidade e velocidade de iteração. Limitações atuais concentram-se em segurança de produção, personalização por usuário, profundidade pedagógica e escalabilidade. O roadmap natural inclui modularização do SRS, robustecimento de segurança, filtros de vocabulário por usuário, expansão de idiomas e introdução de métricas de aprendizagem.

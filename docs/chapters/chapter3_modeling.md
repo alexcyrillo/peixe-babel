@@ -6,73 +6,23 @@ Este capítulo apresenta as modelagens do sistema através de diagramas e descri
 
 ### Diagrama de Contexto
 
-O diagrama de contexto ilustra o sistema e suas interações com atores externos e sistemas adjacentes.
+O diagrama de contexto ilustra o sistema e suas interações com atores externos e sistemas adjacentes. 
 
-```
-┌─────────────┐
-│   Usuário   │
-│  (Estudante)│
-└──────┬──────┘
-   │
-   │ usa
-   ↓
-┌─────────────────────────────────────────────┐
-│                                             │
-│          Sistema Peixe Babel                │
-│                                             │
-│  ┌─────────────┐      ┌─────────────┐     │
-│  │ App Mobile  │←────→│  Backend    │     │
-│  │  (Flutter)  │      │  (Django)   │     │
-│  └─────────────┘      └──────┬──────┘     │
-│                              │             │
-└──────────────────────────────┼─────────────┘
-               │
-         ┌─────────────┴──────────────┐
-         │                            │
-         ↓                            ↓
-    ┌─────────────────┐        ┌──────────────────┐
-    │ APIs Externas   │        │  Base de Dados   │
-    │                 │        │   (PostgreSQL)   │
-    │ • Dicionário    │        └──────────────────┘
-    │ • TTS           │
-    │ • LLM (GPT-4)   │
-    └─────────────────┘
-```
+![Diagrama de Contexto do Sistema e atores externos](../img/diagrama_contexto.png)
 
 **Atores**:
 
-- **Usuário (Estudante)**: Interage com o aplicativo móvel para criar flashcards, revisar vocabulário e praticar conversação.
+- **Usuário (Estudante)**: Interage com o app para criar/revisar flashcards e praticar conversação.
 
 **Sistemas Adjacentes**:
 
-- **APIs de Dicionário**: Fornecem definições e traduções.
-- **APIs de TTS**: Geram áudio de pronúncia.
-- **APIs de LLM**: Geram frases de exemplo e conduzem conversação adaptativa.
+- **LLM API**: Fornece respostas de conversação adaptadas ao vocabulário do aluno.
+- **Banco de Dados (PostgreSQL)**: Persiste os dados do sistema.
 
 ### Diagrama de Casos de Uso
 
-```
-          Peixe Babel System
-    ┌──────────────────────────────────────────┐
-    │                                          │
-    │  (Criar Flashcard)                       │
-    │          ↑                               │
-    │          │                               │
-┌───┴──┐      │                               │
-│      │──────┤                               │
-│Usuário│      │                               │
-│      │──────┤  (Revisar Flashcards)         │
-└───┬──┘      │                               │
-    │         │                               │
-    │         ↓                               │
-    │  (Praticar Conversação)                 │
-    │                                          │
-    │  (Sincronizar Dados)                    │
-    │                                          │
-    │  (Editar/Excluir Flashcard)             │
-    │                                          │
-    └──────────────────────────────────────────┘
-```
+![Diagrama de Casos de Uso: criar, revisar, conversar, sincronizar, editar](../img/diagrama_casos_uso.png)
+
 
 **Casos de Uso Identificados**:
 
@@ -86,221 +36,53 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 
 ## Modelagem Estática (Modelo de Dados)
 
-### Diagrama de Classes Conceitual
+### Diagrama de Classes (Modelo de Dados Atual)
 
-```
-┌──────────────────┐
-│      User        │
-├──────────────────┤
-│ id: UUID         │
-│ username: String │
-│ email: String    │
-│ native_lang: Str │
-│ target_lang: Str │
-│ created_at: Date │
-└────────┬─────────┘
-     │
-     │ 1
-     │
-     │ *
-┌────────┴─────────┐
-│    Flashcard     │
-├──────────────────┤
-│ id: UUID         │
-│ user_id: UUID    │◄───┐
-│ word: String     │    │
-│ definition: Text │    │
-│ translation: Str │    │
-│ example: Text    │    │
-│ audio_url: Str   │    │
-│ created_at: Date │    │
-└────────┬─────────┘    │
-     │              │
-     │ 1            │
-     │              │
-     │ *            │
-┌────────┴─────────┐    │
-│ ReviewSchedule   │    │
-├──────────────────┤    │
-│ id: UUID         │    │
-│ flashcard_id: ID │────┘
-│ next_review: Date│
-│ interval: Int    │
-│ easiness: Float  │
-│ repetitions: Int │
-└──────────────────┘
+![Diagrama de Classes: entidades de flashcard, mensagem de chat e relações](../img/diagrama_classes.png)
 
-┌──────────────────┐
-│ ConversationSess │
-├──────────────────┤
-│ id: UUID         │
-│ user_id: UUID    │───┐
-│ started_at: Date │   │
-│ ended_at: Date   │   │
-│ messages: JSON   │   │
-└──────────────────┘   │
-           │
-     ┌─────────────┘
-     │
-┌────────┴─────────┐
-│      User        │
-│  (referência)    │
-└──────────────────┘
-```
-
-**Entidades Principais**:
-
-1. **User**: Representa o usuário do sistema
-   - Atributos de autenticação e preferências de idioma
-   - Relacionamento 1:N com Flashcard e ConversationSession
-
-2. **Flashcard**: Representa um cartão de estudo
-   - Contém palavra/frase, definição, tradução, exemplo e áudio
-   - Relacionamento N:1 com User
-   - Relacionamento 1:1 com ReviewSchedule
-
-3. **ReviewSchedule**: Armazena dados do algoritmo SRS
-   - Próxima data de revisão, intervalo atual, fator de facilidade
-   - Relacionamento 1:1 com Flashcard
-
-4. **ConversationSession**: Registro de sessões de conversação
-   - Histórico de mensagens (JSON array)
-   - Relacionamento N:1 com User
+Notas:
+- O modelo atual não persiste relação explícita com `User` nos cards.
+- Os campos do SRS ficam no próprio card (não há `ReviewSchedule` separado).
+- Há tabela para mensagens de chat em inglês (`EnglishChatMessage`).
 
 ## Modelagem Dinâmica (Diagramas de Sequência)
 
 ### Sequência: Criação de Flashcard
 
-```
-Usuário    App Mobile    Backend API    EnrichmentService    APIs Externas
-   │            │             │                 │                  │
-   │ insere     │             │                 │                  │
-   │ palavra    │             │                 │                  │
-   ├───────────>│             │                 │                  │
-   │            │ POST        │                 │                  │
-   │            │ /flashcards │                 │                  │
-   │            ├────────────>│                 │                  │
-   │            │             │ enrich_async    │                  │
-   │            │             ├────────────────>│                  │
-   │            │             │                 │ fetch_definition │
-   │            │             │                 ├─────────────────>│
-   │            │             │                 │<─────────────────┤
-   │            │             │                 │ definition       │
-   │            │             │                 │                  │
-   │            │             │                 │ generate_example │
-   │            │             │                 ├─────────────────>│
-   │            │             │                 │<─────────────────┤
-   │            │             │                 │ example          │
-   │            │             │                 │                  │
-   │            │             │                 │ fetch_TTS        │
-   │            │             │                 ├─────────────────>│
-   │            │             │                 │<─────────────────┤
-   │            │             │                 │ audio_url        │
-   │            │             │<────────────────┤                  │
-   │            │             │ save_flashcard  │                  │
-   │            │             ├─────────>DB     │                  │
-   │            │<────────────┤                 │                  │
-   │            │ 201 Created │                 │                  │
-   │<───────────┤             │                 │                  │
-   │ confirmação│             │                 │                  │
-```
+![Diagrama de Sequência: fluxo de criação e enriquecimento de flashcard](../img/diagrama_seq_criar_flashcard.png)
 
 **Fluxo**:
 
 1. Usuário insere palavra no app
 2. App envia requisição POST ao backend
-3. Backend dispara enriquecimento assíncrono
-4. EnrichmentService consulta APIs externas em paralelo
-5. Dados são consolidados e flashcard é salvo
-6. App recebe confirmação e atualiza UI
+3. Backend processa enriquecimento (dicionário, exemplos, tradução, áudio)
+4. Serviços externos são consultados conforme necessário (sincrônico no MVP)
+5. Dados são consolidados e o flashcard é salvo com primeira revisão agendada
+6. App recebe confirmação e atualiza a interface
 
 ### Sequência: Revisão de Flashcard (SRS)
 
-```
-Usuário    App Mobile    Backend API    SRSService    Database
-   │            │             │              │            │
-   │ abre       │             │              │            │
-   │ revisão    │             │              │            │
-   ├───────────>│ GET         │              │            │
-   │            │ /flashcards │              │            │
-   │            │ /due        │              │            │
-   │            ├────────────>│ get_due_cards│            │
-   │            │             ├─────────────>│            │
-   │            │             │              │ SELECT     │
-   │            │             │              ├───────────>│
-   │            │             │              │<───────────┤
-   │            │             │<─────────────┤            │
-   │            │<────────────┤ flashcards   │            │
-   │<───────────┤             │              │            │
-   │ exibe card │             │              │            │
-   │            │             │              │            │
-   │ avalia     │             │              │            │
-   │ (fácil)    │             │              │            │
-   ├───────────>│ POST        │              │            │
-   │            │ /reviews    │              │            │
-   │            ├────────────>│ update_sched │            │
-   │            │             ├─────────────>│            │
-   │            │             │              │ UPDATE     │
-   │            │             │              ├───────────>│
-   │            │             │              │<───────────┤
-   │            │             │<─────────────┤            │
-   │            │<────────────┤ 200 OK       │            │
-   │<───────────┤             │              │            │
-   │ próx. card │             │              │            │
-```
+![Diagrama de Sequência: fluxo de revisão SRS e atualização de intervalo](../img/diagrama_seq_revisao.png)
 
 **Fluxo**:
 
 1. App solicita flashcards devidos
-2. Backend/SRSService consulta banco (WHERE next_review <= TODAY)
+2. Backend consulta banco (WHERE next_review <= TODAY)
 3. Cards são retornados e exibidos
 4. Usuário avalia dificuldade
-5. SRSService recalcula próximo intervalo (algoritmo SM-2)
-6. ReviewSchedule é atualizado no banco
+5. Backend aplica SM-2 para recalcular próximo intervalo
+6. Campos do card são atualizados: easiness_factor, interval, repetitions e next_review
 
 ### Sequência: Conversação com IA
 
-```
-Usuário    App Mobile    Backend API    DialogueService    LLM API
-   │            │             │                 │              │
-   │ inicia     │             │                 │              │
-   │ conversa   │             │                 │              │
-   ├───────────>│ POST        │                 │              │
-   │            │ /sessions   │                 │              │
-   │            ├────────────>│ create_session  │              │
-   │            │             ├────────────────>│              │
-   │            │             │                 │ build_prompt │
-   │            │             │                 │ (vocab list) │
-   │            │             │                 │              │
-   │            │             │                 │ call_LLM     │
-   │            │             │                 ├─────────────>│
-   │            │             │                 │<─────────────┤
-   │            │             │                 │ greeting     │
-   │            │             │<────────────────┤              │
-   │            │<────────────┤ AI_message      │              │
-   │<───────────┤             │                 │              │
-   │ exibe msg  │             │                 │              │
-   │            │             │                 │              │
-   │ responde   │             │                 │              │
-   ├───────────>│ POST        │                 │              │
-   │            │ /messages   │                 │              │
-   │            ├────────────>│ send_message    │              │
-   │            │             ├────────────────>│              │
-   │            │             │                 │ call_LLM     │
-   │            │             │                 ├─────────────>│
-   │            │             │                 │<─────────────┤
-   │            │             │                 │ AI_response  │
-   │            │             │<────────────────┤              │
-   │            │<────────────┤ response        │              │
-   │<───────────┤             │                 │              │
-   │ exibe resp │             │                 │              │
-```
+![Diagrama de Sequência: diálogo com IA adaptado ao vocabulário do usuário](../img/diagrama_seq_chat.png)
+
 
 **Fluxo**:
 
 1. Usuário inicia sessão de conversação
 2. Backend cria sessão e recupera vocabulário ativo do usuário
-3. DialogueService monta prompt com instruções e lista de vocabulário
+3. DialogueService monta prompt com instruções e lista de vocabulário (pedindo tradução para termos novos)
 4. Primeira mensagem da IA (greeting) é gerada e retornada
 5. Usuário envia mensagem
 6. DialogueService encaminha ao LLM com contexto completo
@@ -310,29 +92,7 @@ Usuário    App Mobile    Backend API    DialogueService    LLM API
 
 ### Estados de um Flashcard no SRS
 
-```
-      [NOVO]
-     │
-     │ primeira revisão
-     ↓
-    [APRENDENDO]
-     │
-     ├──(fácil)──> interval aumenta
-     │
-     ├──(difícil)─> interval diminui
-     │
-     │ interval > 21 dias
-     ↓
-    [CONSOLIDADO]
-     │
-     ├──(fácil)──> interval aumenta
-     │
-     ├──(difícil)─> volta para [APRENDENDO]
-     │
-     │ interval > 180 dias
-     ↓
-     [DOMINADO]
-```
+![Diagrama de Estados: transições do flashcard no SRS](../img/diagrama_estados_flashcard.png)
 
 **Estados**:
 
@@ -343,41 +103,7 @@ Usuário    App Mobile    Backend API    DialogueService    LLM API
 
 ## Diagrama de Componentes
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    APLICATIVO MÓVEL                     │
-│                                                         │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
-│  │ Presentation │  │   Domain     │  │     Data     │ │
-│  │   (Views)    │  │  (UseCases)  │  │ (Repository) │ │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘ │
-│         │                  │                  │         │
-│         └──────────────────┴──────────────────┘         │
-└───────────────────────────┬─────────────────────────────┘
-            │ HTTP/REST
-            ↓
-┌─────────────────────────────────────────────────────────┐
-│                      BACKEND API                        │
-│                                                         │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
-│  │   REST API   │  │   Services   │  │   Database   │ │
-│  │ (Endpoints)  │  │ (Business)   │  │   (Models)   │ │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘ │
-│         │                  │                  │         │
-│         └──────────────────┴──────────────────┘         │
-│                                                         │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
-│  │ Enrichment   │  │     SRS      │  │   Dialogue   │ │
-│  │   Service    │  │   Service    │  │   Service    │ │
-│  └──────┬───────┘  └──────────────┘  └──────┬───────┘ │
-└─────────┼────────────────────────────────────┼─────────┘
-          │                                    │
-          ↓                                    ↓
-┌──────────────────┐                 ┌──────────────────┐
-│  APIs Externas   │                 │    LLM API       │
-│  (Dict, TTS)     │                 │  (OpenAI/etc.)   │
-└──────────────────┘                 └──────────────────┘
-```
+![Diagrama de Componentes: app Flutter, API Django, PostgreSQL e integrações](../img/diagrama_componentes.png)
 
 ---
 

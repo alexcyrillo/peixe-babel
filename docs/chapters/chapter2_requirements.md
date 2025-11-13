@@ -38,7 +38,6 @@ Este capítulo apresenta a especificação detalhada dos requisitos do sistema, 
 **Critérios de Aceitação**:
 
 - Algoritmo deve seguir princípios do SM-2 ou equivalente
-- Usuário deve poder revisar flashcards offline (dados sincronizados previamente)
 
 ### Prática de Conversação com IA Adaptativa
 
@@ -47,7 +46,7 @@ Este capítulo apresenta a especificação detalhada dos requisitos do sistema, 
 **Fluxo**:
 
 1. Usuário inicia sessão de conversação
-2. Sistema recupera vocabulário ativo (flashcards estudados recentemente)
+2. Sistema recupera vocabulário ativo
 3. Sistema constrói prompt para LLM com instruções e vocabulário permitido
 4. Usuário e IA trocam mensagens em tempo real
 5. Sistema registra histórico da conversa
@@ -115,7 +114,7 @@ Este capítulo apresenta a especificação detalhada dos requisitos do sistema, 
 
 - Uptime do backend: 99.5% (permitido ~3.6h de downtime/mês)
 - Revisão de flashcards deve funcionar offline (dados já sincronizados)
-- Sistema deve lidar graciosamente com falhas de APIs externas (fallback, retry)
+- Sistema deve tratar falhas de APIs externas com retentativas controladas e fallback sem interromper o uso
 
 **Métrica**: Monitoramento de uptime via health checks e alertas.
 
@@ -163,10 +162,9 @@ Este capítulo apresenta a especificação detalhada dos requisitos do sistema, 
 
 - Arquitetura limpa com separação de camadas (apresentação, domínio, dados)
 - Cobertura de testes: mínimo 70% para lógica de negócio
-- Documentação de APIs (OpenAPI/Swagger)
 - Internacionalização: adicionar novos idiomas deve exigir apenas arquivos de tradução
 
-**Métrica**: Code review e análise estática (lint, type checking).
+**Métrica**: Code review e análise estática.
 
 ## Restrições e Dependências
 
@@ -180,48 +178,119 @@ Este capítulo apresenta a especificação detalhada dos requisitos do sistema, 
 
 - APIs de dicionário (ex.: Dictionary API, Merriam-Webster)
 - API de TTS (ex.: Google Cloud TTS, Amazon Polly)
-- API de LLM (ex.: OpenAI GPT-4, Anthropic Claude)
+- API de LLM (ex.: OpenAI GPT, Anthropic Claude)
 - Infraestrutura de nuvem (ex.: Railway, Render, AWS free tier)
 
 ## Casos de Uso Principais
 
-### Criar Flashcard
+### Casos de Uso Principais
 
-**Ator**: Usuário  
+Os casos de uso a seguir descrevem as interações essenciais do usuário com o sistema. Cada caso de uso é acompanhado pela tarefa de usabilidade correspondente (Tarefa 1–5) que será aplicada nos testes com usuários.
+
+#### UC01 — Criar Flashcard (Tarefa 1)
+
+**Objetivo**: Permitir criação de flashcards enriquecidos automaticamente.
+
+**Ator principal**: Usuário.
+
+**Precondições**: Aplicativo carregado; usuário autenticado (quando autenticação estiver ativa); APIs externas disponíveis ou modo de fallback parcial.
+
+**Gatilho**: Usuário decide registrar novo vocabulário.
+
 **Fluxo Principal**:
-1. Usuário abre tela de criação
-2. Usuário insere palavra/frase no idioma-alvo
-3. Sistema enriquece automaticamente (definição, exemplos, áudio, tradução)
-4. Sistema salva flashcard e agenda primeira revisão
-5. Sistema exibe confirmação
 
-**Fluxo Alternativo**: Se API falhar, sistema permite criação manual dos campos.
+1. Usuário abre o aplicativo.
+2. Navega até o menu _Flashcards_.
+3. Seleciona _Criar Novo Flashcard_.
+4. Digita uma ou mais palavras.
+5. Aciona _Criar flashcards_.
+6. Sistema realiza enriquecimento (definição, exemplos, tradução, áudio) e agenda primeira revisão.
+7. Sistema confirma criação.
 
-### Revisar Flashcards
+**Fluxos Alternativos**:
 
-**Ator**: Usuário  
+- A1: Falha em API externa → Sistema oferece criação manual dos campos faltantes; ainda agenda revisão inicial.
+  
+**Pós-condições**: Flashcards persistidos com metadados SRS inicializados.
+
+**Critérios de Sucesso**: Tempo < 5s (P90); dados gerados semanticamente adequados.
+
+#### UC02 — Listar Flashcards (Tarefa 2)
+
+**Objetivo**: Visualizar conjunto de flashcards existentes do usuário.
+
 **Fluxo Principal**:
-1. Usuário abre tela de revisão
-2. Sistema apresenta flashcards devidos (frente)
-3. Usuário tenta lembrar a resposta
-4. Usuário revela resposta (verso)
-5. Usuário avalia dificuldade (fácil/difícil)
-6. Sistema ajusta próxima data de revisão
-7. Repetir 2-6 até não haver mais flashcards devidos
 
-### Praticar Conversação
+1. Usuário acessa menu _Flashcards_.
+2. Seleciona _Ver Flashcards Existentes_.
+3. Sistema exibe lista (paginada ou completa) com dados essenciais.
 
-**Ator**: Usuário  
+**Pós-condições**: Lista renderizada sem erros.
+
+**Critérios de Sucesso**: Exibição completa em < 2s; possibilidade de localizar item desejado.
+
+#### UC03 — Editar Flashcard (Tarefa 3)
+
+**Objetivo**: Atualizar conteúdo de um flashcard existente.
+
+**Precondições**: Flashcard existe e pertence ao usuário.
+
 **Fluxo Principal**:
-1. Usuário inicia sessão de conversação
-2. Sistema carrega vocabulário ativo do usuário
-3. IA inicia conversa com saudação
-4. Usuário responde via texto
-5. IA responde usando vocabulário do usuário
-6. Repetir 4-5 até usuário encerrar sessão
-7. Sistema salva histórico da conversa
 
-**Fluxo Alternativo**: Se usuário ficar sem resposta, IA pode fornecer sugestões.
+1. Usuário navega para _Flashcards_ > _Ver Flashcards Existentes_.
+2. Seleciona o flashcard alvo.
+3. Altera campos desejados (ex.: exemplo, tradução).
+4. Aciona _Salvar Alterações_.
+5. Sistema valida e persiste atualização; mostra feedback.
+
+**Exceção**: E1: Campo inválido → Sistema exibe erro e mantém valores originais.
+
+**Critérios de Sucesso**: Atualização confirmada e refletida na próxima listagem.
+
+#### UC04 — Revisar Flashcards (Tarefa 4)
+
+**Objetivo**: Realizar sessão de repetição espaçada aplicando algoritmo SRS.
+
+**Precondições**: Existir pelo menos um flashcard “devido” na data atual.
+
+**Fluxo Principal**:
+
+1. Usuário abre menu _Flashcards_ e escolhe _Iniciar Revisão_.
+2. Sistema apresenta frente (palavra/expressão).
+3. Usuário tenta recordar significado/tradução.
+4. Usuário revela verso (toque em _Responder_).
+5. Usuário avalia dificuldade (fácil/difícil ou escala equivalente).
+6. Sistema recalcula intervalo e agenda próxima data.
+7. Retorna ao passo 2 até não haver itens devidos.
+
+**Critérios de Sucesso**: Todos itens devidos processados; intervalos atualizados corretamente.
+
+**Métrica Relacionada**: Tempo médio por card; taxa de acerto.
+
+#### UC05 — Praticar Conversação (Tarefa 5)
+
+**Objetivo**: Permitir diálogo em inglês adaptado ao vocabulário conhecido do usuário.
+
+**Precondições**: Conexão ativa; vocabulário carregado.
+
+**Fluxo Principal**:
+
+1. Usuário acessa _Conversar com IA_.
+2. Digita primeira frase e envia.
+3. Sistema/IA responde utilizando preferencialmente termos do vocabulário do usuário (traduz novos termos quando necessários).
+4. Ciclo de troca de mensagens prossegue até o usuário encerrar.
+5. Sistema registra histórico.
+
+**Critérios de Sucesso**: Latência de resposta < 2s (P95); proporção de termos conhecidos acima de limiar definido.
+
+#### Relação Tarefas ↔ Casos de Uso
+| Tarefa | Caso de Uso | Objetivo resumido |
+|--------|-------------|-------------------|
+| 1 | UC01 Criar Flashcard | Registrar novo vocabulário enriquecido |
+| 2 | UC02 Listar Flashcards | Consultar cartões existentes |
+| 3 | UC03 Editar Flashcard | Atualizar conteúdo de cartão |
+| 4 | UC04 Revisar Flashcards | Aplicar SRS em sessão de revisão |
+| 5 | UC05 Praticar Conversação | Dialogar com IA adaptativa |
 
 ---
 
