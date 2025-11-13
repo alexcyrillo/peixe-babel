@@ -58,4 +58,4 @@ A seguir, detalhamos as informações trocadas entre o Sistema Peixe Babel e as 
 ### Representação Visual do Diagrama de Contexto
 
 Abaixo, uma representação gráfica simplificada que ilustra as interações descritas.
-![alt text](img/diagrama_de_contexto.svg)
+![alt text](img/diagrama_contexto.png)
