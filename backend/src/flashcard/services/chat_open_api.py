@@ -7,24 +7,10 @@ from flashcard.services.vocabulary_getter import get_vocabulary
 API_KEY = os.environ.get("OPENAI_API_KEY")
 DEFAULT_MODEL = os.environ.get("OPENAI_MODEL", "gpt-5-nano")
 
-if not API_KEY:
-    # do not raise at import time in all environments, but warn developer
-    # raising here would prevent import in some contexts; callers should check
-    # For explicit failure, uncomment raise below
-    # raise RuntimeError("OPENAI_API_KEY is not set")
-    pass
-
 client = OpenAI(api_key=API_KEY)
 
 
 def get_chat_response(prompt: str | None = None):
-    """Return a string response from the AI.
-
-    - loads vocabulary via `get_vocabulary()`
-    - formats the system/instruction string including the known vocabulary
-    - calls the configured model (env OPENAI_MODEL or default)
-    - returns a plain text string (best-effort extraction)
-    """
     if not API_KEY:
         raise RuntimeError("OPENAI_API_KEY não definida. Defina a variável de ambiente.")
  
@@ -40,7 +26,7 @@ def get_chat_response(prompt: str | None = None):
         f"O vocabulário que o seu aluno sabe é: {word_list}"
         f"Se não for possível responder apenas com o vocabulário do aluno, pode utilizar outras, porém disponibilize a tradução dessas novas palavras utilizadas"
     )
-    user_input = prompt or "How do I check if a Python object is an instance of a class?"
+    user_input = prompt
 
     try:
         response = client.responses.create(

@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 
 /// Centraliza a configuração do cliente HTTP baseado em Dio.
 class ApiProvider {
+  static const String _apiBaseUrl = 'http://192.168.1.4:8000/api/v1';
+
   ApiProvider._internal() {
     _dio = Dio(
       BaseOptions(
@@ -36,26 +38,8 @@ class ApiProvider {
 
   Dio get dio => _dio;
 
-  static const String _fallbackBaseUrl = 'http://192.168.1.4:8000/api/v1';
-  static const String _androidEmulatorBaseUrl =
-      'http://192.168.1.4:8000/api/v1';
-
   String _resolveBaseUrl() {
-    const envBaseUrl = String.fromEnvironment('API_BASE_URL');
-    if (envBaseUrl.isNotEmpty) {
-      return envBaseUrl;
-    }
-
-    if (kIsWeb) {
-      return _fallbackBaseUrl;
-    }
-
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        return _androidEmulatorBaseUrl;
-      default:
-        return _fallbackBaseUrl;
-    }
+    return _apiBaseUrl;
   }
 }
 

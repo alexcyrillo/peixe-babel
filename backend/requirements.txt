@@ -4,7 +4,5 @@ django-cors-headers==4.8.0
 djangorestframework==3.16.1
 psycopg2-binary==2.9.10
 sqlparse==0.5.3
-libretranslatepy==2.1.4
-wiktionaryparser==0.0.97
 supermemo2==3.0.1
 openai==2.4.0
