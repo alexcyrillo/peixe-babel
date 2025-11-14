@@ -234,7 +234,7 @@ A plataforma deve ser construída para evoluir de forma eficiente e com baixo cu
 |--|--|
 |0.0.1|10/09/2025|
 
-## 1. Introdução
+## Introdução
 
 Como um estudante de idiomas que encara a atividade como um hobby, reconheço a profundidade do desafio que é aprender uma nova língua. Não se trata apenas de memorizar palavras; é uma jornada árdua que exige dedicação por anos. Pessoalmente, utilizo flashcards como uma ferramenta poderosa para memorização, mas criar e gerenciar cartões detalhados — que vão além da simples tradução — é um processo manual e demorado.
 
@@ -246,13 +246,13 @@ Inspirado pela ideia de facilitar essa jornada, o Sistema Peixe Babel surge como
 
 O grande diferencial é que a IA utilizará o banco de dados dos flashcards do próprio usuário, mantendo a conversa o mais próximo possível do seu conhecimento atual. Ao adaptar o diálogo ao vocabulário que o estudante já está praticando, o processo se torna mais relevante e motivador.
 
-## 2. Descrição dos Usuários
+## Descrição dos Usuários
 
-### 2.1. Introdução
+### Introdução
 
 Esta seção detalha os principais grupos de usuários que o Peixe-Babel irá servir. O nosso objetivo é atender às suas necessidades específicas, resolver seus desafios e proporcionar uma experiência valiosa que os ajude a alcançar seus objetivos.
 
-### 2.2. Usuários
+### Usuários
 
 #### Usuário 1: Curso no Fim do Universo, A Escola de Idiomas Inovadora
 
@@ -294,9 +294,9 @@ Trillian, 22 anos, faz aulas de espanhol duas vezes por semana em um curso tradi
 **Como o Peixe Babel Ajuda**
 Trillian usa o Peixe Babel como seu parceiro de estudos pessoal. Após cada aula, ela adiciona o novo vocabulário ao aplicativo. Antes da próxima aula, ela pratica por 15 minutos com a IA, usando as palavras que acabou de aprender. Como resultado, ela chega mais preparada, com o vocabulário "fresco" na memória, e sua confiança para falar em público aumenta drasticamente. O aplicativo complementa perfeitamente seu curso, preenchendo a lacuna entre a teoria da sala de aula e a prática da conversação.
 
-## 3. Visão Geral do Produto
+## Visão Geral do Produto
 
-### 3.1. Perspectiva do Produto
+### Perspectiva do Produto
 
 O Sistema Peixe Babel é um assistente de aprendizado de idiomas pessoal e adaptativo, projetado para operar como uma aplicação móvel (iOS e Android) e, potencialmente, uma plataforma web.
 
@@ -304,7 +304,7 @@ Ele não se posiciona como um substituto para cursos de idiomas formais ou méto
 
 Sua principal função é criar a ponte entre o conhecimento passivo (entender uma palavra ao ler ou ouvir) e a habilidade ativa (utilizar essa palavra de forma espontânea e correta em uma conversa). Ele alcança isso ao unificar as duas fases mais críticas e desconectadas do aprendizado: a memorização e a prática.
 
-### 3.2. Ecossistema do Usuário e Fluxo de Interação
+### Ecossistema do Usuário e Fluxo de Interação
 
 O Sistema Peixe Babel foi projetado para se encaixar de forma fluida na rotina de estudos do usuário, promovendo o hábito do aprendizado através de sessões curtas e frequentes. O fluxo de interação principal segue um ciclo virtuoso de quatro etapas:
 
@@ -318,7 +318,7 @@ O Sistema Peixe Babel foi projetado para se encaixar de forma fluida na rotina d
 
 Este ciclo transforma o aplicativo em um companheiro de estudo diário que cresce e se adapta junto com o vocabulário do aluno.
 
-### 3.3. Interações com Outros Sistemas e Dependências
+### Interações com Outros Sistemas e Dependências
 
 O Sistema Peixe Babel opera como uma aplicação conectada, dependendo de uma arquitetura de microsserviços e APIs externas para fornecer sua funcionalidade completa.
 
@@ -340,33 +340,33 @@ O Sistema Peixe Babel opera como uma aplicação conectada, dependendo de uma ar
 
 - O componente mais crítico é a interação entre o banco de dados de flashcards do usuário e o módulo de IA de diálogo. O modelo de IA não é genérico; ele é dinamicamente informado pelo banco de dados individual de cada usuário em tempo real para personalizar a experiência de conversação. A consistência dos dados do usuário será mantida através de um serviço de nuvem (Cloud).
 
-## 4. Características Principais
+## Características Principais
 
 O Sistema Peixe Babel foi concebido para transformar a maneira como os estudantes de idiomas internalizam e ativam novos conhecimentos. As seguintes características representam o núcleo da experiência do usuário, focando em eficiência, confiança e personalização.
 
-### 4.1. Criação de Flashcards Inteligente e Instantânea
+### Criação de Flashcards Inteligente e Instantânea
 
 O usuário não precisa mais gastar tempo formatando e pesquisando informações para seus cartões de estudo.
 
 **Valor para o Usuário**: Elimina a tarefa manual e demorada de criar material de estudo, permitindo que o aluno se concentre 100% no aprendizado. Basta que o usuário insira a palavra ou frase que deseja aprender, e o sistema se encarrega de criar um "flashcard" rico e completo, contendo automaticamente: definições claras, frases de exemplo contextuais, traduções e o áudio da pronúncia.
 
-### 4.2. Sistema de Memorização Otimizado (SRS)
+### Sistema de Memorização Otimizado (SRS)
 
 O aplicativo remove a incerteza sobre "o que" e "quando" revisar.
 
 **Valor para o Usuário**: Garante um aprendizado eficiente e de longo prazo. Utilizando um algoritmo de repetição espaçada (Spaced Repetition System), o Peixe Babel apresenta ao usuário os flashcards que ele está prestes a esquecer. Isso maximiza a retenção do vocabulário com o mínimo de esforço, transformando o estudo em sessões curtas, diárias e altamente produtivas.
 
-### 4.3. Prática de Conversação com IA Adaptativa
+###  Prática de Conversação com IA Adaptativa
 
 O usuário tem acesso a um parceiro de diálogo paciente, disponível 24/7, que conhece seu nível de vocabulário em detalhes.
 
 **Valor para o Usuário**: Oferece um ambiente seguro e livre de julgamentos para praticar a fala, a habilidade mais desafiadora para a maioria dos estudantes. O grande diferencial desta funcionalidade é que o agente de IA constrói o diálogo utilizando o vocabulário que o usuário está estudando. Isso torna a prática extremamente relevante, aumenta a confiança e cria uma ponte direta entre o que foi memorizado e o que pode ser efetivamente usado em uma conversa real.
 
-## 5. Escopo e Limitações
+## Escopo e Limitações
 
 Esta seção define as fronteiras do projeto Sistema Peixe Babel para sua versão inicial, garantindo um foco claro no desenvolvimento e na entrega de valor principal ao usuário.
 
-### 5.1. Escopo (O que o produto fará)
+### Escopo (O que o produto fará)
 
 **Funcionalidades Centrais**: Todas as características principais descritas na seção 4 estarão no escopo:
 
@@ -380,7 +380,7 @@ Esta seção define as fronteiras do projeto Sistema Peixe Babel para sua versã
 
 **Idiomas**: O aplicativo terá o Português (Brasil) como idioma base da interface. Para o aprendizado, o escopo inicial incluirá o Japonês.
 
-### 5.2. Limitações (O que o produto NÃO fará)
+### Limitações (O que o produto NÃO fará)
 
 Para garantir a qualidade e a viabilidade do lançamento inicial, as seguintes funcionalidades estão explicitamente fora do escopo:
 
@@ -390,7 +390,7 @@ Para garantir a qualidade e a viabilidade do lançamento inicial, as seguintes f
 
 **Modo Offline Completo**: Devido à dependência de APIs externas para a criação de flashcards e, principalmente, para a conversação com a IA, a maior parte das funcionalidades exigirá uma conexão ativa com a internet. A revisão de flashcards já sincronizados poderá ter funcionalidade offline limitada.
 
-### 5.3. Funcionalidades Futuras
+### Funcionalidades Futuras
 
 **Novos Idiomas**: Suporte para a criação de cards em mais idiomas, com o Inglês como prioridade.
 
@@ -408,17 +408,17 @@ Para garantir a qualidade e a viabilidade do lançamento inicial, as seguintes f
 
 **Métodos de Inserção Alternativos**: Funcionalidades como extração de palavras de fotos (OCR), de páginas web ou por voz .
 
-## 6. Atributos de Qualidade (Requisitos Não-Funcionais)
+## Atributos de Qualidade (Requisitos Não-Funcionais)
 
 Além das funcionalidades descritas, o sucesso do Sistema Peixe Babel dependerá do cumprimento de rigorosos critérios de qualidade que definem a experiência do usuário e a robustez da plataforma.
 
-### 6.1. Usabilidade e Experiência do Usuário (UX)
+### Usabilidade e Experiência do Usuário (UX)
 
 O aprendizado de um idioma já possui uma carga cognitiva elevada; a ferramenta não deve adicionar complexidade a esse processo.
 
 **Critério**: A interface deve ser extremamente intuitiva, limpa e fluida. O fluxo principal do usuário (adicionar palavra -> revisar flashcard -> iniciar conversa) deve ser autoevidente. Ações-chave, como a criação de um flashcard, devem ser concluídas com o mínimo de passos e esforço. O design deve ser agradável e focado, evitando distrações que possam atrapalhar a sessão de estudo.
 
-### 6.2. Desempenho e Responsividade
+### Desempenho e Responsividade
 
 A agilidade do sistema é crítica para manter o usuário engajado e no "fluxo" de aprendizado.
 
@@ -430,31 +430,31 @@ A agilidade do sistema é crítica para manter o usuário engajado e no "fluxo" 
 
 - Navegação: A transição entre telas, a abertura de decks e a visualização de flashcards devem ser imediatas, sem atrasos ou travamentos perceptíveis.
 
-### 6.3. Disponibilidade e Confiabilidade
+### Disponibilidade e Confiabilidade
 
 O usuário deve poder confiar que sua ferramenta de estudos estará funcional sempre que ele tiver um momento para aprender, seja no ônibus, na fila do café ou em casa.
 
 **Critério**: O sistema deve visar uma alta disponibilidade (uptime de 99.5% para os serviços de backend). A aplicação deve ser estável, com um número mínimo de falhas ou crashes. Fundamentalmente, os dados do usuário (seus decks e progresso) devem ser armazenados de forma segura e persistente, com sincronização confiável para prevenir qualquer perda de informação.
 
-### 6.4. Segurança
+### Segurança
 
 A confiança do usuário é um ativo primordial. Seus dados pessoais e de progresso devem ser tratados com a máxima confidencialidade e proteção.
 
 **Critério**: Todas as comunicações entre o aplicativo e os servidores devem ser criptografadas (HTTPS). O sistema deve seguir as melhores práticas para armazenamento de informações sensíveis, como dados de autenticação. A gestão de dados pessoais deve estar em conformidade com a Lei Geral de Proteção de Dados (LGPD).
 
-### 6.5. Escalabilidade
+### Escalabilidade
 
 A arquitetura do produto deve estar preparada para o crescimento, suportando um aumento no número de usuários sem degradação da performance.
 
 **Critério**: A infraestrutura de backend deve ser capaz de escalar horizontalmente para acomodar picos de uso e um aumento gradual da base de usuários, garantindo que a experiência para o usuário número 100.000 seja tão boa quanto foi para o usuário número 100.
 
-### 6.6. Compatibilidade
+### Compatibilidade
 
 O aplicativo deve funcionar de forma consistente para a grande maioria do público-alvo, independentemente do dispositivo.
 
 **Critério**: O aplicativo deve ser compatível com as 3 últimas versões principais dos sistemas operacionais iOS e Android. A interface deve ser responsiva, adaptando-se corretamente a diferentes tamanhos e resoluções de tela de smartphones e tablets.
 
-### 6.7. Manutenibilidade e Extensibilidade
+### Manutenibilidade e Extensibilidade
 
 A plataforma deve ser construída para evoluir de forma eficiente e com baixo custo.
 
