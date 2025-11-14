@@ -2,65 +2,53 @@
 
 ## Resultados Alcançados
 
-O desenvolvimento do Sistema Peixe Babel atingiu os objetivos propostos, resultando em:
+### Funcionalidades implementadas
 
-1. **Aplicativo funcional** com as três funcionalidades principais implementadas:
-   - Criação automática de flashcards enriquecidos
-   - Sistema de repetição espaçada (SRS) funcional
-   - Módulo de conversação com IA adaptativa
+   - Criação de flashcards em inglês com enriquecimento automático (tradução, significado, exemplos) via serviço de enriquecimento (`english_field_generator`).
+   - Sistema SRS básico: campos e persistência de `easiness_factor`, `interval`, `repetitions` e `next_review`; endpoints para listar e registrar revisões (`/api/v1/review/`).
+   - Módulo de conversação com IA: endpoints para criação e listagem de mensagens (`/api/v1/chat/`).
 
-2. **Performance adequada**:
-   - Tempo de enriquecimento de flashcards: média de 3,2s (meta: <5s)
-   - Latência de resposta da IA: média de 1,8s (meta: <2s)
-   - Transições de tela: <300ms
+### Qualidade do código / arquitetura
 
-3. **Validação com usuários**:
-   - SUS Score: 78/100 (acima da meta de 70)
-   - Taxa de satisfação: 85% dos participantes recomendariam o app
-   - Melhoria na retenção de vocabulário (experimento controlado): +32% em T+7 dias
+   - Estrutura modular (models, serializers, services, views) com responsabilidades separadas.
+   - Constrains para evitar duplicidade (ex.: `word + translation`).
+   - Normalização/limpeza de payloads vindos do LLM centralizada em serviços.
 
-## Contribuições do Trabalho
+## Contribuições técnicas do estado atual
 
-### Contribuições Técnicas
-- Arquitetura modular e escalável para aplicativos de aprendizado assistido por IA
-- Estratégia de integração entre SRS e LLM para personalização de diálogo
-- Implementação de algoritmo SRS otimizado para mobile
-
-### Contribuições Científicas
-- Evidências empíricas do benefício da conversação adaptativa no aprendizado de idiomas
-- Metodologia de avaliação para sistemas de aprendizado baseados em IA
+- Pipeline de enriquecimento de flashcards usando LLM com normalização de saída.
+- Integração inicial entre SRS e serviços de enriquecimento, com armazenamento dos campos SRS no próprio card.
+- Camada de serviços que isola lógica de IA (facilitando testes e troca de provedores).
 
 ## Limitações
 
-1. **Escopo de idiomas**: Versão inicial suporta apenas Português→Japonês
-2. **Dependência de APIs externas**: Custos e latências variáveis
-3. **Funcionalidade offline limitada**: Apenas revisão de flashcards já sincronizados
-4. **Tamanho da amostra**: Testes de usabilidade com apenas 12 participantes
+1. Dependência direta de LLM para enriquecimento — sem fallback local.
+2. Ausência de autenticação e modelo `User` — impede uso multiusuário e métricas por usuário.
+3. Falta de suporte offline: criação e revisão dependem de conectividade.
 
-## Trabalhos Futuros
+## Próximos passos
 
-### Curto Prazo (6 meses)
-- Suporte a inglês e espanhol
-- Modo offline robusto com sincronização diferencial
-- Modos de conversação (imersão, correção, bilíngue)
+| Horizonte | Iniciativa | Objetivo pedagógico / técnico | Dependências | Esforço (S/M/L) |
+|-----------|------------|--------------------------------|--------------|----------------|
+| ≤3m | Modos de conversação (Imersão, Correção, Bilíngue) | Aumentar variedade de prática e feedback | Feature flag IA, logging | M |
+| ≤3m | Lista de frequências para enriquecimento | Priorizar vocabulário útil e reduzir custo | Serviço enriquecimento modular | S |
+| 3–9m | Gamificação (streak, XP, conquistas) | Engajamento e retenção | Autenticação, métricas básicas | M |
+| 3–9m | OCR para captura de palavras | Reduz atrito de entrada de vocabulário | Biblioteca OCR, fallback offline | M |
+| 3–9m | Painel administrativo (B2B) | Uso em escolas / acompanhamento | Autenticação, coleta de métricas | L |
+| 9–18m | Fine‑tuning / modelo próprio | Reduzir custo e latência de enriquecimento | Corpus rotulado, métricas qualidade | L |
+| 9–18m | Reconhecimento de fala (pronúncia) | Feedback oral e fluência | Pipeline áudio, modelo STT | L |
+| 9–18m | Multi‑idioma adicional (ES, JP, FR) | Expandir alcance internacional | Internacionalização, datasets | L |
 
-### Médio Prazo (12 meses)
-- Painel administrativo para escolas (B2B)
-- Gamificação (streaks, conquistas, rankings)
-- OCR para captura de palavras de fotos/câmera
+Modos de conversação (detalhe rápido):
+- Imersão: respostas direto no idioma alvo, mínima sinalização de erro.
+- Correção: resposta + correções e reformulações.
+- Bilíngue: resposta + tradução para idioma nativo do usuário.
 
-### Longo Prazo (18+ meses)
-- Fine-tuning de modelo próprio para reduzir custos de LLM
-- Reconhecimento e avaliação de fala (speech-to-text + pronúncia)
-- Experimento longitudinal (6-12 meses) para medir impacto real no aprendizado
 
-## Considerações sobre Impacto Social
+## Impacto social
 
-O Peixe Babel democratiza o acesso a ferramentas avançadas de aprendizado de idiomas, tradicionalmente restritas a cursos caros ou instituições. A automação reduz barreiras de entrada e permite prática ilimitada, potencialmente acelerando a aquisição de proficiência em populações com menos recursos.
+Mesmo em estágio de MVP (Minimum Viable Product – Produto Mínimo Viável), o sistema reduz a fricção na criação de material de estudo personalizado. Ao incluir offline e multi‑idioma e reduzir dependência de um único provedor de IA, o alcance para contextos com restrição de recursos será ampliado significativamente.
 
 ## Conclusão
 
-O projeto demonstrou a viabilidade técnica e pedagógica de combinar SRS com conversação adaptativa baseada em LLM. Os resultados indicam que a abordagem proposta pode melhorar significativamente a retenção de vocabulário e a confiança dos estudantes para praticar conversação.
-
-O código-fonte, documentação completa e dados dos testes estão disponíveis no repositório público do projeto, permitindo replicação e extensão por outros pesquisadores e desenvolvedores.
-
+O repositório comprova a viabilidade técnica das três peças centrais: enriquecimento automático, revisão espaçada e conversação básica.

@@ -84,26 +84,6 @@ frontend/lib/
 
 - Backend utiliza `OPENAI_API_KEY`, `OPENAI_MODEL`.
 
-## Observações de Implementação
-
-### Boas Práticas Adotadas
-
-- Separação clara de camadas (models / serializers / services / views).
-- Uso de constraints de unicidade para garantir integridade de vocabulário.
-- Normalização cuidadosa de exemplos do LLM para formato consistente.
-
-### Limitações Atuais
-
-- Dependência direta de OpenAI sem fallback local.
-- Ausência de autenticação e multiusuário.
-- Sem mecanismo de cache/offline.
-
-### Riscos e Mitigações Planejadas
-
-- (Risco) Falha na API de IA → (Mitigação) Fallback de enriquecimento local.
-- (Risco) Crescimento de latência em revisão → (Mitigação) Indexação e queries limitadas.
-- (Risco) Escalabilidade no chat → (Mitigação) Paginação e truncamento de histórico.
-
 ### Dependências Críticas
 
 - Django / DRF (core da API)

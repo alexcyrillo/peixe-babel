@@ -9,12 +9,16 @@
 2. **Wozniak, P. A., & Gorzelańczyk, E. J.** (1994). Optimization of repetition spacing in the practice of learning. *Acta Neurobiologiae Experimentalis*, 54, 59-62.
 
 3. **Karpicke, J. D., & Roediger, H. L.** (2008). The critical importance of retrieval for learning. *Science*, 319(5865), 966-968.
-4. **Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., & Rohrer, D.** (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. *Psychological Bulletin*, 132(3), 354–380.
-5. **Uchihara, T., Saito, K., & Keung, Y. C.** (2019). Roles of repetition in second language oral fluency development. *Language Learning*, 69(3), 652–688.
-6. **Pane, J. F., Steiner, E. D., Baird, M. D., & Hamilton, L. S.** (2015). Promoting Grit, Tenacity, and Perseverance. *RAND Corporation Report*.
-7. **OECD** (2021). *Digital Education Outlook 2021: Digital Transformation in Education*. OECD Publishing.
 
-4. **Nation, I. S. P.** (2001). *Learning Vocabulary in Another Language*. Cambridge University Press.
+4. **Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., & Rohrer, D.** (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. *Psychological Bulletin*, 132(3), 354–380.
+
+5. **Uchihara, T., Saito, K., & Keung, Y. C.** (2019). Roles of repetition in second language oral fluency development. *Language Learning*, 69(3), 652–688.
+
+6. **Pane, J. F., Steiner, E. D., Baird, M. D., & Hamilton, L. S.** (2015). Promoting Grit, Tenacity, and Perseverance. *RAND Corporation Report*.
+
+7.  **OECD** (2021). *Digital Education Outlook 2021: Digital Transformation in Education*. OECD Publishing.
+
+8.  **Nation, I. S. P.** (2001). *Learning Vocabulary in Another Language*. Cambridge University Press.
 
 ### Processamento de Linguagem Natural e LLMs
 
@@ -32,13 +36,6 @@
 
 9. **Fowler, M.** (2002). *Patterns of Enterprise Application Architecture*. Addison-Wesley.
 
-10. **Richardson, C.** (2018). *Microservices Patterns*. Manning Publications.
-
-### Usabilidade e UX
-
-11. **Nielsen, J.** (1994). *Usability Engineering*. Morgan Kaufmann.
-
-12. **Brooke, J.** (1996). SUS: A "quick and dirty" usability scale. *Usability Evaluation in Industry*, 189-194.
 
 ### Documentação de APIs e Tecnologias
 
@@ -48,9 +45,7 @@
 
 10. **OpenAI** (2024). GPT-4 Technical Report. Disponível em: https://openai.com/research/gpt-4
 
-11. **Wei, J., et al.** (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. *arXiv preprint arXiv:2201.11903*.
-
-12. **alankan886**. SuperMemo2 (v3.0.1). GitHub repository. Disponível em: https://github.com/alankan886/SuperMemo2. Acesso em: 13 nov. 2025.
+11. **alankan886**. SuperMemo2 (v3.0.1). GitHub repository. Disponível em: https://github.com/alankan886/SuperMemo2. Acesso em: 13 nov. 2025.
 
 ### Anexo A — Documento de Visão Completo
 Ver arquivo: `docs/documento_de_visao.md`
@@ -58,8 +53,8 @@ Ver arquivo: `docs/documento_de_visao.md`
 ### Anexo B — Diagrama de Contexto
 Ver arquivo: `docs/diagrama_de_contexto.md`
 
-### Anexo C — Especificação de API (OpenAPI/Swagger)
-Ver arquivo: `docs/api-spec.yaml` (ou link para documentação interativa)
+### Anexo C — Especificação de API
+Acessar API: `http://{HOST_DA_API}:8000/api/v1/`
 
 ### Anexo D — Código-Fonte
 Repositório GitHub: `https://github.com/alexcyrillo/peixe-babel`
@@ -67,154 +62,172 @@ Repositório GitHub: `https://github.com/alexcyrillo/peixe-babel`
 **Estrutura do repositório**:
 ```
 peixe-babel/
-├── mobile/          # Aplicativo Flutter
-│   ├── lib/
-│   ├── test/
-│   └── pubspec.yaml
-├── backend/         # API Django
-│   ├── apps/
-│   ├── services/
-│   ├── tests/
-│   └── requirements.txt
-├── docs/            # Documentação (este TCC)
-└── scripts/         # Scripts de deploy e CI/CD
+├── README.md
+├── .gitignore
+├── backend/
+│   ├── docker-compose.yml
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   ├── .env.example
+│   ├── db_init/
+│   │   └── init.sql
+│   ├── scripts/
+│   │   └── wait-for-postgres.sh
+│   └── src/
+│       ├── peixe_babel/
+│       │   ├── __init__.py
+│       │   ├── asgi.py
+│       │   ├── settings.py
+│       │   ├── urls.py
+│       │   └── wsgi.py
+│       └── flashcard/
+│           ├── __init__.py
+│           ├── admin.py
+│           ├── apps.py
+│           ├── urls.py
+│           ├── tests.py
+│           ├── models/
+│           │   ├── base_card.py
+│           │   ├── english_card.py
+│           │   └── chat_message.py
+│           ├── serializers/
+│           │   ├── english_card_serializers.py
+│           │   ├── english_chat_serializer.py
+│           │   ├── review_serializer.py
+│           │   └── utils.py
+│           ├── services/
+│           │   ├── chat_open_api.py
+│           │   ├── english_field_generator.py
+│           │   └── vocabulary_getter.py
+│           └── views/
+│               ├── english_ai_chat_view_set.py
+│               ├── english_card_review_view_set.py
+│               └── english_card_view_set.py
+├── docs/
+│   ├── diagrama_de_contexto.md
+│   ├── documento_de_visao.md
+│   └── img/
+└── frontend/
+    ├── README.md
+    ├── .gitignore
+    ├── .metadata
+    ├── analysis_options.yaml
+    ├── pubspec.yaml
+    ├── pubspec.lock
+    ├── android/
+    ├── ios/
+    ├── web/
+    ├── linux/
+    ├── macos/
+    ├── windows/
+    ├── assets/
+    │   └── images/
+    └── lib/
+        ├── main.dart
+        ├── pages/
+        │   ├── conversation_page.dart
+        │   ├── main_flashcard_page.dart
+        │   ├── main_page.dart
+        │   └── flashcard/
+        │       ├── create_flashcard_page.dart
+        │       ├── flashcard_card_page.dart
+        │       ├── list_flashcard_page.dart
+        │       └── review_flashcard_page.dart
+        ├── services/
+        │   └── api/
+        │       ├── api_provider.dart
+        │       ├── chat_api.dart
+        │       └── flashcard_api.dart
+        ├── src/
+        ├── theme/
+        └── widgets/
 ```
 
 ### Anexo E — Diagramas UML Detalhados
 
-**E.1 — Diagrama de Classes Completo**
-(Incluir imagem ou ferramenta: PlantUML, Draw.io)
+#### **E.1 — Diagrama de Contexto**
 
-**E.2 — Diagramas de Sequência Adicionais**
-- Fluxo de autenticação (login/registro)
-- Fluxo de sincronização de dados
-- Fluxo de erro e retry
+![Diagrama de Contexto do Sistema e atores externos](img/diagrama_contexto.png)
 
-**E.3 — Diagrama de Deployment**
+#### **E.2 — Diagrama de Casos de Uso**
+
+![Diagrama de Casos de Uso: criar, revisar, conversar, sincronizar, editar](img/diagrama_casos_uso.png)
+
+#### **E.3 — Diagrama de Classes**
+
+![Diagrama de Classes: entidades de flashcard, mensagem de chat e relações](img/diagrama_classes.png)
+
+#### **E.4 — Diagramas de Sequência**
+
+##### E.4.1 — Criação de Flashcard
+  
+![Diagrama de Sequência: fluxo de criação e enriquecimento de flashcard](img/diagrama_seq_criar_flashcard.png)
+
+#####  E.4.2 — Revisão de Flashcard (SRS)
+  
+![Diagrama de Sequência: fluxo de revisão SRS e atualização de intervalo](img/diagrama_seq_revisao.png)
+
+##### E.4.3 — Conversação com IA
+  
+![Diagrama de Sequência: diálogo com IA adaptado ao vocabulário do usuário](img/diagrama_seq_chat.png)
+
+#### **E.5 — Diagrama de Estados**
+
+![Diagrama de Estados: transições do flashcard no SRS](img/diagrama_estados_flashcard.png)
+
+#### **E.6 — Diagrama de Componentes**
+
+![Diagrama de Componentes: app Flutter, API Django, PostgreSQL e integrações](img/diagrama_componentes.png)
+
+
+### Anexo F — Exemplos de Prompts para LLM
+
+#### F.1 — Prompt de Conversa 
+
+```text
+Você é um robô que conversa em Inglês, que se adapta ao vocabulário do estudante. O vocabulário que o seu aluno sabe é: <LISTA_DE_PALAVRAS>Se não for possível responder apenas com o vocabulário do aluno, pode utilizar outras, porém disponibilize a tradução dessas novas palavras utilizadas
 ```
-┌─────────────────┐
-│   Usuário       │
-└────────┬────────┘
-         │ HTTPS
-         ↓
-┌─────────────────────────────┐
-│   Load Balancer / CDN       │
-└────────┬────────────────────┘
-         │
-         ↓
-┌─────────────────────────────┐
-│   Backend API (Django)      │
-│   (Railway / AWS EC2)       │
-└────┬────────────────────┬───┘
-     │                    │
-     ↓                    ↓
-┌──────────┐      ┌──────────────┐
-│PostgreSQL│      │ Redis        │
-│ Database │      │ (Cache/Queue)│
-└──────────┘      └──────────────┘
-```
+Notas:
+- `<LISTA_DE_PALAVRAS>` é construída a partir das palavras (`word`) dos flashcards cadastrados.
 
-### Anexo F — Esquemas de Banco de Dados
 
-**F.1 — Schema SQL**
-```sql
-CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    native_lang VARCHAR(10) DEFAULT 'pt-BR',
-    target_lang VARCHAR(10) DEFAULT 'ja',
-    created_at TIMESTAMP DEFAULT NOW()
-);
+#### F.2 — Prompts de Geração de Campos de Flashcard 
 
-CREATE TABLE flashcards (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-    word VARCHAR(200) NOT NULL,
-    definition TEXT,
-    translation VARCHAR(500),
-    example TEXT,
-    audio_url VARCHAR(500),
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
-);
-
-CREATE TABLE review_schedules (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    flashcard_id UUID REFERENCES flashcards(id) ON DELETE CASCADE,
-    next_review DATE NOT NULL,
-    interval_days INTEGER DEFAULT 1,
-    easiness_factor FLOAT DEFAULT 2.5,
-    repetitions INTEGER DEFAULT 0
-);
-
-CREATE TABLE conversation_sessions (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-    started_at TIMESTAMP DEFAULT NOW(),
-    ended_at TIMESTAMP,
-    messages JSONB
-);
+```text
+Você ajuda estudantes brasileiros de inglês criando cartões de estudo. Entregue traduções e significados em português do Brasil. Quando gerar exemplos, mantenha as frases em inglês, inclua a tradução em português e garanta que são curtas e naturais. Retorne apenas JSON válido que siga o formato solicitado.
 ```
 
-### Anexo G — Exemplos de Prompts para LLM
-
-**G.1 — Prompt de Inicialização de Conversa**
-```
-You are a friendly language tutor practicing Japanese conversation.
-The user knows these words: [word1, word2, word3, ...].
-Use ONLY these words in your responses when possible.
-If you must use a new word, mark it with ** and provide a brief translation.
-Start the conversation with a simple greeting.
-```
-
-**G.2 — Prompt de Geração de Frase de Exemplo**
-```
-Generate a natural example sentence in Japanese using the word: [WORD].
-The sentence should be appropriate for intermediate learners.
-Provide: Japanese sentence, romaji, and English translation.
+##### User Prompt
+```text
+Gere o conteúdo de um flashcard para a palavra em inglês informada.
+Palavra: <WORD>
+Retorne um JSON com as chaves:
+- translation: tradução da palavra para português do Brasil (string).
+- meaning: explicação breve do significado em português do Brasil (string).
+- examples: lista com 2 a 3 objetos contendo:
+    - sentence: frase curta em inglês usando a palavra.
+    - translation: tradução da frase para português do Brasil.
+Responda exclusivamente com o JSON solicitado, sem texto adicional.
 ```
 
-### Anexo H — Resultados dos Testes de Usabilidade
+#### F.3 — Referências de Código
+- Conversa: função `get_chat_response()`.
+- Vocabulário dinâmico: função `get_vocabulary()`.
+- Geração de campos: função `english_fields_generator()`.
 
-**Tabela H.1 — SUS Scores**
-| Participante | Score | Comentário Principal |
-|--------------|-------|---------------------|
-| P1 | 82.5 | "Interface limpa e intuitiva" |
-| P2 | 75.0 | "Gostei da conversação adaptada" |
-| P3 | 80.0 | "Rápido e eficiente" |
-| ... | ... | ... |
-| Média | 78.0 | - |
+### Anexo G — Configurações e Variáveis de Ambiente
 
-**Tabela H.2 — Experimento de Retenção**
-| Grupo | Recall T+1 | Recall T+7 | Recall T+30 |
-|-------|------------|------------|-------------|
-| Controle (flashcards apenas) | 85% | 62% | 45% |
-| Peixe Babel (SRS + conversa) | 90% | 82% | 68% |
+#### **G.1 — `.env.example` (Backend)**
 
-### Anexo I — Configurações e Variáveis de Ambiente
-
-**I.1 — `.env.example` (Backend)**
 ```bash
-# Django
-SECRET_KEY=your-secret-key-here
-DEBUG=False
-ALLOWED_HOSTS=api.peixebabel.com
-
-# Database
-DATABASE_URL=postgresql://user:pass@host:5432/dbname
-
-# APIs Externas
-OPENAI_API_KEY=sk-...
-GOOGLE_TTS_API_KEY=...
-DICTIONARY_API_KEY=...
-
-# Redis
-REDIS_URL=redis://localhost:6379/0
+COMPOSE_PROJECT_NAME=peixe-babel
+POSTGRES_DB_NAME=peixe_babel_db
+POSTGRES_USER=peixe_babel_user
+POSTGRES_PASSWORD=troque-esta-senha
+OPENAI_API_KEY=key-api-open-api
 ```
 
-### Anexo J — Licença e Termos de Uso
+### Anexo H — Licença e Termos de Uso
 
 **Licença**: MIT License (código aberto)
 

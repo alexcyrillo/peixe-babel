@@ -17,7 +17,7 @@ plugins:
       toc_title: "Sumário"
       cover_logo: "img/logo_universidade.png"
       output_path: pdf/tcc-peixe-babel.pdf
-      author: "Alex Cyrillo"
+      author: "Alex Cyrillo de Sousa Borges"
       copyright: "© 2025 Alex Cyrillo. Todos os direitos reservados."
       heading_shift: false
       toc_level: 3
