@@ -26,13 +26,11 @@ Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema 
 - Back-end: Django
 - Front-end: Flutter
 - Banco de Dados: Postgresql
-  
-- Traduções: Libre Translator
-
+- 
 ### Bibliotecas
 
-- Sistema de repetição espaçada: supermemo2
-- Definições: PyDictionary
+- supermemo2
+- Open Ai API
 
 ## Instalação
 
