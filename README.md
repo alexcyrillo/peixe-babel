@@ -26,7 +26,7 @@ Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema 
 - Back-end: Django
 - Front-end: Flutter
 - Banco de Dados: Postgresql
-- 
+  
 ### Bibliotecas
 
 - supermemo2
@@ -37,10 +37,3 @@ Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema 
 **Dependências**
 - docker
 - docker-compose
-
-1. Instale as dependências
-2. Execute o seguinte comando no terminal aberto na pasta do projeto:
-
-```
-  docker compose up -d
-```
