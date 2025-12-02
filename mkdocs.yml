@@ -1,6 +1,6 @@
-site_name: Sistema Peixe Babel - TCC Engenharia de Computação
-site_author: Alex Cyrillo
-site_description: Aplicativo para Auxílio no Aprendizado de Idiomas com IA
+site_name: Aplicativo para Auxílio no Aprendizado de Idiomas com IA e Repetição Espaçada - TCC Engenharia de Computação
+site_author: Alex Cyrillo de Sousa Borges
+site_description: Aplicativo para Auxílio no Aprendizado de Idiomas com IA e Repetição Espaçada
 
 theme:
   name: material
@@ -9,16 +9,17 @@ theme:
     - navigation.sections
     - toc.integrate
 
+markdown_extensions:
+  - attr_list
+
 plugins:
   - to-pdf:
       cover: true
-      cover_title: "SISTEMA PEIXE BABEL" 
+      cover_title: "SISTEMA PEIXE BABEL"
       cover_subtitle: "Aplicativo para Auxílio no Aprendizado de Idiomas com IA - Trabalho de Conclusão de Curso em Engenharia de Computação"
       toc_title: "Sumário"
-      cover_logo: "img/logo_universidade.png"
       output_path: pdf/tcc-peixe-babel.pdf
       author: "Alex Cyrillo de Sousa Borges"
-      copyright: "© 2025 Alex Cyrillo. Todos os direitos reservados."
       heading_shift: false
       toc_level: 3
 
@@ -26,17 +27,16 @@ plugins:
 extra_css:
   - css/print.css
 
+
 nav:
-  - Resumo: abstract.md
   - 1. Introdução e Objetivos: chapters/chapter1_introduction.md
   - 2. Requisitos Funcionais e Não Funcionais: chapters/chapter2_requirements.md
   - 3. Modelagens (Funcional, Estática, Dinâmica): chapters/chapter3_modeling.md
   - 4. Estratégias de Implementação:
       - 4.1 Arquitetura e Design: chapters/chapter4_architecture.md
       - 4.2 Implementação: chapters/chapter5_implementation.md
-  - 5. Procedimentos de Testes e Validação: chapters/chapter6_testing.md
-  - 6. Resultados e Considerações Finais: conclusion.md
-  - 7. Referências e Anexos Técnicos: references.md
+  - 5. Resultados e Considerações Finais: conclusion.md
+  - 6. Referências e Anexos Técnicos: references.md
   - Apêndices:
       - Apêndice A: appendix.md
       - Documento de Visão: documento_de_visao.md

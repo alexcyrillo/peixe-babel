@@ -4,7 +4,7 @@
 
 ### Funcionalidades implementadas
 
-   - Criação de flashcards em inglês com enriquecimento automático (tradução, significado, exemplos) via serviço de enriquecimento (`english_field_generator`).
+   - Criação de _flashcards_ em inglês com enriquecimento automático (tradução, significado, exemplos) via serviço de enriquecimento (`english_field_generator`).
    - Sistema SRS básico: campos e persistência de `easiness_factor`, `interval`, `repetitions` e `next_review`; endpoints para listar e registrar revisões (`/api/v1/review/`).
    - Módulo de conversação com IA: endpoints para criação e listagem de mensagens (`/api/v1/chat/`).
 
@@ -16,7 +16,7 @@
 
 ## Contribuições técnicas do estado atual
 
-- Pipeline de enriquecimento de flashcards usando LLM com normalização de saída.
+- Pipeline de enriquecimento de _flashcards_ usando LLM com normalização de saída.
 - Integração inicial entre SRS e serviços de enriquecimento, com armazenamento dos campos SRS no próprio card.
 - Camada de serviços que isola lógica de IA (facilitando testes e troca de provedores).
 
@@ -48,12 +48,12 @@ Modos de conversação (detalhe rápido):
 
 O trabalho apresentado partiu de um problema concreto: a dificuldade de manter uma rotina consistente de estudo de idiomas e de transformar insumos dispersos (textos, conversas, conteúdos de aula) em material de revisão estruturado. A partir desse contexto, o projeto definiu como objetivo principal investigar e demonstrar a viabilidade de um sistema que combinasse **enriquecimento automático de vocabulário**, **revisão espaçada** e **interação por conversação com IA** para apoiar o aprendizado de inglês.
 
-Ao longo dos capítulos de requisitos, modelagem e arquitetura foram especificadas e refinadas as principais funcionalidades: criação de flashcards enriquecidos com tradução, significado e exemplos; uso de um modelo de repetição espaçada com campos dedicados (`easiness_factor`, `interval`, `repetitions`, `next_review`); e um módulo de chat que permite ao usuário praticar o idioma em diferentes modos de interação. A implementação consolidada neste repositório materializa essas decisões em uma API REST, com modelos, serviços e endpoints documentados e testáveis.
+Ao longo dos capítulos de requisitos, modelagem e arquitetura foram especificadas e refinadas as principais funcionalidades: criação de _flashcards_ enriquecidos com tradução, significado e exemplos; uso de um modelo de repetição espaçada com campos dedicados (`easiness_factor`, `interval`, `repetitions`, `next_review`); e um módulo de chat que permite ao usuário praticar o idioma em diferentes modos de interação. A implementação consolidada neste repositório materializa essas decisões em uma API REST, com modelos, serviços e endpoints documentados e testáveis.
 
 Do ponto de vista técnico, o sistema comprova que é possível integrar um serviço de LLM para enriquecimento de cartões, normalizando a saída e persistindo os dados de forma coerente com o modelo de SRS proposto. A arquitetura modular, com separação entre modelos, serializers, views e serviços, facilita a evolução futura do projeto e a eventual troca de provedores de IA, mantendo a lógica de negócio isolada. Os diagramas de caso de uso, classes, componentes e sequência apresentados nos anexos reforçam que há um desenho consistente entre os requisitos elicitados e a solução implementada.
 
-Mesmo em estágio de MVP (Minimum Viable Product – Produto Mínimo Viável), os resultados alcançados são significativos. Já é possível:
-- Criar flashcards em inglês a partir de uma palavra ou expressão simples e obter, de forma automática, traduções, significados e exemplos contextualizados.
+Mesmo em estágio de Produto Mínimo Viável (MVP - Minimum Viable Product), os resultados alcançados são significativos. Já é possível:
+- Criar _flashcards_ em inglês a partir de uma palavra ou expressão simples e obter, de forma automática, traduções, significados e exemplos contextualizados.
 - Registrar e acompanhar revisões usando um mecanismo básico de repetição espaçada, preservando os principais parâmetros do algoritmo.
 - Interagir com um módulo de conversação com IA, que abre caminho para modos mais elaborados de prática (imersão, correção e abordagem bilíngue).
 

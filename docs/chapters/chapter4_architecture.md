@@ -6,7 +6,7 @@ Este capítulo apresenta as decisões técnicas, arquitetura de software e estra
 
 O sistema segue uma **arquitetura cliente-servidor em camadas** (layered) com princípios de **clean architecture** para modularidade, testabilidade e manutenibilidade.
 
-Estilo arquitetural: aplicativo móvel nativo se comunica com um backend via REST API e integra serviços externos especializados.
+Estilo arquitetural: aplicativo móvel nativo se comunica com um backend via _Representational State Transfer_ (REST) Interface de Programação de Aplicações (API - Application Programming Interface) e integra serviços externos especializados.
 
 ## Componentes Principais
 

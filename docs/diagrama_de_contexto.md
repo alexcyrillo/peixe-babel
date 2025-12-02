@@ -5,7 +5,7 @@ Este documento apresenta o Diagrama de Contexto para o sistema Peixe Babel. O di
 
 ## O Sistema Central
 
-O sistema em foco é o Sistema Peixe Babel. Ele é o centro de todas as operações, responsável por gerenciar os dados dos usuários, automatizar a criação de flashcards, conduzir as sessões de estudo e orquestrar a interação com a inteligência artificial para prática de conversação.
+O sistema em foco é o Sistema Peixe Babel. Ele é o centro de todas as operações, responsável por gerenciar os dados dos usuários, automatizar a criação de _flashcards_, conduzir as sessões de estudo e orquestrar a interação com a inteligência artificial para prática de conversação.
 
 ## Entidades Externas
 
@@ -23,9 +23,9 @@ A seguir, detalhamos as informações trocadas entre o Sistema Peixe Babel e as 
 
 ##### Do Usuário para o Sistema Peixe Babel:
 
-- **Palavras e Estruturas para Flashcard**: O usuário insere o conteúdo que deseja criar um flashcard.
+- **Palavras e Estruturas para _Flashcard_**: O usuário insere o conteúdo que deseja criar um _flashcard_.
 
-- **Dados de Interação de Estudo**: Respostas durante a prática com flashcards (ex: "acertei", "errei").
+- **Dados de Interação de Estudo**: Respostas durante a prática com _flashcards_ (ex: "acertei", "errei").
 
 - **Mensagens para Diálogo**: O texto que o usuário escreve para praticar a conversação.
 
@@ -33,7 +33,7 @@ A seguir, detalhamos as informações trocadas entre o Sistema Peixe Babel e as 
 
 ##### Do Sistema Peixe Babel para o Usuário:
 
-- **Flashcards Gerados**: Apresentação dos cartões de estudo criados automaticamente.
+- **_Flashcards_ Gerados**: Apresentação dos cartões de estudo criados automaticamente.
 
 - **Interface de Estudo e Conversação**: As telas onde o usuário pratica e dialoga.
 

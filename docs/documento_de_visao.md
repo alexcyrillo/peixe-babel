@@ -6,15 +6,15 @@
 
 ## Introdução
 
-Como um estudante de idiomas que encara a atividade como um hobby, reconheço a profundidade do desafio que é aprender uma nova língua. Não se trata apenas de memorizar palavras; é uma jornada árdua que exige dedicação por anos. Pessoalmente, utilizo flashcards como uma ferramenta poderosa para memorização, mas criar e gerenciar cartões detalhados — que vão além da simples tradução — é um processo manual e demorado.
+Como um estudante de idiomas que encara a atividade como um hobby, reconheço a profundidade do desafio que é aprender uma nova língua. Não se trata apenas de memorizar palavras; é uma jornada árdua que exige dedicação por anos. Pessoalmente, utilizo _flashcards_ como uma ferramenta poderosa para memorização, mas criar e gerenciar cartões detalhados — que vão além da simples tradução — é um processo manual e demorado.
 
 Outra grande dificuldade é a prática do diálogo. A falta de vocabulário e desenvoltura pode ser desanimadora para o aprendiz e, por vezes, tediosa para o interlocutor. 
 
 Em "O Guia do Mochileiro das Galáxias", Douglas Adams apresenta uma de suas ideias mais geniais: o Peixe Babel. Esta pequena criatura fictícia, quando inserida no ouvido, realiza uma tradução universal e instantânea, quebrando todas as barreiras linguísticas. Enquanto essa mágica pertence à ficção, a tecnologia de hoje nos permite construir ferramentas que nos aproximam desse ideal de comunicação.
 
-Inspirado pela ideia de facilitar essa jornada, o Sistema Peixe Babel surge como uma solução. Ele se propõe a ser um aplicativo que ataca essas duas frentes: por um lado, automatiza a criação de flashcards ricos em detalhes para um sistema de repetição espaçada rápido e simplificado; por outro, oferece prática de diálogo com agentes de Inteligência Artificial.
+Inspirado pela ideia de facilitar essa jornada, o Sistema Peixe Babel surge como uma solução. Ele se propõe a ser um aplicativo que ataca essas duas frentes: por um lado, automatiza a criação de _flashcards_ ricos em detalhes para um sistema de repetição espaçada rápido e simplificado; por outro, oferece prática de diálogo com agentes de Inteligência Artificial.
 
-O grande diferencial é que a IA utilizará o banco de dados dos flashcards do próprio usuário, mantendo a conversa o mais próximo possível do seu conhecimento atual. Ao adaptar o diálogo ao vocabulário que o estudante já está praticando, o processo se torna mais relevante e motivador.
+O grande diferencial é que a IA utilizará o banco de dados dos _flashcards_ do próprio usuário, mantendo a conversa o mais próximo possível do seu conhecimento atual. Ao adaptar o diálogo ao vocabulário que o estudante já está praticando, o processo se torna mais relevante e motivador.
 
 ## Descrição dos Usuários
 
@@ -35,7 +35,7 @@ Um curso de inglês moderno que busca se diferenciar no mercado, oferecendo ferr
 - Fornecer material de apoio que personalize o aprendizado para cada aluno.
 
 **Como o Peixe Babel Ajuda**
-A escola adota o Sistema Peixe Babel como sua ferramenta oficial de apoio. Os professores podem incentivar os alunos a criarem seus decks de flashcards baseados nas aulas, e o aplicativo serve como uma "lição de casa" interativa, onde o aluno pratica a conversação com a matéria vista. Para a escola, é um diferencial competitivo; para o aluno, uma extensão poderosa da sala de aula.
+A escola adota o Sistema Peixe Babel como sua ferramenta oficial de apoio. Os professores podem incentivar os alunos a criarem seus decks de _flashcards_ baseados nas aulas, e o aplicativo serve como uma "lição de casa" interativa, onde o aluno pratica a conversação com a matéria vista. Para a escola, é um diferencial competitivo; para o aluno, uma extensão poderosa da sala de aula.
 
 #### Usuário 2: Marvin, O Autodidata Focado
 
@@ -48,7 +48,7 @@ Marvin, 30 anos, é um profissional que está aprendendo alemão por conta próp
 - Sentir que seu esforço está se convertendo em habilidade de comunicação real.
 
 **Como o Peixe Babel Ajuda**
-O aplicativo se torna o centro do ecossistema de estudos de Marvin. Ele insere as palavras novas que encontra e o sistema cria os flashcards automaticamente. Diariamente, ele pratica a conversação com a IA, que utiliza exatamente as palavras que ele está estudando. Marvin finalmente consegue conectar seu conhecimento passivo (leitura) com o conhecimento ativo (fala).
+O aplicativo se torna o centro do ecossistema de estudos de Marvin. Ele insere as palavras novas que encontra e o sistema cria os _flashcards_ automaticamente. Diariamente, ele pratica a conversação com a IA, que utiliza exatamente as palavras que ele está estudando. Marvin finalmente consegue conectar seu conhecimento passivo (leitura) com o conhecimento ativo (fala).
 
 #### Usuário 3: Trillian, A Aluna de Curso Tradicional
 
@@ -82,9 +82,9 @@ O Sistema Peixe Babel foi projetado para se encaixar de forma fluida na rotina d
 
 - **Enriquecimento** (Automático): O sistema assume o trabalho manual. Ele busca definições, traduções, gera frases de exemplo relevantes e anexa áudio de pronúncia, criando um flashcard rico e contextualizado em segundos.
 
-- **Memorização**: O usuário interage com o sistema de repetição espaçada (SRS) do aplicativo, que apresenta os flashcards no momento ideal para fortalecer a retenção na memória de longo prazo. Esta é a fase de consolidação do conhecimento passivo.
+- **Memorização**: O usuário interage com o sistema de repetição espaçada (SRS) do aplicativo, que apresenta os _flashcards_ no momento ideal para fortalecer a retenção na memória de longo prazo. Esta é a fase de consolidação do conhecimento passivo.
 
-- **Aplicação**: Esta é a etapa transformadora. O usuário inicia uma sessão de diálogo com um agente de IA. A IA constrói a conversa utilizando as palavras e frases que o usuário está ativamente estudando em seus flashcards, otimizando com o uso de listas de frequência. O sistema pode, inclusive, incentivar o usuário a usar um termo específico que ele revisou recentemente, solidificando a transição do conhecimento para a habilidade prática.
+- **Aplicação**: Esta é a etapa transformadora. O usuário inicia uma sessão de diálogo com um agente de IA. A IA constrói a conversa utilizando as palavras e frases que o usuário está ativamente estudando em seus _flashcards_, otimizando com o uso de listas de frequência. O sistema pode, inclusive, incentivar o usuário a usar um termo específico que ele revisou recentemente, solidificando a transição do conhecimento para a habilidade prática.
 
 Este ciclo transforma o aplicativo em um companheiro de estudo diário que cresce e se adapta junto com o vocabulário do aluno.
 
@@ -96,25 +96,25 @@ O Sistema Peixe Babel opera como uma aplicação conectada, dependendo de uma ar
 
 - A aplicação será executada em sistemas operacionais padrão (iOS e Android).
 
-- Requer uma conexão ativa com a internet para sincronizar o progresso, criar novos flashcards e interagir com o módulo de IA, visto que o processamento principal ocorre através de requisições a APIs.
+- Requer uma conexão ativa com a internet para sincronizar o progresso, criar novos _flashcards_ e interagir com o módulo de IA, visto que o processamento principal ocorre através de requisições a APIs.
 
 #### Interações com Sistemas Externos (APIs):
 
-- **APIs de Dicionário e Tradução**: Para o enriquecimento automático dos flashcards, o sistema se conectará a serviços externos para obter definições precisas, sinônimos e traduções confiáveis.
+- **APIs de Dicionário e Tradução**: Para o enriquecimento automático dos _flashcards_, o sistema se conectará a serviços externos para obter definições precisas, sinônimos e traduções confiáveis.
 
-- **APIs de Síntese de Voz (Text-to-Speech)**: Para fornecer a pronúncia correta nos flashcards, o sistema utilizará APIs de conversão de texto em voz de alta qualidade.
+- **APIs de Síntese de Voz (Text-to-Speech)**: Para fornecer a pronúncia correta nos _flashcards_, o sistema utilizará APIs de conversão de texto em voz de alta qualidade.
 
 - **APIs de Modelos de Linguagem Avançados (LLMs)**: O coração da prática de diálogo e da criação de frases de exemplo dependerá da integração com um ou mais modelos de linguagem de grande escala, que serão especificamente instruídos para usar o vocabulário do banco de dados do usuário.
 
 #### Interações Internas:
 
-- O componente mais crítico é a interação entre o banco de dados de flashcards do usuário e o módulo de IA de diálogo. O modelo de IA não é genérico; ele é dinamicamente informado pelo banco de dados individual de cada usuário em tempo real para personalizar a experiência de conversação. A consistência dos dados do usuário será mantida através de um serviço de nuvem (Cloud).
+- O componente mais crítico é a interação entre o banco de dados de _flashcards_ do usuário e o módulo de IA de diálogo. O modelo de IA não é genérico; ele é dinamicamente informado pelo banco de dados individual de cada usuário em tempo real para personalizar a experiência de conversação. A consistência dos dados do usuário será mantida através de um serviço de nuvem (Cloud).
 
 ## Características Principais
 
 O Sistema Peixe Babel foi concebido para transformar a maneira como os estudantes de idiomas internalizam e ativam novos conhecimentos. As seguintes características representam o núcleo da experiência do usuário, focando em eficiência, confiança e personalização.
 
-### Criação de Flashcards Inteligente e Instantânea
+### Criação de _Flashcards_ Inteligente e Instantânea
 
 O usuário não precisa mais gastar tempo formatando e pesquisando informações para seus cartões de estudo.
 
@@ -124,7 +124,7 @@ O usuário não precisa mais gastar tempo formatando e pesquisando informações
 
 O aplicativo remove a incerteza sobre "o que" e "quando" revisar.
 
-**Valor para o Usuário**: Garante um aprendizado eficiente e de longo prazo. Utilizando um algoritmo de repetição espaçada (Spaced Repetition System), o Peixe Babel apresenta ao usuário os flashcards que ele está prestes a esquecer. Isso maximiza a retenção do vocabulário com o mínimo de esforço, transformando o estudo em sessões curtas, diárias e altamente produtivas.
+**Valor para o Usuário**: Garante um aprendizado eficiente e de longo prazo. Utilizando um algoritmo de repetição espaçada (Spaced Repetition System), o Peixe Babel apresenta ao usuário os _flashcards_ que ele está prestes a esquecer. Isso maximiza a retenção do vocabulário com o mínimo de esforço, transformando o estudo em sessões curtas, diárias e altamente produtivas.
 
 ###  Prática de Conversação com IA Adaptativa
 
@@ -140,11 +140,11 @@ Esta seção define as fronteiras do projeto Sistema Peixe Babel para sua versã
 
 **Funcionalidades Centrais**: Todas as características principais descritas na seção 4 estarão no escopo:
 
-- Criação de Flashcards Inteligente e Instantânea a partir da inserção manual de texto.
+- Criação de _Flashcards_ Inteligente e Instantânea a partir da inserção manual de texto.
 
-- Sistema de Memorização Otimizado (SRS) para revisão de flashcards.
+- Sistema de Memorização Otimizado (SRS) para revisão de _flashcards_.
 
-- Prática de Conversação com IA Adaptativa baseada nos flashcards.
+- Prática de Conversação com IA Adaptativa baseada nos _flashcards_.
 
 **Plataformas**: O produto será desenvolvido e lançado como um aplicativo nativo para as plataformas móveis Android.
 
@@ -158,7 +158,7 @@ Para garantir a qualidade e a viabilidade do lançamento inicial, as seguintes f
 
 **Interação com Tutores Humanos**: A prática de conversação é realizada exclusivamente com agentes de Inteligência Artificial. Não haverá funcionalidades para conectar usuários com professores ou outros estudantes.
 
-**Modo Offline Completo**: Devido à dependência de APIs externas para a criação de flashcards e, principalmente, para a conversação com a IA, a maior parte das funcionalidades exigirá uma conexão ativa com a internet. A revisão de flashcards já sincronizados poderá ter funcionalidade offline limitada.
+**Modo Offline Completo**: Devido à dependência de APIs externas para a criação de _flashcards_ e, principalmente, para a conversação com a IA, a maior parte das funcionalidades exigirá uma conexão ativa com a internet. A revisão de _flashcards_ já sincronizados poderá ter funcionalidade offline limitada.
 
 ### Funcionalidades Futuras
 
@@ -166,7 +166,7 @@ Para garantir a qualidade e a viabilidade do lançamento inicial, as seguintes f
 
 **Decks Personalizados**: Organização de vocabulário em Decks personalizáveis.
 
-**Gerenciamento de Conta**: Funcionalidades essenciais de gerenciamento de usuário, incluindo criação de conta, login/logout e sincronização de progresso e flashcards na nuvem entre dispositivos.
+**Gerenciamento de Conta**: Funcionalidades essenciais de gerenciamento de usuário, incluindo criação de conta, login/logout e sincronização de progresso e _flashcards_ na nuvem entre dispositivos.
 
 **Plataforma para Escolas (B2B)**: Um painel administrativo para escolas e professores gerenciarem turmas e distribuírem conteúdo.
 
@@ -196,9 +196,9 @@ A agilidade do sistema é crítica para manter o usuário engajado e no "fluxo" 
 
 - Tempo de Resposta da IA: As respostas do agente de IA durante o diálogo devem ser quase instantâneas (idealmente, abaixo de 2 segundos) para simular uma conversa natural e evitar quebras de ritmo.
 
-- Criação de Flashcards: O processo de enriquecimento automático de um flashcard (busca de definição, exemplos, etc.) deve ser concluído em poucos segundos após a submissão do usuário.
+- Criação de _Flashcards_: O processo de enriquecimento automático de um flashcard (busca de definição, exemplos, etc.) deve ser concluído em poucos segundos após a submissão do usuário.
 
-- Navegação: A transição entre telas, a abertura de decks e a visualização de flashcards devem ser imediatas, sem atrasos ou travamentos perceptíveis.
+- Navegação: A transição entre telas, a abertura de decks e a visualização de _flashcards_ devem ser imediatas, sem atrasos ou travamentos perceptíveis.
 
 ### Disponibilidade e Confiabilidade
 

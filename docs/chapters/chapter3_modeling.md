@@ -6,9 +6,9 @@ Este capítulo apresenta as modelagens do sistema através de diagramas e descri
 
 ### Diagrama de Contexto
 
-O diagrama de contexto ilustra o sistema e suas interações com atores externos e sistemas adjacentes. 
+O diagrama de contexto ilustra o sistema e suas interações com atores externos e sistemas adjacentes.
 
-![Diagrama de Contexto do Sistema e atores externos](../img/diagrama_contexto.png)
+Consultar o diagrama no anexo **E.1 — Diagrama de Contexto**
 
 **Atores**:
 
@@ -21,7 +21,7 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 
 ### Diagrama de Casos de Uso
 
-![Diagrama de Casos de Uso: criar, revisar, conversar, sincronizar, editar](../img/diagrama_casos_uso.png)
+Consultar o diagrama no anexo **E.2 — Diagrama de Casos de Uso**
 
 
 **Casos de Uso Identificados**:
@@ -38,7 +38,7 @@ O diagrama de contexto ilustra o sistema e suas interações com atores externos
 
 ### Diagrama de Classes (Modelo de Dados Atual)
 
-![Diagrama de Classes: entidades de flashcard, mensagem de chat e relações](../img/diagrama_classes.png)
+Consultar o diagrama no anexo **E.3 — Diagrama de Classes**
 
 Notas:
 - O modelo atual não persiste relação explícita com `User` nos cards.
@@ -49,7 +49,7 @@ Notas:
 
 ### Sequência: Criação de Flashcard
 
-![Diagrama de Sequência: fluxo de criação e enriquecimento de flashcard](../img/diagrama_seq_criar_flashcard.png)
+Consultar o diagrama no anexo **E.4.1 — Criação de Flashcard**
 
 **Fluxo**:
 
@@ -62,7 +62,7 @@ Notas:
 
 ### Sequência: Revisão de Flashcard (SRS)
 
-![Diagrama de Sequência: fluxo de revisão SRS e atualização de intervalo](../img/diagrama_seq_revisao.png)
+Consultar o diagrama no anexo **E.4.2 — Revisão de Flashcard (SRS)**
 
 **Fluxo**:
 
@@ -75,8 +75,7 @@ Notas:
 
 ### Sequência: Conversação com IA
 
-![Diagrama de Sequência: diálogo com IA adaptado ao vocabulário do usuário](../img/diagrama_seq_chat.png)
-
+Consultar o diagrama no anexo **E.4.3 — Conversação com IA**
 
 **Fluxo**:
 
@@ -92,7 +91,7 @@ Notas:
 
 ### Estados de um Flashcard no SRS
 
-![Diagrama de Estados: transições do flashcard no SRS](../img/diagrama_estados_flashcard.png)
+Consultar o diagrama no anexo **E.5 — Diagrama de Estados**
 
 **Estados**:
 
@@ -103,7 +102,7 @@ Notas:
 
 ## Diagrama de Componentes
 
-![Diagrama de Componentes: app Flutter, API Django, PostgreSQL e integrações](../img/diagrama_componentes.png)
+Consultar o diagrama no anexo **E.6 — Diagrama de Componentes**
 
 ---
 

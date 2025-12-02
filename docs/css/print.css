@@ -342,3 +342,27 @@ ol.objetivos-especificos + h2, ol.objetivos-especificos + h3 { margin-top: 12pt 
     border: none !important;
     box-shadow: none !important;
 }
+
+/* Imagens em geral: respeitar margens da página no PDF */
+.md-typeset img {
+    max-width: 100% !important;  /* nunca ultrapassar a largura da coluna */
+    height: auto !important;
+    display: block;
+    margin: 0 auto 8pt auto;     /* centralizar e dar um espacinho embaixo */
+}
+
+/* Evitar que figuras/gráficos estourem a margem lateral por padding do tema */
+.md-typeset .figure,
+.md-typeset figure {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Opcional: esconder número de página na capa e folha de rosto, se o motor suportar */
+@page:first {
+    @bottom-center {
+        content: normal;
+    }
+}

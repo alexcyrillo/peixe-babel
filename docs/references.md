@@ -4,48 +4,45 @@
 
 ### Aprendizado de Idiomas e SRS
 
-1. **Ebbinghaus, H.** (1885). *Memory: A Contribution to Experimental Psychology*. Teachers College, Columbia University.
+1. **EBBINGHAUS, H.** Memory: a contribution to experimental psychology. New York: Teachers College, Columbia University, 1913.
 
-2. **Wozniak, P. A., & Gorzelańczyk, E. J.** (1994). Optimization of repetition spacing in the practice of learning. *Acta Neurobiologiae Experimentalis*, 54, 59-62.
+2. **WOZNIAK, P. A.; GORZELAŃCZYK, E. J.** Optimization of repetition spacing in the practice of learning. Acta Neurobiologiae Experimentalis, v. 54, p. 59-62, 1994.
 
-3. **Karpicke, J. D., & Roediger, H. L.** (2008). The critical importance of retrieval for learning. *Science*, 319(5865), 966-968.
+3. **KARPICKE, J. D.; ROEDIGER, H. L.** The critical importance of retrieval for learning. Science, v. 319, n. 5865, p. 966-968, 2008.
 
-4. **Cepeda, N. J., Pashler, H., Vul, E., Wixted, J. T., & Rohrer, D.** (2006). Distributed practice in verbal recall tasks: A review and quantitative synthesis. *Psychological Bulletin*, 132(3), 354–380.
+4. **CEPEDA, N. J. et al.** Distributed practice in verbal recall tasks: a review and quantitative synthesis. Psychological Bulletin, v. 132, n. 3, p. 354-380, 2006.
 
-5. **Uchihara, T., Saito, K., & Keung, Y. C.** (2019). Roles of repetition in second language oral fluency development. *Language Learning*, 69(3), 652–688.
+5. **UCHIHARA, T.; SAITO, K.; KEUNG, Y. C.** Roles of repetition in second language oral fluency development. Language Learning, v. 69, n. 3, p. 652-688, 2019.
 
-6. **Pane, J. F., Steiner, E. D., Baird, M. D., & Hamilton, L. S.** (2015). Promoting Grit, Tenacity, and Perseverance. *RAND Corporation Report*.
+6. **PANE, J. F. et al.** Promoting grit, tenacity, and perseverance. Santa Monica: RAND Corporation, 2015.
 
-7.  **OECD** (2021). *Digital Education Outlook 2021: Digital Transformation in Education*. OECD Publishing.
+7. **OECD.** Digital Education Outlook 2021: digital transformation in education. Paris: OECD Publishing, 2021.
 
-8.  **Nation, I. S. P.** (2001). *Learning Vocabulary in Another Language*. Cambridge University Press.
+8. **NATION, I. S. P.** Learning vocabulary in another language. Cambridge: Cambridge University Press, 2001.
 
 ### Processamento de Linguagem Natural e LLMs
 
-8. **Vaswani, A., et al.** (2017). Attention is All You Need. *Advances in Neural Information Processing Systems*, 30.
+9. **VASWANI, A. et al.** Attention is all you need. In: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS 30. [S.l.]: Curran Associates, 2017.
 
-9. **Brown, T. B., et al.** (2020). Language Models are Few-Shot Learners. *Advances in Neural Information Processing Systems*, 33.
+10. **BROWN, T. B. et al.** Language models are few-shot learners. In: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS 33. [S.l.]: Curran Associates, 2020.
 
-10. **OpenAI** (2024). GPT-4 Technical Report. Disponível em: https://openai.com/research/gpt-4
+11. **OPENAI.** GPT-4 Technical Report. 2024. Disponível em: <https://openai.com/research/gpt-4>. Acesso em: 30 out. 2025.
 
-11. **Wei, J., et al.** (2022). Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. *arXiv preprint arXiv:2201.11903*.
+12. **WEI, J. et al.** Chain-of-thought prompting elicits reasoning in large language models. arXiv, 2022. Disponível em: <https://arxiv.org/abs/2201.11903>. Acesso em: 30 out. 2025.
 
 ### Engenharia de Software e Arquitetura
 
-8. **Martin, R. C.** (2017). *Clean Architecture: A Craftsman's Guide to Software Structure and Design*. Prentice Hall.
+13. **MARTIN, R. C.** Clean architecture: a craftsman's guide to software structure and design. Boston: Prentice Hall, 2017.
 
-9. **Fowler, M.** (2002). *Patterns of Enterprise Application Architecture*. Addison-Wesley.
-
+14. **FOWLER, M.** Patterns of enterprise application architecture. Boston: Addison-Wesley, 2002.
 
 ### Documentação de APIs e Tecnologias
 
-13. **Django Documentation** (2024). Django REST Framework. Disponível em: https://www.django-rest-framework.org/
+15. **DJANGO SOFTWARE FOUNDATION.** Django REST Framework documentation. 2024. Disponível em: <https://www.django-rest-framework.org/>. Acesso em: 30 out. 2025.
 
-14. **Flutter Documentation** (2024). Flutter - Build apps for any screen. Disponível em: https://flutter.dev/docs
+16. **GOOGLE.** Flutter documentation. 2024. Disponível em: <https://flutter.dev/docs>. Acesso em: 30 out. 2025.
 
-10. **OpenAI** (2024). GPT-4 Technical Report. Disponível em: https://openai.com/research/gpt-4
-
-11. **alankan886**. SuperMemo2 (v3.0.1). GitHub repository. Disponível em: https://github.com/alankan886/SuperMemo2. Acesso em: 13 nov. 2025.
+17. **ALANKAN886.** SuperMemo2 (v. 3.0.1). GitHub repository, 2025. Disponível em: <https://github.com/alankan886/SuperMemo2>. Acesso em: 13 nov. 2025.
 
 ### Anexo A — Documento de Visão Completo
 Ver arquivo: `docs/documento_de_visao.md`
@@ -58,90 +55,6 @@ Acessar API: `http://{HOST_DA_API}:8000/api/v1/`
 
 ### Anexo D — Código-Fonte
 Repositório GitHub: `https://github.com/alexcyrillo/peixe-babel`
-
-**Estrutura do repositório**:
-```
-peixe-babel/
-├── README.md
-├── .gitignore
-├── backend/
-│   ├── docker-compose.yml
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   ├── .env.example
-│   ├── db_init/
-│   │   └── init.sql
-│   ├── scripts/
-│   │   └── wait-for-postgres.sh
-│   └── src/
-│       ├── peixe_babel/
-│       │   ├── __init__.py
-│       │   ├── asgi.py
-│       │   ├── settings.py
-│       │   ├── urls.py
-│       │   └── wsgi.py
-│       └── flashcard/
-│           ├── __init__.py
-│           ├── admin.py
-│           ├── apps.py
-│           ├── urls.py
-│           ├── tests.py
-│           ├── models/
-│           │   ├── base_card.py
-│           │   ├── english_card.py
-│           │   └── chat_message.py
-│           ├── serializers/
-│           │   ├── english_card_serializers.py
-│           │   ├── english_chat_serializer.py
-│           │   ├── review_serializer.py
-│           │   └── utils.py
-│           ├── services/
-│           │   ├── chat_open_api.py
-│           │   ├── english_field_generator.py
-│           │   └── vocabulary_getter.py
-│           └── views/
-│               ├── english_ai_chat_view_set.py
-│               ├── english_card_review_view_set.py
-│               └── english_card_view_set.py
-├── docs/
-│   ├── diagrama_de_contexto.md
-│   ├── documento_de_visao.md
-│   └── img/
-└── frontend/
-    ├── README.md
-    ├── .gitignore
-    ├── .metadata
-    ├── analysis_options.yaml
-    ├── pubspec.yaml
-    ├── pubspec.lock
-    ├── android/
-    ├── ios/
-    ├── web/
-    ├── linux/
-    ├── macos/
-    ├── windows/
-    ├── assets/
-    │   └── images/
-    └── lib/
-        ├── main.dart
-        ├── pages/
-        │   ├── conversation_page.dart
-        │   ├── main_flashcard_page.dart
-        │   ├── main_page.dart
-        │   └── flashcard/
-        │       ├── create_flashcard_page.dart
-        │       ├── flashcard_card_page.dart
-        │       ├── list_flashcard_page.dart
-        │       └── review_flashcard_page.dart
-        ├── services/
-        │   └── api/
-        │       ├── api_provider.dart
-        │       ├── chat_api.dart
-        │       └── flashcard_api.dart
-        ├── src/
-        ├── theme/
-        └── widgets/
-```
 
 ### Anexo E — Diagramas UML Detalhados
 
@@ -163,7 +76,7 @@ peixe-babel/
   
 ![Diagrama de Sequência: fluxo de criação e enriquecimento de flashcard](img/diagrama_seq_criar_flashcard.png)
 
-#####  E.4.2 — Revisão de Flashcard (SRS)
+##### E.4.2 — Revisão de Flashcard (SRS)
   
 ![Diagrama de Sequência: fluxo de revisão SRS e atualização de intervalo](img/diagrama_seq_revisao.png)
 
@@ -198,6 +111,7 @@ Você ajuda estudantes brasileiros de inglês criando cartões de estudo. Entreg
 ```
 
 ##### User Prompt
+
 ```text
 Gere o conteúdo de um flashcard para a palavra em inglês informada.
 Palavra: <WORD>
@@ -211,6 +125,7 @@ Responda exclusivamente com o JSON solicitado, sem texto adicional.
 ```
 
 #### F.3 — Referências de Código
+
 - Conversa: função `get_chat_response()`.
 - Vocabulário dinâmico: função `get_vocabulary()`.
 - Geração de campos: função `english_fields_generator()`.
