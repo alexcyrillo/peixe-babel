@@ -1,7 +1,7 @@
 /* Estilos para impressão/PDF - Normas ABNT */
 @page {
     size: A4;
-    margin: 20mm 20mm 20mm 30mm;
+    margin: 30mm 20mm 20mm 30mm;
     
     @top-left {
         content: element(heading);

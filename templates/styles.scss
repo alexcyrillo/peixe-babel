@@ -1,0 +1,200 @@
+/* Margens ABNT: Superior 3cm, Direita 2cm, Inferior 2cm, Esquerda 3cm */
+@page {
+    margin: 3cm 2cm 2cm 3cm;
+    counter-increment: page;
+    
+    /* Numeração no canto superior direito (ABNT) */
+    @top-right {
+        content: counter(page);
+        font-size: 10pt;
+        font-family: "Arial", "Liberation Sans", sans-serif;
+    }
+
+    /* Limpar conteúdo padrão (títulos) e rodapé */
+    @top-left { content: ""; }
+    @top-center { content: ""; }
+    @bottom-center { content: ""; }
+}
+
+/* Remover numeração de página no Sumário */
+article#doc-toc {
+    page: toc;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+@page toc {
+    margin: 3cm 2cm 2cm 3cm;
+    counter-increment: page;
+    
+    /* Garantir que não apareça nada no sumário */
+    @top-right { content: ""; }
+    @bottom-center { content: ""; }
+}
+
+/* --- Estilização do Sumário (TOC) --- */
+
+/* Título "SUMÁRIO" centralizado */
+#doc-toc h1 {
+    text-align: center !important;
+    text-transform: uppercase;
+    font-size: 12pt !important;
+    font-weight: bold;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    margin-bottom: 1cm !important; /* Reduzido de 1.5cm para ficar mais compacto */
+}
+
+/* Remover marcadores de lista e indentação padrão */
+#doc-toc ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    line-height: 1.2 !important; /* Entrelinha mais compacta no sumário */
+}
+
+/* Espaçamento entre itens */
+#doc-toc li {
+    margin-bottom: 0; /* Removido espaçamento extra entre itens */
+}
+
+/* Links do sumário */
+#doc-toc a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: none !important;
+    border-bottom: none !important;
+    background: none !important;
+    box-shadow: none !important; /* Remove sombras ou linhas de alguns temas */
+}
+
+/* Pontilhados e número da página */
+#doc-toc a::after {
+    content: leader('.') target-counter(attr(href), page);
+    font-weight: normal; /* Garante que o número não fique negrito */
+}
+
+/* --- Formatação por Níveis (Hierarquia) --- */
+
+/* Nível 1 (ex: 1. INTRODUÇÃO) - Negrito e Maiúsculo */
+#doc-toc > ul > li > a {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 0.8em; /* Reduzido de 1em */
+    margin-bottom: 0.2em; /* Reduzido de 0.5em */
+}
+
+/* Nível 2 (ex: 2.1 PLANO DE NEGÓCIOS) - Normal e Maiúsculo */
+#doc-toc > ul > li > ul > li > a {
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-left: 0; /* Sem recuo, conforme imagem */
+}
+
+/* Nível 3 (ex: 4.2.1 Problemas...) - Normal e Minúsculo (Sentence case) */
+#doc-toc > ul > li > ul > li > ul > li > a {
+    font-weight: normal;
+    text-transform: none;
+    margin-left: 0; /* Sem recuo */
+}
+
+/* Fontes e Espaçamento ABNT */
+body, .md-typeset {
+    font-family: "Arial", "Liberation Sans", sans-serif !important;
+    font-size: 12pt !important;
+    line-height: 1.5 !important;
+    text-align: justify;
+    color: #000000;
+}
+
+/* Títulos */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Arial", "Liberation Sans", sans-serif !important;
+    color: #000000 !important;
+    margin-top: 1.5em !important;
+    margin-bottom: 0.5em !important;
+    line-height: 1.5 !important;
+}
+
+/* Nível 1: Negrito, Caixa Alta, Tamanho 12pt (ABNT NBR 6024) */
+h1 { 
+    font-size: 12pt !important; 
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+}
+
+/* Nível 2: Negrito, Caixa Alta, Tamanho 12pt */
+h2 { 
+    font-size: 12pt !important; 
+    font-weight: normal !important; 
+    text-transform: uppercase !important;
+}
+
+/* Nível 3: Negrito, Caixa Baixa, Tamanho 12pt */
+h3 { 
+    font-size: 12pt !important; 
+    font-weight: bold !important;
+    text-transform: none !important;
+}
+
+/* Nível 4: Normal/Itálico, Caixa Baixa, Tamanho 12pt */
+h4 {
+    font-size: 12pt !important;
+    font-weight: normal !important;
+    font-style: italic !important;
+    text-transform: none !important;
+}
+
+/* Parágrafos: Recuo de 1ª linha (1,25cm) e sem espaçamento entre parágrafos */
+p {
+    text-indent: 1.25cm;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    line-height: 1.5 !important;
+}
+
+/* Citações longas (recuo 4cm, fonte 10pt, espaçamento simples) */
+blockquote {
+    font-size: 10pt !important;
+    line-height: 1.0 !important;
+    margin-left: 4cm !important;
+    padding-left: 0 !important;
+    border-left: none !important;
+    text-align: justify;
+    margin-bottom: 1.5em !important; /* Espaço após citação */
+}
+
+/* Legendas e notas de rodapé */
+figcaption, .footnote {
+    font-size: 10pt !important;
+    line-height: 1.0 !important;
+}
+
+/* Tabelas - Ajuste para respeitar margens */
+table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important; /* Força a tabela a ficar dentro da largura */
+    border-collapse: collapse !important;
+    margin-bottom: 1em;
+}
+
+th, td {
+    border: 1px solid #000 !important; /* Bordas simples */
+    padding: 6px !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    font-size: 10pt !important; /* Fonte menor para tabelas é comum/aceito na ABNT para caber */
+    vertical-align: top;
+}
+
+/* Ajuste para imagens não estourarem a margem */
+img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+

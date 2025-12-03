@@ -101,3 +101,6 @@ mkdocs build --clean
 3. **Completar anexos**: Adicionar código-fonte, schemas SQL, exemplos de API
 4. **Validar build**: Gerar PDF e verificar formatação, numeração e índice
 5. **Revisão final**: Verificar gramática, referências e consistência técnica
+
+
+/home/alex/Dev/Repositorios/peixe-babel/.venv/bin/mkdocs build --clean && /home/alex/Dev/Repositorios/peixe-babel/.venv/bin/python merge_pdfs.py

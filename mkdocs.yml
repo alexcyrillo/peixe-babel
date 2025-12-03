@@ -14,14 +14,13 @@ markdown_extensions:
 
 plugins:
   - to-pdf:
-      cover: true
+      author: Alex Cyrillo de Sousa Borges
+      cover: false
       cover_title: "SISTEMA PEIXE BABEL"
-      cover_subtitle: "Aplicativo para Auxílio no Aprendizado de Idiomas com IA - Trabalho de Conclusão de Curso em Engenharia de Computação"
-      toc_title: "Sumário"
-      output_path: pdf/tcc-peixe-babel.pdf
-      author: "Alex Cyrillo de Sousa Borges"
-      heading_shift: false
+      toc_title: Sumário
       toc_level: 3
+      heading_shift: false
+      output_path: pdf/tcc-peixe-babel.pdf 
 
 
 extra_css:
