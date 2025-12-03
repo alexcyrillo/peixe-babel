@@ -64,7 +64,7 @@ frontend/lib/
   main.dart
   pages/ (conversation_page.dart, main_flashcard_page.dart, main_page.dart)
   widgets/ (button_widget.dart)
-  services/api/ (ApiProvider...
+  services/api/ (ApiProvider...)
   theme/ (app_theme.dart)
 ```
 

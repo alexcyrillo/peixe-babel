@@ -366,3 +366,37 @@ ol.objetivos-especificos + h2, ol.objetivos-especificos + h3 { margin-top: 12pt 
         content: normal;
     }
 }
+/* --- Remover numeração automática nos Apêndices e Referências --- */
+/* O plugin mkdocs-to-pdf insere um span com a classe .pdf-order */
+/* O ID da seção é baseado no caminho do arquivo, ex: appendix/: */
+section[id^="appendix/:"] .pdf-order,
+section[id^="references/:"] .pdf-order,
+#doc-toc a[href*="appendix"] .pdf-order,
+#doc-toc a[href*="references"] .pdf-order {
+    display: none !important;
+}
+
+/* Caso o plugin use ::before em algumas versões ou configurações */
+section[id^="appendix/:"] h1::before,
+section[id^="appendix/:"] h2::before,
+section[id^="appendix/:"] h3::before,
+section[id^="appendix/:"] h4::before,
+section[id^="appendix/:"] h5::before,
+section[id^="appendix/:"] h6::before,
+section[id^="references/:"] h1::before,
+section[id^="references/:"] h2::before,
+section[id^="references/:"] h3::before,
+section[id^="references/:"] h4::before,
+section[id^="references/:"] h5::before,
+section[id^="references/:"] h6::before {
+    content: "" !important;
+    counter-increment: none !important;
+    margin-right: 0 !important;
+}
+
+/* Fix for <br> spacing in WeasyPrint */
+br {
+    display: block;
+    content: "";
+    height: 1.5em; /* Height of a line */
+}

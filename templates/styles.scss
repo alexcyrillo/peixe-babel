@@ -8,6 +8,7 @@
         content: counter(page);
         font-size: 10pt;
         font-family: "Arial", "Liberation Sans", sans-serif;
+        color: #000000
     }
 
     /* Limpar conteúdo padrão (títulos) e rodapé */
@@ -171,6 +172,8 @@ blockquote {
 figcaption, .footnote {
     font-size: 10pt !important;
     line-height: 1.0 !important;
+    text-indent: 0 !important; /* Remove recuo de parágrafo */
+    margin-top: 0.2em !important; /* Pequeno espaço acima */
 }
 
 /* Tabelas - Ajuste para respeitar margens */

@@ -284,6 +284,11 @@ Os casos de uso a seguir descrevem as interações essenciais do usuário com o 
 **Critérios de Sucesso**: Latência de resposta < 2s (P95); proporção de termos conhecidos acima de limiar definido.
 
 #### Relação Tarefas ↔ Casos de Uso
+
+A Tabela 2 estabelece a correspondência entre as tarefas de usabilidade planejadas para os testes com usuários e os casos de uso implementados no sistema, resumindo o objetivo de cada interação.
+
+**Tabela 2 – Lista de Casos de Uso**
+
 | Tarefa | Caso de Uso | Objetivo resumido |
 |--------|-------------|-------------------|
 | 1 | UC01 Criar Flashcard | Registrar novo vocabulário enriquecido |
@@ -291,6 +296,8 @@ Os casos de uso a seguir descrevem as interações essenciais do usuário com o 
 | 3 | UC03 Editar Flashcard | Atualizar conteúdo de cartão |
 | 4 | UC04 Revisar Flashcards | Aplicar SRS em sessão de revisão |
 | 5 | UC05 Praticar Conversação | Dialogar com IA adaptativa |
+
+<p class="footnote">Fonte: Elaborado pelo autor (2025).</p>
 
 ---
 

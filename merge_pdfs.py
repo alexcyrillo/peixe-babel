@@ -28,13 +28,13 @@ def merge_pdfs():
         print(f"Por favor, coloque os 6 arquivos PDF externos em '{external_pdfs_dir}' e execute novamente.")
         return
 
-    # 2. Adicionar o PDF gerado pelo MkDocs (removendo as 6 páginas em branco iniciais)
+    # 2. Adicionar o PDF gerado pelo MkDocs (removendo as 4 páginas em branco iniciais)
     if os.path.exists(generated_pdf_path):
         print(f"Adicionando conteúdo gerado: {generated_pdf_path}")
         reader = PdfReader(generated_pdf_path)
-        # Skip the first 6 pages (which are the blank padding pages)
-        # Ensure we don't crash if PDF has fewer than 6 pages (unlikely)
-        start_page = 6 if len(reader.pages) > 6 else 0
+        # Skip the first 4 pages (which are the blank padding pages)
+        # Ensure we don't crash if PDF has fewer than 4 pages (unlikely)
+        start_page = 5 if len(reader.pages) > 5 else 0
         
         print(f"  - Ignorando as primeiras {start_page} páginas (padding)...")
         for i, page in enumerate(reader.pages):

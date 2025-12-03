@@ -37,9 +37,7 @@ nav:
   - 5. Resultados e Considerações Finais: conclusion.md
   - 6. Referências e Anexos Técnicos: references.md
   - Apêndices:
-      - Apêndice A: appendix.md
-      - Documento de Visão: documento_de_visao.md
-      - Diagrama de Contexto: diagrama_de_contexto.md
+      - Apêndices: appendix.md
 
 # nav:
 #   - Início: index.md

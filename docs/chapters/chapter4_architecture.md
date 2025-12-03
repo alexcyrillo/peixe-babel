@@ -34,7 +34,10 @@ Planejado (não implementado integralmente no código atual):
 Base: `/api/v1/` (ver `backend/src/peixe_babel/urls.py` e `backend/src/flashcard/urls.py`).
 
 ### Flashcards
-Tabela de endpoints básicos do recurso.
+
+A Tabela 3 apresenta os principais endpoints disponíveis para o gerenciamento de flashcards, detalhando o método HTTP, o caminho do recurso, uma breve descrição e o código de status esperado em caso de sucesso.
+
+**Tabela 3 – Endpoints de Flashcards**
 
 | Método | Caminho                | Descrição                                  | Código de Sucesso |
 |--------|------------------------|---------------------------------------------|-------------------|
@@ -44,7 +47,10 @@ Tabela de endpoints básicos do recurso.
 | PATCH  | `/flashcards/{id}/`    | Atualizar campos de um flashcard            | 200               |
 | DELETE | `/flashcards/{id}/`    | Remover definitivamente um flashcard        | 204               |
 
+<p class="footnote">Fonte: Elaborado pelo autor (2025).</p>
+
 #### Listar
+
 Resposta 200:
 ```json
 [
@@ -65,6 +71,7 @@ Resposta 200:
 ```
 
 #### Criar
+
 Campos do corpo:
 
 - Obrigatórios: `word` (string)
@@ -81,6 +88,7 @@ Resposta 201 (detalhe do item criado):
 ```
 
 #### Atualizar
+
 Campos permitidos (qualquer combinação): `word`, `translation`, `examples`.
 Exemplo:
 ```json
@@ -89,15 +97,24 @@ Exemplo:
 Resposta 200: item atualizado.
 
 #### Excluir
+
 Resposta 204 sem corpo.
 
 ### Revisões
+
+A Tabela 4 lista os endpoints dedicados ao processo de revisão espaçada, permitindo consultar itens pendentes e registrar o desempenho do usuário.
+
+**Tabela 4 – Endpoints de Review**
+
 | Método | Caminho             | Descrição                                    | Código |
 |--------|---------------------|-----------------------------------------------|--------|
 | GET    | `/review/`          | Listar flashcards devidos para revisão        | 200    |
 | PATCH  | `/review/{id}/`     | Registrar resultado da revisão (qualidade)    | 200    |
 
+<p class="footnote">Fonte: Elaborado pelo autor (2025).</p>
+
 #### Listar devidos
+
 Resposta 200:
 ```json
 [
@@ -106,6 +123,7 @@ Resposta 200:
 ```
 
 #### Registrar revisão
+
 Campos (corpo):
 - `easiness_factor` (number) — calculado após qualidade, no MVP enviado diretamente.
 
@@ -119,12 +137,20 @@ Resposta 200:
 ```
 
 ### Conversação (IA)
+
+A Tabela 5 descreve os endpoints responsáveis pela interação com o módulo de conversação, possibilitando o envio de mensagens e a recuperação do histórico do diálogo.
+
+**Tabela 5 – Endpoints de Chat**
+
 | Método | Caminho     | Descrição                         | Código |
 |--------|-------------|-----------------------------------|--------|
 | GET    | `/chat/`    | Listar histórico de mensagens     | 200    |
 | POST   | `/chat/`    | Enviar nova mensagem do usuário   | 201    |
 
+<p class="footnote">Fonte: Elaborado pelo autor (2025).</p>
+
 #### Listar mensagens
+
 Resposta 200:
 ```json
 [
@@ -133,6 +159,7 @@ Resposta 200:
 ```
 
 #### Enviar mensagem
+
 Campos obrigatórios: `user_message` (string)
 
 Requisição:

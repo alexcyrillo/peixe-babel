@@ -110,6 +110,10 @@ O projeto se justifica por três razões centrais: (1) cresce a demanda por ferr
 
 ### Oportunidades de Evolução
 
+A Tabela 1 apresenta um resumo das principais oportunidades de evolução identificadas para o sistema, relacionando cada área de melhoria com o benefício esperado para o projeto e seus usuários.
+
+**Tabela 1 – Oportunidades de Evolução**
+
 | Área | Possível Evolução | Benefício |
 |------|-------------------|-----------|
 | Autenticação | Filtrar vocabulário por usuário, JWT/Token | Conteúdo personalizado real |
@@ -122,6 +126,8 @@ O projeto se justifica por três razões centrais: (1) cresce a demanda por ferr
 | Prompt Engine | Templates versionados, anti-injection | Qualidade e robustez no chat |
 | Analytics | Métricas de revisão, dificuldade, retenção | Feedback pedagógico |
 | UI/UX | Ajustes específicos para web/desktop | Adoção em múltiplos dispositivos |
+
+<p class="footnote">Fonte: Elaborado pelo autor (2025).</p>
 
 ### Resumo
 
