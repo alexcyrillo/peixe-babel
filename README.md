@@ -1,7 +1,7 @@
 # Peixe Babel
 ## Visão Geral do Projeto
 
-O Peixe Babel é um sistema, desenvolvido como trabalho de conclusão de curso, utilizado para o auxílio no aprendizado de novos idiomas. Ele integra a automação da criação de flashcards, a prática de estudo e a interação com uma inteligência artificial que se adapta ao seu nível de vocabulário para prática de diálogos.
+O Peixe Babel é um sistema utilizado para o auxílio no aprendizado de novos idiomas. Ele integra a automação da criação de flashcards, a prática de estudo e a interação com uma inteligência artificial que se adapta ao seu nível de vocabulário para prática de diálogos. Inicialmente desenvolvido como meu trabalho de conclusão de curso.
 
 ## Como Funciona
 
@@ -16,10 +16,6 @@ Após a criação, os flashcards são disponibilizados para estudo. O sistema se
 ### 3. Conversação Inteligente
 
 Este é o núcleo do projeto. O Peixe Babel mantém um banco de dados com todas as palavras e estruturas que o usuário estudou anteriormente. Ao interagir com a IA, ela se limita a usar apenas gramática e vocabulário conhecido e, caso seja necessário o uso de palavras desconhecidas, ocorre a exibição das novas palavras, facilitando o entendimento e expandindo o vocabulário. Isso cria um ambiente de conversa seguro, onde é possível praticar o idioma de forma natural, sem se deparar com termos desconhecidos que possam frustrar o progresso.
-
-## Objetivo do TCC
-
-Este projeto tem como principal objetivo demonstrar a viabilidade de um sistema que não apenas auxilia no aprendizado de idiomas, mas também utiliza a inteligência artificial de forma direcionada para criar uma experiência de conversação verdadeiramente personalizada e eficaz para o estudante.
 
 ## Tecnologias
 
